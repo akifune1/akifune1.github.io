@@ -2,39 +2,43 @@
 function drawFlatLine(canvasId) {
     const canvas = document.getElementById(canvasId);
     const ctx = canvas.getContext('2d');
-    ctx.fillStyle = '#2c2e31'; 
+    ctx.fillStyle = '#2c2e31';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.lineWidth = 4; ctx.lineCap = 'round'; ctx.strokeStyle = '#646669'; 
+    ctx.lineWidth = 4; ctx.lineCap = 'round'; ctx.strokeStyle = '#646669';
     ctx.beginPath(); ctx.moveTo(10, canvas.height / 2); ctx.lineTo(canvas.width - 10, canvas.height / 2); ctx.stroke();
 }
 
 window.addEventListener('load', () => {
     const mC = document.getElementById('mic-visualizer');
-    const sC = document.getElementById('speaker-visualizer');
+    const sC1 = document.getElementById('speaker-visualizer-1');
+    const sC2 = document.getElementById('speaker-visualizer-2');
     mC.width = mC.offsetWidth; mC.height = mC.offsetHeight;
-    sC.width = sC.offsetWidth; sC.height = sC.offsetHeight;
-    drawFlatLine('mic-visualizer'); drawFlatLine('speaker-visualizer');
+    sC1.width = sC1.offsetWidth; sC1.height = sC1.offsetHeight;
+    sC2.width = sC2.offsetWidth; sC2.height = sC2.offsetHeight;
+    drawFlatLine('mic-visualizer');
+    drawFlatLine('speaker-visualizer-1');
+    drawFlatLine('speaker-visualizer-2');
 });
 
 function drawWaveform(analyser, canvasId, animationRefObj) {
     const canvas = document.getElementById(canvasId);
     const ctx = canvas.getContext('2d');
-    analyser.fftSize = 128; 
-    const bufferLength = analyser.frequencyBinCount; 
+    analyser.fftSize = 128;
+    const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
     const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
     gradient.addColorStop(0, '#e2b714'); gradient.addColorStop(0.5, '#d1d0c5'); gradient.addColorStop(1, '#e2b714');
 
     function draw() {
         animationRefObj.id = requestAnimationFrame(draw);
-        analyser.getByteFrequencyData(dataArray); 
+        analyser.getByteFrequencyData(dataArray);
         ctx.fillStyle = '#2c2e31'; ctx.fillRect(0, 0, canvas.width, canvas.height);
         const barWidth = canvas.width / bufferLength; let x = 0;
-        ctx.lineCap = 'round'; ctx.strokeStyle = gradient; ctx.lineWidth = barWidth * 0.6; 
-        
-        for(let i = 0; i < bufferLength; i++) {
+        ctx.lineCap = 'round'; ctx.strokeStyle = gradient; ctx.lineWidth = barWidth * 0.6;
+
+        for (let i = 0; i < bufferLength; i++) {
             let barHeight = (dataArray[i] / 255) * (canvas.height * 0.8);
-            if (barHeight < 4) barHeight = 4; 
+            if (barHeight < 4) barHeight = 4;
             ctx.beginPath();
             ctx.moveTo(x + (barWidth / 2), (canvas.height / 2) - (barHeight / 2));
             ctx.lineTo(x + (barWidth / 2), (canvas.height / 2) + (barHeight / 2));
@@ -75,8 +79,8 @@ window.addEventListener('load', getDevices);
 
 // --- 1. Dead Pixel Test ---
 const dpScreens = [
-    { name: 'red', style: 'background: red;' }, { name: 'green', style: 'background: green;' },
-    { name: 'blue', style: 'background: blue;' }, { name: 'cyan', style: 'background: cyan;' }, 
+    { name: 'red', style: 'background: red;' }, { name: 'green', style: 'background: #0ef70a;' },
+    { name: 'blue', style: 'background: blue;' }, { name: 'cyan', style: 'background: cyan;' },
     { name: 'magenta', style: 'background: magenta;' }, { name: 'yellow', style: 'background: yellow;' },
     { name: 'white', style: 'background: white;' }, { name: 'black', style: 'background: black;' },
     { name: 'checkerboard', style: 'background: repeating-conic-gradient(#000 0% 25%, #fff 0% 50%) 50% / 40px 40px;' },
@@ -94,7 +98,7 @@ function startDeadPixelTest() {
 }
 document.addEventListener('keydown', (e) => {
     if (document.fullscreenElement === dpElement) {
-        if (e.code === 'ArrowRight' || e.code === 'Space') { dpIndex = (dpIndex + 1) % dpScreens.length; updateDpScreen(); } 
+        if (e.code === 'ArrowRight' || e.code === 'Space') { dpIndex = (dpIndex + 1) % dpScreens.length; updateDpScreen(); }
         else if (e.code === 'ArrowLeft') { dpIndex = (dpIndex - 1 + dpScreens.length) % dpScreens.length; updateDpScreen(); }
     }
 });
@@ -112,7 +116,7 @@ document.addEventListener('keydown', (e) => {
     if (keyEl) { keyEl.classList.add('tested'); keyEl.classList.add('active-press'); }
 });
 document.addEventListener('keyup', (e) => {
-    if (document.fullscreenElement) return; e.preventDefault(); 
+    if (document.fullscreenElement) return; e.preventDefault();
     const keyEl = document.getElementById(e.code);
     if (keyEl) { keyEl.classList.remove('active-press'); }
 });
@@ -135,21 +139,21 @@ let camStream = null;
 async function startCamera() {
     const deviceId = document.getElementById('camera-select').value;
     const constraints = { video: deviceId ? { deviceId: { exact: deviceId } } : true };
-    try { 
-        camStream = await navigator.mediaDevices.getUserMedia(constraints); 
-        document.getElementById('webcam-video').srcObject = camStream; 
+    try {
+        camStream = await navigator.mediaDevices.getUserMedia(constraints);
+        document.getElementById('webcam-video').srcObject = camStream;
         document.getElementById('cam-enable').disabled = true; document.getElementById('cam-disable').disabled = false;
-        getDevices(); 
+        getDevices();
     } catch (err) { alert("Camera error: " + err.message); }
 }
-function stopCamera() { 
-    if (camStream) { 
-        camStream.getTracks().forEach(t => t.stop()); document.getElementById('webcam-video').srcObject = null; 
+function stopCamera() {
+    if (camStream) {
+        camStream.getTracks().forEach(t => t.stop()); document.getElementById('webcam-video').srcObject = null;
         document.getElementById('cam-enable').disabled = false; document.getElementById('cam-disable').disabled = true;
-    } 
+    }
 }
 
-// --- 4. Mic Test & Custom Audio Player Logic ---
+
 let mediaRecorder; let audioChunks = []; let micStream = null;
 let micCtx; let micAnimRef = { id: null };
 let micAnalyser = null; let playbackSourceNode = null; let isPlaybackSetup = false;
@@ -167,13 +171,13 @@ async function startRecording() {
     const constraints = { audio: deviceId ? { deviceId: { exact: deviceId } } : true };
     try {
         micStream = await navigator.mediaDevices.getUserMedia(constraints); getDevices();
-        
+
         document.getElementById('mic-player-ui').style.display = 'none';
-        if (!audioPlayback.paused) { audioPlayback.pause(); playBtn.innerText = 'play'; cancelAnimationFrame(micAnimRef.id); drawFlatLine('mic-visualizer');}
+        if (!audioPlayback.paused) { audioPlayback.pause(); playBtn.innerText = 'play'; cancelAnimationFrame(micAnimRef.id); drawFlatLine('mic-visualizer'); }
 
         if (!micCtx) micCtx = new (window.AudioContext || window.webkitAudioContext)();
         if (micCtx.state === 'suspended') micCtx.resume();
-        
+
         const source = micCtx.createMediaStreamSource(micStream);
         if (!micAnalyser) micAnalyser = micCtx.createAnalyser();
         source.connect(micAnalyser); drawWaveform(micAnalyser, 'mic-visualizer', micAnimRef);
@@ -185,7 +189,7 @@ async function startRecording() {
             audioPlayback.src = URL.createObjectURL(audioBlob);
             document.getElementById('mic-player-ui').style.display = 'flex';
         };
-        
+
         audioChunks = []; mediaRecorder.start();
         document.getElementById('btn-record').disabled = true; document.getElementById('btn-stop-record').disabled = false;
     } catch (err) { alert("Mic error: " + err.message); }
@@ -204,13 +208,13 @@ function togglePlay() {
     if (!isPlaybackSetup) {
         playbackSourceNode = micCtx.createMediaElementSource(audioPlayback);
         if (!micAnalyser) micAnalyser = micCtx.createAnalyser();
-        playbackSourceNode.connect(micAnalyser); playbackSourceNode.connect(micCtx.destination); 
+        playbackSourceNode.connect(micAnalyser); playbackSourceNode.connect(micCtx.destination);
         isPlaybackSetup = true;
     }
 
-    if (audioPlayback.paused) { 
+    if (audioPlayback.paused) {
         audioPlayback.play(); playBtn.innerText = 'pause'; drawWaveform(micAnalyser, 'mic-visualizer', micAnimRef);
-    } else { 
+    } else {
         audioPlayback.pause(); playBtn.innerText = 'play'; cancelAnimationFrame(micAnimRef.id); drawFlatLine('mic-visualizer');
     }
 }
@@ -220,33 +224,83 @@ audioPlayback.addEventListener('loadedmetadata', () => { seekBar.max = audioPlay
 audioPlayback.addEventListener('ended', () => { playBtn.innerText = 'play'; seekBar.value = 0; cancelAnimationFrame(micAnimRef.id); drawFlatLine('mic-visualizer'); });
 seekBar.addEventListener('input', () => { audioPlayback.currentTime = seekBar.value; });
 
-// --- 5. Speaker Test ---
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-const audioElement = new Audio('cipher.mp3');
-audioElement.crossOrigin = "anonymous"; audioElement.loop = true;
 
-let isAudioSetup = false; let panner = null; let spkAnalyser = null; let spkAnimRef = { id: null };
-function updateVolume(val) { audioElement.volume = val; }
+const audioElement1 = new Audio('cipher.mp3');
+audioElement1.crossOrigin = "anonymous";
+audioElement1.loop = true;
+let isAudioSetup1 = false;
+let panner1 = null;
+let spkAnalyser1 = null;
+let spkAnimRef1 = { id: null };
 
-function testSpeaker(channel) {
+const audioElement2 = new Audio('stringtheory.mp3');
+audioElement2.crossOrigin = "anonymous";
+audioElement2.loop = true;
+let isAudioSetup2 = false;
+let panner2 = null;
+let spkAnalyser2 = null;
+let spkAnimRef2 = { id: null };
+
+function updateVolume(val, track) {
+    if (track === 1) audioElement1.volume = parseFloat(val);
+    else audioElement2.volume = parseFloat(val);
+}
+
+function testSpeaker(channel, track) {
     if (audioCtx.state === 'suspended') audioCtx.resume();
-    if (channel === 'stop') {
-        audioElement.pause(); audioElement.currentTime = 0; 
-        cancelAnimationFrame(spkAnimRef.id); drawFlatLine('speaker-visualizer'); return;
-    }
-    if (!isAudioSetup) {
-        const track = audioCtx.createMediaElementSource(audioElement);
-        panner = audioCtx.createStereoPanner(); spkAnalyser = audioCtx.createAnalyser();
-        track.connect(panner).connect(spkAnalyser).connect(audioCtx.destination);
-        drawWaveform(spkAnalyser, 'speaker-visualizer', spkAnimRef); isAudioSetup = true;
-    } else {
-        if (audioElement.paused) drawWaveform(spkAnalyser, 'speaker-visualizer', spkAnimRef);
-    }
-    
-    if (channel === 'left') panner.pan.value = -1;
-    else if (channel === 'right') panner.pan.value = 1;
-    else panner.pan.value = 0;
 
-    audioElement.currentTime = 0;
-    audioElement.play().catch(err => console.warn("Audio play blocked:", err));
+    const audioEl = track === 1 ? audioElement1 : audioElement2;
+    const canvasId = track === 1 ? 'speaker-visualizer-1' : 'speaker-visualizer-2';
+    const animRef = track === 1 ? spkAnimRef1 : spkAnimRef2;
+
+    if (channel === 'stop') {
+        audioEl.pause();
+        audioEl.currentTime = 0;
+        cancelAnimationFrame(animRef.id);
+        drawFlatLine(canvasId);
+        return; // Exits early so it doesn't trigger the playback code below
+    }
+
+    // --- NEW LOGIC: Stop the other track automatically ---
+    if (track === 1) {
+        testSpeaker('stop', 2);
+    } else {
+        testSpeaker('stop', 1);
+    }
+
+    if (track === 1) {
+        if (!isAudioSetup1) {
+            const trackNode = audioCtx.createMediaElementSource(audioElement1);
+            panner1 = audioCtx.createStereoPanner();
+            spkAnalyser1 = audioCtx.createAnalyser();
+            trackNode.connect(panner1).connect(spkAnalyser1).connect(audioCtx.destination);
+            isAudioSetup1 = true;
+        }
+        if (audioElement1.paused) drawWaveform(spkAnalyser1, 'speaker-visualizer-1', spkAnimRef1);
+        
+        if (channel === 'left') panner1.pan.value = -1;
+        else if (channel === 'right') panner1.pan.value = 1;
+        else panner1.pan.value = 0;
+        
+        audioElement1.currentTime = 0;
+        audioElement1.play().catch(err => console.warn("Audio play blocked:", err));
+        
+    } else {
+        if (!isAudioSetup2) {
+            const trackNode = audioCtx.createMediaElementSource(audioElement2);
+            panner2 = audioCtx.createStereoPanner();
+            spkAnalyser2 = audioCtx.createAnalyser();
+            trackNode.connect(panner2).connect(spkAnalyser2).connect(audioCtx.destination);
+            isAudioSetup2 = true;
+        }
+        if (audioElement2.paused) drawWaveform(spkAnalyser2, 'speaker-visualizer-2', spkAnimRef2);
+        
+        if (channel === 'left') panner2.pan.value = -1;
+        else if (channel === 'right') panner2.pan.value = 1;
+        else panner2.pan.value = 0;
+        
+        audioElement2.currentTime = 0;
+        audioElement2.play().catch(err => console.warn("Audio play blocked:", err));
+    }
 }
