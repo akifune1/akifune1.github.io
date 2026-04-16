@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,62 +8,165 @@
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <h1>hardware tester</h1>
-    <p class="main-subtitle">an all-in-one web tool to diagnose and verify your device's hardware functionality.</p>
+    <p class="main-subtitle" style="margin-bottom: 20px;">an all-in-one web tool to diagnose and verify your device's
+        hardware functionality.</p>
+
+    <div class="credits">
+        <p>
+            made by akifune
+            <span class="footer-divider">|</span>
+            <a href="https://instagram.com/xix.aki" target="_blank">ig: xix.aki</a>
+            <span class="footer-divider">|</span>
+            <a href="https://github.com/akifune1" target="_blank">gh: akifune1</a>
+        </p>
+    </div>
+
     <hr class="divider" style="margin-top: 0;">
 
     <div class="section">
-        <h2>dead pixel test</h2>
-        <p>click start to enter full screen. use your arrow keys or spacebar to cycle through various colors to spot any stuck or dead pixels. press esc to exit.</p>
-        <div class="controls-row"><button onclick="startDeadPixelTest()">start test</button></div>
-    </div>
-    <hr class="divider">
-
-    <div class="section">
         <h2>keyboard & touchpad test</h2>
-        <p>press the physical keys on your keyboard and click your touchpad buttons to ensure they register correctly. note: system shortcuts like the windows key will still open os menus.</p>
-        
+        <p>press the physical keys on your keyboard and click your touchpad buttons to ensure they register correctly.
+            note: system shortcuts like the windows key will still open os menus.</p>
+
         <div class="keyboard-wrapper" id="keyboard">
             <div class="main-sec">
                 <div class="key-row" style="margin-bottom: 25px;">
                     <div class="key" id="Escape" style="margin-right: 20px;">esc</div>
-                    <div class="key" id="F1">f1</div><div class="key" id="F2">f2</div><div class="key" id="F3">f3</div><div class="key" id="F4" style="margin-right: 15px;">f4</div>
-                    <div class="key" id="F5">f5</div><div class="key" id="F6">f6</div><div class="key" id="F7">f7</div><div class="key" id="F8" style="margin-right: 15px;">f8</div>
-                    <div class="key" id="F9">f9</div><div class="key" id="F10">f10</div><div class="key" id="F11">f11</div><div class="key" id="F12">f12</div>
+                    <div class="key" id="F1">f1</div>
+                    <div class="key" id="F2">f2</div>
+                    <div class="key" id="F3">f3</div>
+                    <div class="key" id="F4" style="margin-right: 15px;">f4</div>
+                    <div class="key" id="F5">f5</div>
+                    <div class="key" id="F6">f6</div>
+                    <div class="key" id="F7">f7</div>
+                    <div class="key" id="F8" style="margin-right: 15px;">f8</div>
+                    <div class="key" id="F9">f9</div>
+                    <div class="key" id="F10">f10</div>
+                    <div class="key" id="F11">f11</div>
+                    <div class="key" id="F12">f12</div>
                 </div>
                 <div class="key-row">
-                    <div class="key" id="Backquote">`</div><div class="key" id="Digit1">1</div><div class="key" id="Digit2">2</div><div class="key" id="Digit3">3</div><div class="key" id="Digit4">4</div><div class="key" id="Digit5">5</div><div class="key" id="Digit6">6</div><div class="key" id="Digit7">7</div><div class="key" id="Digit8">8</div><div class="key" id="Digit9">9</div><div class="key" id="Digit0">0</div><div class="key" id="Minus">-</div><div class="key" id="Equal">=</div><div class="key k-2u" id="Backspace">backspace</div>
+                    <div class="key" id="Backquote">`</div>
+                    <div class="key" id="Digit1">1</div>
+                    <div class="key" id="Digit2">2</div>
+                    <div class="key" id="Digit3">3</div>
+                    <div class="key" id="Digit4">4</div>
+                    <div class="key" id="Digit5">5</div>
+                    <div class="key" id="Digit6">6</div>
+                    <div class="key" id="Digit7">7</div>
+                    <div class="key" id="Digit8">8</div>
+                    <div class="key" id="Digit9">9</div>
+                    <div class="key" id="Digit0">0</div>
+                    <div class="key" id="Minus">-</div>
+                    <div class="key" id="Equal">=</div>
+                    <div class="key k-2u" id="Backspace">backspace</div>
                 </div>
                 <div class="key-row">
-                    <div class="key k-15u" id="Tab">tab</div><div class="key" id="KeyQ">q</div><div class="key" id="KeyW">w</div><div class="key" id="KeyE">e</div><div class="key" id="KeyR">r</div><div class="key" id="KeyT">t</div><div class="key" id="KeyY">y</div><div class="key" id="KeyU">u</div><div class="key" id="KeyI">i</div><div class="key" id="KeyO">o</div><div class="key" id="KeyP">p</div><div class="key" id="BracketLeft">[</div><div class="key" id="BracketRight">]</div><div class="key k-15u" id="Backslash">\</div>
+                    <div class="key k-15u" id="Tab">tab</div>
+                    <div class="key" id="KeyQ">q</div>
+                    <div class="key" id="KeyW">w</div>
+                    <div class="key" id="KeyE">e</div>
+                    <div class="key" id="KeyR">r</div>
+                    <div class="key" id="KeyT">t</div>
+                    <div class="key" id="KeyY">y</div>
+                    <div class="key" id="KeyU">u</div>
+                    <div class="key" id="KeyI">i</div>
+                    <div class="key" id="KeyO">o</div>
+                    <div class="key" id="KeyP">p</div>
+                    <div class="key" id="BracketLeft">[</div>
+                    <div class="key" id="BracketRight">]</div>
+                    <div class="key k-15u" id="Backslash">\</div>
                 </div>
                 <div class="key-row">
-                    <div class="key k-175u" id="CapsLock">caps</div><div class="key" id="KeyA">a</div><div class="key" id="KeyS">s</div><div class="key" id="KeyD">d</div><div class="key" id="KeyF">f</div><div class="key" id="KeyG">g</div><div class="key" id="KeyH">h</div><div class="key" id="KeyJ">j</div><div class="key" id="KeyK">k</div><div class="key" id="KeyL">l</div><div class="key" id="Semicolon">;</div><div class="key" id="Quote">'</div><div class="key k-225u" id="Enter">enter</div>
+                    <div class="key k-175u" id="CapsLock">caps</div>
+                    <div class="key" id="KeyA">a</div>
+                    <div class="key" id="KeyS">s</div>
+                    <div class="key" id="KeyD">d</div>
+                    <div class="key" id="KeyF">f</div>
+                    <div class="key" id="KeyG">g</div>
+                    <div class="key" id="KeyH">h</div>
+                    <div class="key" id="KeyJ">j</div>
+                    <div class="key" id="KeyK">k</div>
+                    <div class="key" id="KeyL">l</div>
+                    <div class="key" id="Semicolon">;</div>
+                    <div class="key" id="Quote">'</div>
+                    <div class="key k-225u" id="Enter">enter</div>
                 </div>
                 <div class="key-row">
-                    <div class="key k-225u" id="ShiftLeft">shift</div><div class="key" id="KeyZ">z</div><div class="key" id="KeyX">x</div><div class="key" id="KeyC">c</div><div class="key" id="KeyV">v</div><div class="key" id="KeyB">b</div><div class="key" id="KeyN">n</div><div class="key" id="KeyM">m</div><div class="key" id="Comma">,</div><div class="key" id="Period">.</div><div class="key" id="Slash">/</div><div class="key k-275u" id="ShiftRight">shift</div>
+                    <div class="key k-225u" id="ShiftLeft">shift</div>
+                    <div class="key" id="KeyZ">z</div>
+                    <div class="key" id="KeyX">x</div>
+                    <div class="key" id="KeyC">c</div>
+                    <div class="key" id="KeyV">v</div>
+                    <div class="key" id="KeyB">b</div>
+                    <div class="key" id="KeyN">n</div>
+                    <div class="key" id="KeyM">m</div>
+                    <div class="key" id="Comma">,</div>
+                    <div class="key" id="Period">.</div>
+                    <div class="key" id="Slash">/</div>
+                    <div class="key k-275u" id="ShiftRight">shift</div>
                 </div>
                 <div class="key-row">
-                    <div class="key k-125u" id="ControlLeft">ctrl</div><div class="key k-125u" id="MetaLeft">win</div><div class="key k-125u" id="AltLeft">alt</div><div class="key k-625u" id="Space">spacebar</div><div class="key k-125u" id="AltRight">alt</div><div class="key k-125u" id="ContextMenu">fn</div><div class="key k-125u" id="ControlRight">ctrl</div>
+                    <div class="key k-125u" id="ControlLeft">ctrl</div>
+                    <div class="key k-125u" id="MetaLeft">win</div>
+                    <div class="key k-125u" id="AltLeft">alt</div>
+                    <div class="key k-625u" id="Space">spacebar</div>
+                    <div class="key k-125u" id="AltRight">alt</div>
+                    <div class="key k-125u" id="ContextMenu">fn</div>
+                    <div class="key k-125u" id="ControlRight">ctrl</div>
                 </div>
             </div>
             <div class="nav-sec">
-                <div class="key-row" style="margin-bottom: 25px;"><div class="key" id="PrintScreen">prtsc</div><div class="key" id="ScrollLock">scrlk</div><div class="key" id="Pause">pause</div></div>
-                <div class="key-row"><div class="key" id="Insert">ins</div><div class="key" id="Home">home</div><div class="key" id="PageUp">pgup</div></div>
-                <div class="key-row" style="margin-bottom: 57px;"><div class="key" id="Delete">del</div><div class="key" id="End">end</div><div class="key" id="PageDown">pgdn</div></div>
-                <div class="key-row"><div class="key nav-empty"></div><div class="key" id="ArrowUp">↑</div><div class="key nav-empty"></div></div>
-                <div class="key-row"><div class="key" id="ArrowLeft">←</div><div class="key" id="ArrowDown">↓</div><div class="key" id="ArrowRight">→</div></div>
+                <div class="key-row" style="margin-bottom: 25px;">
+                    <div class="key" id="PrintScreen">prtsc</div>
+                    <div class="key" id="ScrollLock">scrlk</div>
+                    <div class="key" id="Pause">pause</div>
+                </div>
+                <div class="key-row">
+                    <div class="key" id="Insert">ins</div>
+                    <div class="key" id="Home">home</div>
+                    <div class="key" id="PageUp">pgup</div>
+                </div>
+                <div class="key-row" style="margin-bottom: 57px;">
+                    <div class="key" id="Delete">del</div>
+                    <div class="key" id="End">end</div>
+                    <div class="key" id="PageDown">pgdn</div>
+                </div>
+                <div class="key-row">
+                    <div class="key nav-empty"></div>
+                    <div class="key" id="ArrowUp">↑</div>
+                    <div class="key nav-empty"></div>
+                </div>
+                <div class="key-row">
+                    <div class="key" id="ArrowLeft">←</div>
+                    <div class="key" id="ArrowDown">↓</div>
+                    <div class="key" id="ArrowRight">→</div>
+                </div>
             </div>
             <div class="numpad-sec">
                 <div style="height: 70px;"></div>
                 <div class="numpad-grid">
-                    <div class="key" id="NumLock">num</div><div class="key" id="NumpadDivide">/</div><div class="key" id="NumpadMultiply">*</div><div class="key" id="NumpadSubtract">-</div>
-                    <div class="key" id="Numpad7">7</div><div class="key" id="Numpad8">8</div><div class="key" id="Numpad9">9</div><div class="key np-plus" id="NumpadAdd">+</div>
-                    <div class="key" id="Numpad4">4</div><div class="key" id="Numpad5">5</div><div class="key" id="Numpad6">6</div>
-                    <div class="key" id="Numpad1">1</div><div class="key" id="Numpad2">2</div><div class="key" id="Numpad3">3</div><div class="key np-enter" id="NumpadEnter">ent</div>
-                    <div class="key np-zero" id="Numpad0">0</div><div class="key" id="NumpadDecimal">.</div>
+                    <div class="key" id="NumLock">num</div>
+                    <div class="key" id="NumpadDivide">/</div>
+                    <div class="key" id="NumpadMultiply">*</div>
+                    <div class="key" id="NumpadSubtract">-</div>
+                    <div class="key" id="Numpad7">7</div>
+                    <div class="key" id="Numpad8">8</div>
+                    <div class="key" id="Numpad9">9</div>
+                    <div class="key np-plus" id="NumpadAdd">+</div>
+                    <div class="key" id="Numpad4">4</div>
+                    <div class="key" id="Numpad5">5</div>
+                    <div class="key" id="Numpad6">6</div>
+                    <div class="key" id="Numpad1">1</div>
+                    <div class="key" id="Numpad2">2</div>
+                    <div class="key" id="Numpad3">3</div>
+                    <div class="key np-enter" id="NumpadEnter">ent</div>
+                    <div class="key np-zero" id="Numpad0">0</div>
+                    <div class="key" id="NumpadDecimal">.</div>
                 </div>
             </div>
         </div>
@@ -77,15 +181,20 @@
 
     <div class="section">
         <h2>battery health</h2>
-        <p>browsers cannot read raw battery data. open command prompt, type <span style="color: var(--main-color);">powercfg /batteryreport</span>, and paste the generated file path into your browser to view the report.</p>
-        <p style="margin-bottom: 5px; color: var(--main-color);">formula: (full charge capacity / design capacity) * 100</p>
-        <p style="color: var(--sub-color); font-size: 0.85rem; margin-bottom: 0;">0-50: defective &nbsp;|&nbsp; 51-69: minimal &nbsp;|&nbsp; 70-100: good</p>
+        <p>browsers cannot read raw battery data. open command prompt, type <span
+                style="color: var(--main-color);">powercfg /batteryreport</span>, and paste the generated file path into
+            your browser to view the report.</p>
+        <p style="margin-bottom: 5px; color: var(--main-color);">formula: (full charge capacity / design capacity) * 100
+        </p>
+        <p style="color: var(--sub-color); font-size: 0.85rem; margin-bottom: 0;">0-50: defective &nbsp;|&nbsp; 51-69:
+            minimal &nbsp;|&nbsp; 70-100: good</p>
     </div>
     <hr class="divider">
 
     <div class="section">
         <h2>storage health</h2>
-        <p>browsers cannot read raw smart disk data. to test your storage drive health, use a dedicated diagnostic tool.</p>
+        <p>browsers cannot read raw smart disk data. to test your storage drive health, use a dedicated diagnostic tool.
+        </p>
         <div class="controls-row">
             <a href="https://www.hdsentinel.com/" target="_blank" style="text-decoration: none;">
                 <button>download hard disk sentinel</button>
@@ -96,9 +205,12 @@
 
     <div class="section">
         <h2>camera test</h2>
-        <p>select your webcam from the dropdown and click enable. confirm the video feed displays clearly without flickering or dead zones.</p>
+        <p>select your webcam from the dropdown and click enable. confirm the video feed displays clearly without
+            flickering or dead zones.</p>
         <div class="controls-row">
-            <select id="camera-select"><option value="">loading...</option></select>
+            <select id="camera-select">
+                <option value="">loading...</option>
+            </select>
             <button id="cam-enable" onclick="startCamera()">enable</button>
             <button id="cam-disable" onclick="stopCamera()" disabled>disable</button>
         </div>
@@ -108,14 +220,17 @@
 
     <div class="section">
         <h2>microphone test</h2>
-        <p>choose your microphone, click record, and speak clearly for a few seconds. the visualizer will react to your voice. click stop, then play the audio back.</p>
+        <p>choose your microphone, click record, and speak clearly for a few seconds. the visualizer will react to your
+            voice. click stop, then play the audio back.</p>
         <div class="controls-row">
-            <select id="mic-select"><option value="">loading...</option></select>
+            <select id="mic-select">
+                <option value="">loading...</option>
+            </select>
             <button id="btn-record" onclick="startRecording()">record</button>
             <button id="btn-stop-record" onclick="stopRecording()" disabled>stop</button>
         </div>
         <canvas id="mic-visualizer"></canvas>
-        
+
         <audio id="audio-playback" style="display: none;"></audio>
         <div class="custom-player" id="mic-player-ui">
             <button id="play-pause-btn" onclick="togglePlay()">play</button>
@@ -128,34 +243,47 @@
 
     <div class="section">
         <h2>speaker test</h2>
-        <p>click left or right to isolate audio output. the visualizer will confirm audio is playing. verify that the sound corresponds to the correct physical speaker.</p>
+        <p>click left or right to isolate audio output. the visualizer will confirm audio is playing. verify that the
+            sound corresponds to the correct physical speaker.</p>
+
+        <p class="track-label">kevin macleod — cipher</p>
         <div class="controls-row">
-            <button onclick="testSpeaker('left')">left</button>
-            <button onclick="testSpeaker('right')">right</button>
-            <button onclick="testSpeaker('both')">both</button>
-            <button onclick="testSpeaker('stop')">stop</button>
+            <button onclick="testSpeaker('left', 1)">left</button>
+            <button onclick="testSpeaker('right', 1)">right</button>
+            <button onclick="testSpeaker('both', 1)">both</button>
+            <button onclick="testSpeaker('stop', 1)">stop</button>
         </div>
         <div class="controls-row" style="margin-top: 15px;">
-            <label for="speaker-volume" style="color: var(--sub-color); font-size: 0.9rem;">volume</label>
-            <input type="range" id="speaker-volume" min="0" max="1" step="0.01" value="1" oninput="updateVolume(this.value)">
+            <label for="speaker-volume-1" style="color: var(--sub-color); font-size: 0.9rem;">volume</label>
+            <input type="range" id="speaker-volume-1" min="0" max="1" step="0.01" value="1"
+                oninput="updateVolume(this.value, 1)">
         </div>
-        <canvas id="speaker-visualizer"></canvas>
+        <canvas id="speaker-visualizer-1"></canvas>
+
+        <p class="track-label" style="margin-top: 30px;">string theory — brian greene ted talk</p>
+        <div class="controls-row">
+            <button onclick="testSpeaker('left', 2)">left</button>
+            <button onclick="testSpeaker('right', 2)">right</button>
+            <button onclick="testSpeaker('both', 2)">both</button>
+            <button onclick="testSpeaker('stop', 2)">stop</button>
+        </div>
+        <div class="controls-row" style="margin-top: 15px;">
+            <label for="speaker-volume-2" style="color: var(--sub-color); font-size: 0.9rem;">volume</label>
+            <input type="range" id="speaker-volume-2" min="0" max="1" step="0.01" value="1"
+                oninput="updateVolume(this.value, 2)">
+        </div>
+        <canvas id="speaker-visualizer-2"></canvas>
     </div>
 
     <div id="dp-label">Color</div>
 
     <footer>
         <div class="section">
-            <p>
-                made by akifune 
-                <span class="footer-divider">|</span> 
-                <a href="https://instagram.com/xix.aki" target="_blank">ig: xix.aki</a> 
-                <span class="footer-divider">|</span> 
-                <a href="https://github.com/akifune1" target="_blank">gh: akifune1</a>
-            </p>
+            <p><i>may this journey lead us starward.</i></p>
         </div>
     </footer>
 
     <script src="script.js"></script>
 </body>
+
 </html>

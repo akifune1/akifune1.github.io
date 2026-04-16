@@ -20,7 +20,6 @@ body {
     min-height: 100vh;
 }
 
-/* --- Header & Typography --- */
 h1 {
     text-align: center;
     color: var(--main-color);
@@ -54,12 +53,11 @@ h2 {
     width: 100%;
 }
 
-/* Fixed the centering issue here */
 p {
     color: var(--text-color);
     font-size: 0.9rem;
     text-align: center;
-    max-width: 600px;
+    max-width: 675px;
     margin: 0 auto 20px auto;
     line-height: 1.5;
 }
@@ -72,7 +70,6 @@ p {
     margin: 0 auto 40px auto;
 }
 
-/* --- Buttons, Sliders, & Inputs --- */
 button,
 select {
     padding: 10px 20px;
@@ -147,7 +144,6 @@ input[type=range]:hover::-webkit-slider-thumb {
     background: var(--main-color);
 }
 
-/* --- Custom Audio Player --- */
 .custom-player {
     display: none;
     align-items: center;
@@ -185,7 +181,37 @@ input[type=range]:hover::-webkit-slider-thumb {
     flex-grow: 1;
 }
 
-/* --- 100% KEYBOARD LAYOUT --- */
+.credits {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 20px; /* Matches the 20px margin-bottom of the subtext */
+}
+
+.credits p {
+    color: var(--main-color);
+    font-size: 0.9rem;
+    margin: 0;
+    max-width: none; /* Overrides the 675px max-width from your global p tag */
+}
+
+.credits a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    font-weight: 600;
+}
+
+.credits a:hover {
+    color: var(--main-color);
+}
+
+.footer-divider {
+    display: inline-block;
+    margin: 0 10px;
+    color: var(--key-bg);
+}
+
 .keyboard-wrapper {
     display: flex;
     gap: 15px;
@@ -338,7 +364,6 @@ input[type=range]:hover::-webkit-slider-thumb {
     color: var(--bg-color);
 }
 
-/* --- Media Elements --- */
 video {
     width: 100%;
     max-width: 480px;
@@ -370,7 +395,14 @@ canvas {
     z-index: 10000;
 }
 
-/* --- Footer --- */
+/* --- Speaker Track Label --- */
+.track-label {
+    color: var(--main-color);
+    font-size: 0.85rem;
+    margin-bottom: 5px;
+    margin-top: 0;
+}
+
 footer {
     margin-top: auto;
     padding-top: 40px;
@@ -378,7 +410,7 @@ footer {
 }
 
 footer p {
-    color: var(--sub-color);
+    color: var(--main-color);
     font-size: 0.9rem;
     margin: 0;
 }
