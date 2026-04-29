@@ -5,6 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>hardware tester</title>
+    <script>
+        (function () {
+            const colors = ["#e2b714", "#3b82f6", "#1ff057", "#cb02ff"];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+            document.documentElement.style.setProperty('--main-color', randomColor);
+            document.documentElement.style.setProperty('--caret-color', randomColor);
+        })();
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -26,6 +35,28 @@
     </div>
 
     <hr class="divider" style="margin-top: 0;">
+
+    <div class="section">
+        <h2>dead pixel test</h2>
+        <p>
+            click start to enter full screen. use your arrow keys or spacebar to cycle through various colors to spot
+            any stuck or dead pixels. press esc to exit.
+        </p>
+
+        <!-- NEW FEATURE SUBTEXT -->
+        <p style="font-size: 0.85rem; margin-top: -10px;">
+            <span style="color: var(--main-color); font-weight: 600;">NEW!</span>
+            <span>
+                use ↑ / ↓ to adjust brightness for better visibility of faint or uneven pixels.
+            </span>
+        </p>
+
+        <div class="controls-row">
+            <button onclick="startDeadPixelTest()">start test</button>
+        </div>
+    </div>
+
+    <hr class="divider">
 
     <div class="section">
         <h2>keyboard & touchpad test</h2>

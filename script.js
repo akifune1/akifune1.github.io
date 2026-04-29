@@ -23,28 +23,56 @@ window.addEventListener('load', () => {
 function drawWaveform(analyser, canvasId, animationRefObj) {
     const canvas = document.getElementById(canvasId);
     const ctx = canvas.getContext('2d');
-    analyser.fftSize = 128;
-    const bufferLength = analyser.frequencyBinCount;
+
+    analyser.fftSize = 64; // ← fewer bins = bigger, chunkier bars
+    const bufferLength = analyser.frequencyBinCount; // 32
     const dataArray = new Uint8Array(bufferLength);
-    const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
-    gradient.addColorStop(0, '#e2b714'); gradient.addColorStop(0.5, '#d1d0c5'); gradient.addColorStop(1, '#e2b714');
 
     function draw() {
         animationRefObj.id = requestAnimationFrame(draw);
         analyser.getByteFrequencyData(dataArray);
-        ctx.fillStyle = '#2c2e31'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-        const barWidth = canvas.width / bufferLength; let x = 0;
-        ctx.lineCap = 'round'; ctx.strokeStyle = gradient; ctx.lineWidth = barWidth * 0.6;
 
-        for (let i = 0; i < bufferLength; i++) {
+        const styles = getComputedStyle(document.documentElement);
+        const mainColor = styles.getPropertyValue('--main-color').trim();
+        const textColor = styles.getPropertyValue('--text-color').trim();
+
+        const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+        gradient.addColorStop(0, mainColor);
+        gradient.addColorStop(0.5, textColor);
+        gradient.addColorStop(1, mainColor);
+
+        ctx.fillStyle = '#2c2e31';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        const half = bufferLength;
+        const barWidth = (canvas.width / 2) / half;
+
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = gradient;
+        ctx.lineWidth = barWidth * 0.85; // ← fatter = more rounded pill look
+
+        for (let i = 0; i < half; i++) {
             let barHeight = (dataArray[i] / 255) * (canvas.height * 0.8);
             if (barHeight < 4) barHeight = 4;
+
+            const centerX = canvas.width / 2;
+
+            // Right side
+            const xRight = centerX + i * barWidth;
             ctx.beginPath();
-            ctx.moveTo(x + (barWidth / 2), (canvas.height / 2) - (barHeight / 2));
-            ctx.lineTo(x + (barWidth / 2), (canvas.height / 2) + (barHeight / 2));
-            ctx.stroke(); x += barWidth;
+            ctx.moveTo(xRight + barWidth / 2, canvas.height / 2 - barHeight / 2);
+            ctx.lineTo(xRight + barWidth / 2, canvas.height / 2 + barHeight / 2);
+            ctx.stroke();
+
+            // Left side (mirrored)
+            const xLeft = centerX - (i + 1) * barWidth;
+            ctx.beginPath();
+            ctx.moveTo(xLeft + barWidth / 2, canvas.height / 2 - barHeight / 2);
+            ctx.lineTo(xLeft + barWidth / 2, canvas.height / 2 + barHeight / 2);
+            ctx.stroke();
         }
     }
+
     draw();
 }
 
@@ -79,33 +107,96 @@ window.addEventListener('load', getDevices);
 
 // --- 1. Dead Pixel Test ---
 const dpScreens = [
-    { name: 'red', style: 'background: red;' }, { name: 'green', style: 'background: #0ef70a;' },
-    { name: 'blue', style: 'background: blue;' }, { name: 'cyan', style: 'background: cyan;' },
-    { name: 'magenta', style: 'background: magenta;' }, { name: 'yellow', style: 'background: yellow;' },
-    { name: 'white', style: 'background: white;' }, { name: 'black', style: 'background: black;' },
+    { name: 'red', style: 'background: red;' },
+    { name: 'green', style: 'background: #0ef70a;' },
+    { name: 'blue', style: 'background: blue;' },
+    { name: 'cyan', style: 'background: cyan;' },
+    { name: 'magenta', style: 'background: magenta;' },
+    { name: 'yellow', style: 'background: yellow;' },
+    { name: 'white', style: 'background: white;' },
+    { name: 'black', style: 'background: black;' },
     { name: 'checkerboard', style: 'background: repeating-conic-gradient(#000 0% 25%, #fff 0% 50%) 50% / 40px 40px;' },
     { name: 'gradient', style: 'background: linear-gradient(to right, black, white);' }
 ];
-let dpIndex = 0; let dpElement = null; const dpLabel = document.getElementById('dp-label');
+
+let dpIndex = 0;
+let dpElement = null;
+let dpBrightness = 1; // 1 = 100%
+
+const dpLabel = document.getElementById('dp-label');
+
 function updateDpScreen() {
-    dpElement.style = `position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9999; cursor: none; ${dpScreens[dpIndex].style}`;
-    dpLabel.style.display = 'block'; dpLabel.innerText = dpScreens[dpIndex].name;
+    dpElement.style = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 9999;
+        cursor: none;
+        ${dpScreens[dpIndex].style}
+        filter: brightness(${dpBrightness});
+    `;
+
+    dpLabel.style.display = 'block';
+
+    const percent = Math.round(dpBrightness * 100);
+    dpLabel.innerText = `${dpScreens[dpIndex].name} (${percent}%)`;
 }
+
 function startDeadPixelTest() {
-    dpIndex = 0; dpElement = document.createElement('div');
-    document.body.appendChild(dpElement); updateDpScreen(); dpElement.appendChild(dpLabel);
-    dpElement.requestFullscreen().catch(err => alert('Fullscreen failed: ' + err.message));
+    dpIndex = 0;
+    dpBrightness = 1; // reset brightness
+
+    dpElement = document.createElement('div');
+    document.body.appendChild(dpElement);
+
+    updateDpScreen();
+    dpElement.appendChild(dpLabel);
+
+    dpElement.requestFullscreen().catch(err =>
+        alert('Fullscreen failed: ' + err.message)
+    );
 }
+
 document.addEventListener('keydown', (e) => {
     if (document.fullscreenElement === dpElement) {
-        if (e.code === 'ArrowRight' || e.code === 'Space') { dpIndex = (dpIndex + 1) % dpScreens.length; updateDpScreen(); }
-        else if (e.code === 'ArrowLeft') { dpIndex = (dpIndex - 1 + dpScreens.length) % dpScreens.length; updateDpScreen(); }
+
+        // ➡️ Next screen
+        if (e.code === 'ArrowRight' || e.code === 'Space') {
+            dpIndex = (dpIndex + 1) % dpScreens.length;
+            updateDpScreen();
+        }
+
+        // ⬅️ Previous screen
+        else if (e.code === 'ArrowLeft') {
+            dpIndex = (dpIndex - 1 + dpScreens.length) % dpScreens.length;
+            updateDpScreen();
+        }
+
+        // 🔆 Increase brightness
+        else if (e.code === 'ArrowUp') {
+            dpBrightness = Math.min(dpBrightness + 0.1, 2); // max 200%
+            dpBrightness = Math.round(dpBrightness * 100) / 100;
+            updateDpScreen();
+        }
+
+        // 🔅 Decrease brightness
+        else if (e.code === 'ArrowDown') {
+            dpBrightness = Math.max(dpBrightness - 0.1, 0.1); // min 10%
+            dpBrightness = Math.round(dpBrightness * 100) / 100;
+            updateDpScreen();
+        }
     }
 });
+
 document.addEventListener('fullscreenchange', () => {
     if (!document.fullscreenElement && dpElement) {
-        document.body.removeChild(dpElement); document.body.appendChild(dpLabel);
-        dpLabel.style.display = 'none'; dpElement = null;
+        document.body.removeChild(dpElement);
+        document.body.appendChild(dpLabel);
+
+        dpLabel.style.display = 'none';
+        dpElement = null;
     }
 });
 
@@ -278,14 +369,14 @@ function testSpeaker(channel, track) {
             isAudioSetup1 = true;
         }
         if (audioElement1.paused) drawWaveform(spkAnalyser1, 'speaker-visualizer-1', spkAnimRef1);
-        
+
         if (channel === 'left') panner1.pan.value = -1;
         else if (channel === 'right') panner1.pan.value = 1;
         else panner1.pan.value = 0;
-        
+
         audioElement1.currentTime = 0;
         audioElement1.play().catch(err => console.warn("Audio play blocked:", err));
-        
+
     } else {
         if (!isAudioSetup2) {
             const trackNode = audioCtx.createMediaElementSource(audioElement2);
@@ -295,11 +386,11 @@ function testSpeaker(channel, track) {
             isAudioSetup2 = true;
         }
         if (audioElement2.paused) drawWaveform(spkAnalyser2, 'speaker-visualizer-2', spkAnimRef2);
-        
+
         if (channel === 'left') panner2.pan.value = -1;
         else if (channel === 'right') panner2.pan.value = 1;
         else panner2.pan.value = 0;
-        
+
         audioElement2.currentTime = 0;
         audioElement2.play().catch(err => console.warn("Audio play blocked:", err));
     }
