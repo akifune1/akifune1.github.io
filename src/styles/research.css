@@ -1,0 +1,174 @@
+/**
+ * @file src/styles/research.css
+ * @description Stylesheet for the Academic Papers & Security Analysis section.
+ * Adapts high-contrast Catppuccin Mocha cards for research findings, award badges,
+ * experimental bullet points, and exploit simulation highlights.
+ */
+
+.research-section {
+  padding: 1.5rem 0 2rem 0;
+  position: relative;
+}
+
+.research-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+/* Sharp high-contrast research card */
+.research-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sharp);
+  padding: 1.25rem 1.35rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.85rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.research-card:hover {
+  border-color: var(--ctp-sapphire);
+  background-color: var(--bg-surface-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(116, 199, 236, 0.12);
+}
+
+.research-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.research-award-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.675rem;
+  font-weight: 700;
+  color: var(--ctp-peach);
+  background-color: rgba(250, 179, 135, 0.1);
+  border: 1px solid rgba(250, 179, 135, 0.25);
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-sharp);
+  margin-bottom: 0.4rem;
+}
+
+.research-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ctp-text);
+  margin-bottom: 0.2rem;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+}
+
+.research-category-tagline {
+  font-size: 0.775rem;
+  color: var(--section-accent, var(--ctp-sapphire));
+  font-weight: 600;
+}
+
+.research-icon-wrap {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sharp);
+  background-color: var(--ctp-surface0);
+  border: 1px solid var(--border-color);
+  color: var(--ctp-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.research-card:hover .research-icon-wrap {
+  border-color: var(--ctp-sapphire);
+  color: var(--ctp-sapphire);
+  background-color: rgba(116, 199, 236, 0.12);
+}
+
+.research-summary {
+  font-size: 0.825rem;
+  color: var(--ctp-subtext0);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.research-bullets-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  flex: 1;
+}
+
+.research-bullet-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  font-size: 0.775rem;
+  color: var(--ctp-subtext1);
+  line-height: 1.45;
+}
+
+.bullet-indicator {
+  color: var(--ctp-blue);
+  font-weight: bold;
+}
+
+/* Bottom Highlight Row with Monospaced Tag and Metadata */
+.research-footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-color);
+  margin-top: auto;
+}
+
+.research-monotag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--ctp-green);
+  background-color: rgba(166, 227, 161, 0.1);
+  border: 1px solid rgba(166, 227, 161, 0.25);
+  padding: 0.2rem 0.45rem;
+  border-radius: var(--radius-sharp);
+  white-space: nowrap;
+}
+
+.research-badge-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--ctp-subtext0);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+@media (max-width: 1080px) {
+  .research-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
+  .research-grid {
+    grid-template-columns: 1fr;
+  }
+}

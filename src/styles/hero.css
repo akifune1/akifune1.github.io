@@ -1,0 +1,172 @@
+/**
+ * @file src/styles/hero.css
+ * @description Stylesheet for the Hero section using Catppuccin Mocha colors.
+ * Implements viewport-centered layout, clean professional badge, and high-contrast terminal profile card.
+ */
+
+.hero-section {
+  min-height: calc(100vh - 64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 0;
+  position: relative;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 2.25rem;
+  align-items: center;
+  width: 100%;
+}
+
+.hero-greeting-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: var(--ctp-sapphire);
+  background-color: rgba(116, 199, 236, 0.1);
+  border: 1px solid rgba(116, 199, 236, 0.25);
+  padding: 0.3rem 0.75rem;
+  margin-bottom: 0.85rem;
+  border-radius: var(--radius-sharp);
+}
+
+.hero-title {
+  font-size: 2.85rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--ctp-text);
+  line-height: 1.15;
+  margin-bottom: 0.65rem;
+}
+
+.hero-title-accent {
+  color: var(--ctp-blue);
+  background: linear-gradient(135deg, var(--ctp-blue) 0%, var(--ctp-sapphire) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-typewriter-container {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  color: var(--ctp-sapphire);
+  margin-bottom: 0.85rem;
+  min-height: 1.6rem;
+}
+
+.hero-typewriter-prefix {
+  color: var(--ctp-subtext0);
+  margin-right: 0.5rem;
+  font-weight: 600;
+}
+
+.hero-bio {
+  color: var(--ctp-subtext0);
+  font-size: 0.975rem;
+  line-height: 1.6;
+  margin-bottom: 1.35rem;
+  max-width: 580px;
+}
+
+.hero-cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+/* High-Contrast Terminal Card Preview (Right Column) */
+.hero-terminal-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-top: 2px solid rgba(203, 166, 247, 0.45);
+  border-radius: var(--radius-sharp);
+  box-shadow: var(--shadow-md);
+  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Smooth floating hover effect matching global standard */
+.hero-terminal-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-floating);
+}
+
+.hero-code-block {
+  font-family: var(--font-mono);
+  font-size: 0.825rem;
+  line-height: 1.65;
+  color: var(--ctp-text);
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.code-prompt { color: var(--ctp-green); }
+.code-cmd { color: #ffffff; font-weight: 600; }
+.code-output { 
+  color: var(--ctp-subtext0); 
+  padding-left: 0.75rem;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+.code-keyword { color: var(--ctp-blue); font-weight: 600; }
+.code-comment { color: var(--ctp-overlay0); font-style: italic; }
+
+@media (max-width: 1024px) {
+  .hero-section {
+    min-height: auto;
+    padding: 2.5rem 0;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2.15rem, 6.5vw, 2.65rem);
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-section {
+    padding: 2rem 0 2.25rem;
+  }
+
+  .hero-title {
+    font-size: clamp(1.85rem, 8vw, 2.25rem);
+  }
+
+  .hero-bio {
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .hero-code-block {
+    font-size: clamp(0.725rem, 3.2vw, 0.8rem);
+    line-height: 1.55;
+  }
+
+  .code-output {
+    padding-left: 0.45rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-cta-group {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem;
+  }
+
+  .hero-cta-group .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

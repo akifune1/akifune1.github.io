@@ -1,0 +1,582 @@
+/**
+ * @file src/styles/index.css
+ * @description Core design system and CSS tokens using high-contrast Catppuccin Mocha colors.
+ * Defines theme variables, sharp border tokens, monospaced typography rules,
+ * scroll-triggered animation keyframes, and global layout utilities.
+ */
+
+:root {
+  /* High-Contrast Catppuccin Mocha Palette */
+  --ctp-crust: #11111b;     /* Main canvas background */
+  --ctp-mantle: #181825;    /* Secondary container layer / headers */
+  --ctp-base: #1e1e2e;      /* Card and window surfaces */
+  
+  --ctp-surface0: #313244;  /* Elevated elements & window titlebars */
+  --ctp-surface1: #45475a;  /* High-contrast borders */
+  --ctp-surface2: #585b70;  /* Active / hover border highlights */
+  
+  --ctp-overlay0: #6c7086;
+  --ctp-overlay1: #7f849c;
+  --ctp-overlay2: #9399b2;
+  
+  --ctp-text: #cdd6f4;      /* Soft crisp white / light lavender text */
+  --ctp-subtext0: #a6adc8;  /* Readable secondary description text */
+  --ctp-subtext1: #bac2de;  /* Muted metadata */
+  
+  /* Vibrant Catppuccin Pastel Rainbow Accents */
+  --ctp-rosewater: #f5e0dc; /* High-contrast soft rose highlight */
+  --ctp-flamingo: #f2cdcd;  /* Soft coral highlight */
+  --ctp-pink: #f5c2e7;      /* Vivid pastel pink */
+  --ctp-mauve: #cba6f7;     /* Soft purple tech & syntax accent */
+  --ctp-red: #f38ba8;       /* Error / security & exploit accent */
+  --ctp-maroon: #eba0ac;   /* Muted reddish coral */
+  --ctp-peach: #fab387;     /* Metric badges & warm orange accent */
+  --ctp-yellow: #f9e2af;    /* Warning / credentials & gold accent */
+  --ctp-green: #a6e3a1;     /* Status online, databases & success */
+  --ctp-teal: #94e2d5;      /* Mint / testing & infrastructure */
+  --ctp-sky: #89dceb;       /* Sky blue / protocols & cloud */
+  --ctp-sapphire: #74c7ec;  /* Vibrant cyan / primary interactive accent */
+  --ctp-blue: #89b4fa;      /* Primary actions & brand focus */
+  --ctp-lavender: #b4befe;  /* UI / research & architecture badge accent */
+
+  /* Curated Multi-Stop Pastel Rainbow Gradient */
+  --gradient-rainbow-pastel: linear-gradient(
+    90deg,
+    var(--ctp-red) 0%,
+    var(--ctp-peach) 18%,
+    var(--ctp-yellow) 36%,
+    var(--ctp-green) 54%,
+    var(--ctp-sapphire) 72%,
+    var(--ctp-mauve) 88%,
+    var(--ctp-lavender) 100%
+  );
+
+  /* Component Mappings */
+  --bg-canvas: var(--ctp-crust);
+  --bg-card: var(--ctp-base);
+  --bg-card-header: var(--ctp-mantle);
+  --bg-surface-elevated: var(--ctp-surface0);
+  --bg-surface-hover: #36394f;
+
+  --border-color: var(--ctp-surface1);
+  --border-color-hover: var(--ctp-surface2);
+  --border-active: var(--ctp-sapphire);
+  
+  /* Sharp Geometry: 0px or 2px micro-edges */
+  --radius-sharp: 0px;
+  --radius-sm: 2px;
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, Menlo, Monaco, monospace;
+
+  /* Shadows & Glows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.55);
+  --shadow-floating: 0 16px 36px -4px rgba(0, 0, 0, 0.55), 0 4px 12px rgba(0, 0, 0, 0.35);
+  --shadow-glow: 0 0 20px rgba(137, 180, 250, 0.2);
+  --shadow-glow-sapphire: 0 0 20px rgba(116, 199, 236, 0.2);
+}
+
+/* Base resets & layout */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+  /* Offset all anchor scroll targets by the sticky navbar height (64px) + 4px breathing room
+     so clicking a nav link lands with the section header perfectly framed below the bar */
+  scroll-padding-top: 68px;
+}
+
+body {
+  background-color: var(--bg-canvas);
+  color: var(--ctp-text);
+  font-family: var(--font-sans);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  /* Crisp subtle grid pattern for terminal-SaaS hybrid backdrop */
+  background-image: 
+    linear-gradient(to right, rgba(69, 71, 90, 0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(69, 71, 90, 0.15) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+/* Custom terminal scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ctp-crust);
+  border-left: 1px solid var(--border-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ctp-surface1);
+  border-radius: var(--radius-sharp);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ctp-sapphire);
+}
+
+/* Selection */
+::selection {
+  background-color: rgba(137, 180, 250, 0.35);
+  color: #ffffff;
+}
+
+/* Typography styles */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--ctp-text);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+.mono-font {
+  font-family: var(--font-mono);
+}
+
+a {
+  color: var(--ctp-sapphire);
+  text-decoration: none;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+a:hover {
+  color: var(--ctp-blue);
+}
+
+/* Global Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.75rem;
+}
+
+/* ==========================================================================
+   Scroll-Triggered Reveal Animations
+   ========================================================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-1 { transition-delay: 0.06s; }
+.stagger-2 { transition-delay: 0.12s; }
+.stagger-3 { transition-delay: 0.18s; }
+.stagger-4 { transition-delay: 0.24s; }
+.stagger-5 { transition-delay: 0.30s; }
+
+/* ==========================================================================
+   Universal Card Floating Elevation Standard
+   Guarantees smooth floating translation without interference from .reveal.active.
+   Scoped to hover-capable pointer devices to prevent sticky hover on touchscreens,
+   while providing immediate tactile active feedback on touch taps.
+   ========================================================================== */
+.project-card,
+.skills-category-card,
+.cert-card,
+.contact-channel-card,
+.timeline-card,
+.hero-terminal-card {
+  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  will-change: transform, box-shadow;
+}
+
+/* Mouse hover elevation (only applied when true hover is supported) */
+@media (hover: hover) and (pointer: fine) {
+  .project-card:hover,
+  .project-card.reveal.active:hover,
+  .skills-category-card:hover,
+  .skills-category-card.reveal.active:hover,
+  .cert-card:hover,
+  .cert-card.reveal.active:hover,
+  .contact-channel-card:hover,
+  .contact-channel-card.reveal.active:hover,
+  .timeline-card:hover,
+  .timeline-card.reveal.active:hover,
+  .hero-terminal-card:hover,
+  .hero-terminal-card.reveal.active:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: var(--shadow-floating) !important;
+  }
+}
+
+/* Immediate tactile tap feedback for touchscreens */
+.project-card:active,
+.skills-category-card:active,
+.cert-card:active,
+.contact-channel-card:active,
+.timeline-card:active,
+.hero-terminal-card:active {
+  transform: scale(0.985) !important;
+}
+
+/* Section Header - Compact vertical footprint for viewport ergonomics */
+.section-header {
+  margin-bottom: 0.85rem;
+  text-align: left;
+}
+
+/* Section-level rainbow accent uses CSS custom property --section-accent.
+   Each section sets its own --section-accent to a Catppuccin Mocha rainbow color.
+   This enables the section-tag, subtitles, and interactive accents to
+   automatically inherit the correct hue without repetitive overrides. */
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.725rem;
+  font-weight: 600;
+  color: var(--section-accent, var(--ctp-sapphire));
+  background-color: var(--section-accent-bg, rgba(116, 199, 236, 0.1));
+  border: 1px solid var(--section-accent-border, rgba(116, 199, 236, 0.25));
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-sharp);
+  margin-bottom: 0.25rem;
+  letter-spacing: 0.04em;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--ctp-text);
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.02em;
+}
+
+.section-subtitle {
+  color: var(--ctp-subtext0);
+  font-size: 0.875rem;
+  max-width: 680px;
+  line-height: 1.45;
+}
+
+/* ==========================================================================
+   Per-Section Rainbow Accent Assignments (Catppuccin Mocha Rainbow Spectrum)
+   ========================================================================== */
+#hero {
+  --section-accent: var(--ctp-mauve);
+  --section-accent-bg: rgba(203, 166, 247, 0.1);
+  --section-accent-border: rgba(203, 166, 247, 0.25);
+}
+
+#philosophy {
+  --section-accent: var(--ctp-sapphire);
+  --section-accent-bg: rgba(116, 199, 236, 0.1);
+  --section-accent-border: rgba(116, 199, 236, 0.25);
+}
+
+#projects {
+  --section-accent: var(--ctp-peach);
+  --section-accent-bg: rgba(250, 179, 135, 0.1);
+  --section-accent-border: rgba(250, 179, 135, 0.25);
+}
+
+#skills {
+  --section-accent: var(--ctp-teal);
+  --section-accent-bg: rgba(148, 226, 213, 0.1);
+  --section-accent-border: rgba(148, 226, 213, 0.25);
+}
+
+#experience {
+  --section-accent: var(--ctp-green);
+  --section-accent-bg: rgba(166, 227, 161, 0.1);
+  --section-accent-border: rgba(166, 227, 161, 0.25);
+}
+
+#research {
+  --section-accent: var(--ctp-sky);
+  --section-accent-bg: rgba(137, 220, 235, 0.1);
+  --section-accent-border: rgba(137, 220, 235, 0.25);
+}
+
+#certifications {
+  --section-accent: var(--ctp-yellow);
+  --section-accent-bg: rgba(249, 226, 175, 0.1);
+  --section-accent-border: rgba(249, 226, 175, 0.25);
+}
+
+#contact {
+  --section-accent: var(--ctp-lavender);
+  --section-accent-bg: rgba(180, 190, 254, 0.1);
+  --section-accent-border: rgba(180, 190, 254, 0.25);
+}
+
+/* Sharp Terminal Window Component */
+.terminal-window {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sharp);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.terminal-window:hover {
+  border-color: var(--border-color-hover);
+}
+
+.terminal-header {
+  background-color: var(--bg-card-header);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.65rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
+
+.terminal-controls {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.terminal-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-sharp);
+  display: inline-block;
+}
+
+.terminal-dot.dot-red { background-color: var(--ctp-red); }
+.terminal-dot.dot-yellow { background-color: var(--ctp-yellow); }
+.terminal-dot.dot-green { background-color: var(--ctp-green); }
+
+.terminal-title {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--ctp-subtext0);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.terminal-body {
+  padding: 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+}
+
+/* Sharp Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.7rem 1.35rem;
+  border-radius: var(--radius-sharp);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  text-decoration: none;
+  border: 1px solid transparent;
+  user-select: none;
+}
+
+.btn-primary {
+  background-color: var(--ctp-blue);
+  color: var(--ctp-crust);
+  border-color: var(--ctp-blue);
+  box-shadow: 0 2px 10px rgba(137, 180, 250, 0.25);
+}
+
+.btn-primary:hover {
+  background-color: #a6c8ff;
+  border-color: #a6c8ff;
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-1px);
+  color: var(--ctp-crust);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background-color: var(--bg-surface-elevated);
+  color: var(--ctp-text);
+  border-color: var(--border-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--bg-surface-hover);
+  border-color: var(--ctp-blue);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--ctp-sapphire);
+  border-color: var(--border-color);
+}
+
+.btn-outline:hover {
+  border-color: var(--ctp-sapphire);
+  background-color: rgba(116, 199, 236, 0.08);
+  box-shadow: var(--shadow-glow-sapphire);
+  transform: translateY(-1px);
+}
+
+/* Sharp Tags & Badges - Multi-Color Pastel Syntax Standard */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.775rem;
+  font-weight: 500;
+  padding: 0.22rem 0.65rem;
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-color);
+  color: var(--ctp-subtext0);
+  border-radius: var(--radius-sm, 2px);
+  transition: all 0.15s ease;
+  line-height: 1.35;
+}
+
+.tag-blue {
+  border-color: rgba(137, 180, 250, 0.4);
+  color: var(--ctp-blue);
+  background-color: rgba(137, 180, 250, 0.08);
+}
+
+.tag-sapphire {
+  border-color: rgba(116, 199, 236, 0.45);
+  color: var(--ctp-sapphire);
+  background-color: rgba(116, 199, 236, 0.09);
+}
+
+.tag-sky {
+  border-color: rgba(137, 220, 235, 0.45);
+  color: var(--ctp-sky);
+  background-color: rgba(137, 220, 235, 0.09);
+}
+
+.tag-teal {
+  border-color: rgba(148, 226, 213, 0.45);
+  color: var(--ctp-teal);
+  background-color: rgba(148, 226, 213, 0.09);
+}
+
+.tag-green {
+  border-color: rgba(166, 227, 161, 0.45);
+  color: var(--ctp-green);
+  background-color: rgba(166, 227, 161, 0.09);
+}
+
+.tag-peach {
+  border-color: rgba(250, 179, 135, 0.45);
+  color: var(--ctp-peach);
+  background-color: rgba(250, 179, 135, 0.09);
+}
+
+.tag-yellow {
+  border-color: rgba(249, 226, 175, 0.45);
+  color: var(--ctp-yellow);
+  background-color: rgba(249, 226, 175, 0.09);
+}
+
+.tag-red {
+  border-color: rgba(243, 139, 168, 0.45);
+  color: var(--ctp-red);
+  background-color: rgba(243, 139, 168, 0.09);
+}
+
+.tag-pink {
+  border-color: rgba(245, 194, 231, 0.45);
+  color: var(--ctp-pink);
+  background-color: rgba(245, 194, 231, 0.09);
+}
+
+.tag-mauve {
+  border-color: rgba(203, 166, 247, 0.45);
+  color: var(--ctp-mauve);
+  background-color: rgba(203, 166, 247, 0.09);
+}
+
+.tag-lavender {
+  border-color: rgba(180, 190, 254, 0.45);
+  color: var(--ctp-lavender);
+  background-color: rgba(180, 190, 254, 0.09);
+}
+
+.tag-rosewater {
+  border-color: rgba(245, 224, 220, 0.45);
+  color: var(--ctp-rosewater);
+  background-color: rgba(245, 224, 220, 0.09);
+}
+
+.tag-flamingo {
+  border-color: rgba(242, 205, 205, 0.45);
+  color: var(--ctp-flamingo);
+  background-color: rgba(242, 205, 205, 0.09);
+}
+
+/* Status Indicator Dot */
+.status-beacon {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-sharp);
+  background-color: var(--ctp-green);
+  box-shadow: 0 0 10px rgba(166, 227, 161, 0.7);
+}
+
+/* Blinking Cursor Animation */
+.cursor-blink {
+  display: inline-block;
+  width: 8px;
+  height: 1.1em;
+  background-color: var(--ctp-sapphire);
+  vertical-align: middle;
+  margin-left: 3px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@media (max-width: 768px) {
+  .section-title { font-size: 1.5rem; }
+  .section-subtitle { font-size: 0.85rem; }
+  .container { padding: 0 1.25rem; }
+  /* Minimum 44px touch target standard on mobile */
+  .btn {
+    min-height: 44px;
+    padding: 0.65rem 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 0 1rem; }
+  .section-title { font-size: 1.35rem; }
+}

@@ -1,0 +1,276 @@
+/**
+ * @file src/styles/contact.css
+ * @description Stylesheet for the revamped Contact section using Catppuccin Mocha.
+ * Implements a prominent 4-column portrait vertical card grid for direct recruitment channels
+ * with rich micro-animations, action footers, and responsive viewport ergonomics.
+ */
+
+.contact-section {
+  min-height: calc(100vh - 64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 0;
+  position: relative;
+}
+
+.contact-section .container {
+  width: 100%;
+}
+
+/* 4-Card Horizontal Grid with Vertical Rectangle Cards */
+.contact-channels-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+/* Individual Portrait Vertical Channel Card */
+.contact-channel-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sharp);
+  padding: 2rem 1.65rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  position: relative;
+  text-align: left;
+  font-family: inherit;
+  outline: none;
+  min-height: 330px;
+}
+
+/* Smooth floating hover effect matching global standard */
+.contact-channel-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-floating);
+}
+
+/* Card Header: Channel Icon + Action Indicator */
+.contact-channel-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.contact-channel-icon-wrap {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-sm, 2px);
+  background-color: rgba(137, 180, 250, 0.1);
+  border: 1px solid rgba(137, 180, 250, 0.25);
+  color: var(--ctp-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.25s ease;
+}
+
+.contact-channel-card:hover .contact-channel-icon-wrap {
+  background-color: rgba(116, 199, 236, 0.2);
+  border-color: var(--ctp-sapphire);
+  color: var(--ctp-sapphire);
+  transform: scale(1.06);
+}
+
+.contact-channel-action-icon {
+  color: var(--ctp-subtext0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.contact-channel-card:hover .contact-channel-action-icon {
+  color: var(--ctp-blue);
+  transform: translate(2px, -2px);
+}
+
+/* Copied feedback state for 1-click email button */
+.contact-channel-action-icon.copied {
+  color: var(--ctp-green);
+  transform: scale(1.2);
+}
+
+/* Card Body */
+.contact-channel-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  flex: 1;
+}
+
+.contact-channel-tag {
+  font-family: var(--font-mono);
+  font-size: 0.725rem;
+  font-weight: 600;
+  color: var(--ctp-sapphire);
+  letter-spacing: 0.04em;
+  margin-bottom: 0.15rem;
+}
+
+.contact-channel-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ctp-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+}
+
+.contact-channel-subtitle {
+  font-size: 0.85rem;
+  color: var(--ctp-subtext0);
+  font-weight: 400;
+  line-height: 1.55;
+  margin: 0;
+  transition: color 0.2s ease;
+}
+
+.contact-channel-subtitle.copied-text {
+  color: var(--ctp-green);
+  font-weight: 600;
+}
+
+/* Card Footer with CTA prompt */
+.contact-channel-footer {
+  padding-top: 1.15rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.contact-channel-cta {
+  font-family: var(--font-mono);
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: var(--ctp-blue);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.contact-channel-card:hover .contact-channel-cta {
+  color: var(--ctp-sapphire);
+  transform: translateX(3px);
+}
+
+.contact-channel-cta.copied-text {
+  color: var(--ctp-green);
+}
+
+/* ==========================================================================
+   Channel Card Pastel Rainbow Accents
+   ========================================================================== */
+/* Card 1: Direct Email - Sky */
+.contact-channel-card:nth-child(1) {
+  border-top: 2px solid var(--ctp-sky);
+}
+.contact-channel-card:nth-child(1) .contact-channel-icon-wrap {
+  color: var(--ctp-sky);
+  background-color: rgba(137, 220, 235, 0.1);
+  border-color: rgba(137, 220, 235, 0.25);
+}
+.contact-channel-card:nth-child(1) .contact-channel-tag {
+  color: var(--ctp-sky);
+}
+.contact-channel-card:nth-child(1) .contact-channel-cta {
+  color: var(--ctp-sky);
+}
+
+/* Card 2: LinkedIn Profile - Sapphire */
+.contact-channel-card:nth-child(2) {
+  border-top: 2px solid var(--ctp-sapphire);
+}
+.contact-channel-card:nth-child(2) .contact-channel-icon-wrap {
+  color: var(--ctp-sapphire);
+  background-color: rgba(116, 199, 236, 0.1);
+  border-color: rgba(116, 199, 236, 0.25);
+}
+.contact-channel-card:nth-child(2) .contact-channel-tag {
+  color: var(--ctp-sapphire);
+}
+.contact-channel-card:nth-child(2) .contact-channel-cta {
+  color: var(--ctp-sapphire);
+}
+
+/* Card 3: GitHub Profile - Mauve */
+.contact-channel-card:nth-child(3) {
+  border-top: 2px solid var(--ctp-mauve);
+}
+.contact-channel-card:nth-child(3) .contact-channel-icon-wrap {
+  color: var(--ctp-mauve);
+  background-color: rgba(203, 166, 247, 0.1);
+  border-color: rgba(203, 166, 247, 0.25);
+}
+.contact-channel-card:nth-child(3) .contact-channel-tag {
+  color: var(--ctp-mauve);
+}
+.contact-channel-card:nth-child(3) .contact-channel-cta {
+  color: var(--ctp-mauve);
+}
+
+/* Card 4: Resume Download - Green */
+.contact-channel-card:nth-child(4) {
+  border-top: 2px solid var(--ctp-green);
+}
+.contact-channel-card:nth-child(4) .contact-channel-icon-wrap {
+  color: var(--ctp-green);
+  background-color: rgba(166, 227, 161, 0.1);
+  border-color: rgba(166, 227, 161, 0.25);
+}
+.contact-channel-card:nth-child(4) .contact-channel-tag {
+  color: var(--ctp-green);
+}
+.contact-channel-card:nth-child(4) .contact-channel-cta {
+  color: var(--ctp-green);
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1024px) {
+  .contact-section {
+    min-height: auto;
+    padding: 3rem 0;
+  }
+
+  .contact-channels-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-section {
+    padding: 2.5rem 0;
+  }
+
+  .contact-channels-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .contact-channel-card {
+    min-height: auto;
+    padding: 1.35rem 1.25rem;
+    gap: 1rem;
+  }
+
+  .contact-channel-title {
+    font-size: 1.05rem;
+    word-break: break-all;
+  }
+
+  .contact-channel-subtitle {
+    font-size: 0.8rem;
+  }
+}

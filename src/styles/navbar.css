@@ -1,0 +1,272 @@
+/**
+ * @file src/styles/navbar.css
+ * @description Stylesheet for the top navigation header bar using Catppuccin Mocha colors.
+ * Implements clean branding, active section indicator, status beacon, and responsive drawer.
+ */
+
+.navbar-container {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--ctp-mantle);
+  border-bottom: 1px solid var(--border-color);
+  width: 100%;
+}
+
+.navbar-container::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--gradient-rainbow-pastel);
+  opacity: 0.7;
+}
+
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.nav-brand {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+}
+
+.nav-brand-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ctp-text);
+  letter-spacing: -0.01em;
+}
+
+.nav-brand-subtitle {
+  font-size: 0.75rem;
+  color: var(--ctp-subtext0);
+  font-weight: 400;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  list-style: none;
+}
+
+.nav-link-item a {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ctp-subtext0);
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--radius-sharp);
+  transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+  border-bottom: 2px solid transparent;
+}
+
+.nav-link-item a:hover {
+  color: #ffffff;
+  background-color: var(--ctp-surface0);
+}
+
+/* Active Nav Links matching each section's primary pastel color */
+.nav-link-item a.active {
+  font-weight: 600;
+}
+
+.nav-link-item a.active.nav-active-hero {
+  color: var(--ctp-mauve);
+  background-color: rgba(203, 166, 247, 0.1);
+  border-bottom: 2px solid var(--ctp-mauve);
+}
+
+.nav-link-item a.active.nav-active-experience {
+  color: var(--ctp-green);
+  background-color: rgba(166, 227, 161, 0.1);
+  border-bottom: 2px solid var(--ctp-green);
+}
+
+.nav-link-item a.active.nav-active-projects {
+  color: var(--ctp-peach);
+  background-color: rgba(250, 179, 135, 0.1);
+  border-bottom: 2px solid var(--ctp-peach);
+}
+
+.nav-link-item a.active.nav-active-skills {
+  color: var(--ctp-sapphire);
+  background-color: rgba(116, 199, 236, 0.1);
+  border-bottom: 2px solid var(--ctp-sapphire);
+}
+
+.nav-link-item a.active.nav-active-certifications {
+  color: var(--ctp-yellow);
+  background-color: rgba(249, 226, 175, 0.1);
+  border-bottom: 2px solid var(--ctp-yellow);
+}
+
+.nav-link-item a.active.nav-active-contact {
+  color: var(--ctp-lavender);
+  background-color: rgba(180, 190, 254, 0.1);
+  border-bottom: 2px solid var(--ctp-lavender);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.775rem;
+  font-weight: 500;
+  color: var(--ctp-green);
+  background-color: rgba(166, 227, 161, 0.1);
+  border: 1px solid rgba(166, 227, 161, 0.25);
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-sharp);
+}
+
+.mobile-toggle-btn {
+  display: none;
+  background: var(--ctp-surface0);
+  border: 1px solid var(--border-color);
+  color: var(--ctp-text);
+  padding: 0.55rem;
+  min-width: 44px;
+  min-height: 44px;
+  cursor: pointer;
+  border-radius: var(--radius-sharp);
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.mobile-toggle-btn:hover {
+  background: var(--ctp-surface1);
+  border-color: var(--ctp-sapphire);
+  color: #ffffff;
+}
+
+/* Full-width mobile navigation drawer with backdrop blur */
+.mobile-menu {
+  display: none;
+  background-color: rgba(24, 24, 37, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 1.25rem 1.5rem 1.5rem;
+  box-shadow: var(--shadow-md);
+  animation: mobileMenuSlideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes mobileMenuSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mobile-menu-open {
+  display: block;
+}
+
+.mobile-nav-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.mobile-nav-links .nav-link-item a {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ctp-subtext0);
+  border-radius: var(--radius-sharp);
+  border-left: 3px solid transparent;
+  border-bottom: none;
+  transition: all 0.2s ease;
+}
+
+.mobile-nav-links .nav-link-item a:hover {
+  background-color: var(--ctp-surface0);
+  color: #ffffff;
+}
+
+/* Active Section Theming for Mobile Drawer */
+.mobile-nav-links .nav-link-item a.active {
+  font-weight: 700;
+}
+
+.mobile-nav-links .nav-link-item a.active.nav-active-hero {
+  color: var(--ctp-mauve);
+  background-color: rgba(203, 166, 247, 0.12);
+  border-left-color: var(--ctp-mauve);
+}
+
+.mobile-nav-links .nav-link-item a.active.nav-active-experience {
+  color: var(--ctp-green);
+  background-color: rgba(166, 227, 161, 0.12);
+  border-left-color: var(--ctp-green);
+}
+
+.mobile-nav-links .nav-link-item a.active.nav-active-projects {
+  color: var(--ctp-peach);
+  background-color: rgba(250, 179, 135, 0.12);
+  border-left-color: var(--ctp-peach);
+}
+
+.mobile-nav-links .nav-link-item a.active.nav-active-skills {
+  color: var(--ctp-sapphire);
+  background-color: rgba(116, 199, 236, 0.12);
+  border-left-color: var(--ctp-sapphire);
+}
+
+.mobile-nav-links .nav-link-item a.active.nav-active-certifications {
+  color: var(--ctp-yellow);
+  background-color: rgba(249, 226, 175, 0.12);
+  border-left-color: var(--ctp-yellow);
+}
+
+.mobile-nav-links .nav-link-item a.active.nav-active-contact {
+  color: var(--ctp-lavender);
+  background-color: rgba(180, 190, 254, 0.12);
+  border-left-color: var(--ctp-lavender);
+}
+
+.mobile-menu-cta {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.mobile-menu-cta .btn {
+  width: 100%;
+  min-height: 44px;
+}
+
+@media (max-width: 960px) {
+  .nav-links,
+  .status-badge,
+  .nav-desktop-cta {
+    display: none;
+  }
+
+  .mobile-toggle-btn {
+    display: flex;
+  }
+}

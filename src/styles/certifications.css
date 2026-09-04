@@ -1,0 +1,182 @@
+/**
+ * @file src/styles/certifications.css
+ * @description Stylesheet for the Certifications & Accreditations section.
+ * Implements viewport-centered Catppuccin Mocha cards with credential ID boxes, issuer tags,
+ * and direct verification action buttons with generous vertical scale and breathing room.
+ */
+
+.certifications-section {
+  min-height: calc(100vh - 64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 0;
+  position: relative;
+}
+
+.certifications-section .container {
+  width: 100%;
+}
+
+.certifications-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+/* Sharp high-contrast certificate card with generous portrait proportions */
+.cert-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-top: 2px solid rgba(249, 226, 175, 0.45);
+  border-radius: var(--radius-sharp);
+  padding: 1.85rem 1.65rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.15rem;
+  min-height: 380px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cert-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.25rem;
+}
+
+.cert-issuer-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ctp-yellow);
+  margin-bottom: 0.45rem;
+}
+
+.cert-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--ctp-text);
+  line-height: 1.35;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.cert-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sharp);
+  background-color: var(--ctp-surface0);
+  border: 1px solid var(--border-color);
+  color: var(--ctp-yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.cert-card:hover .cert-icon-wrap {
+  border-color: var(--ctp-peach);
+  color: var(--ctp-peach);
+  background-color: rgba(250, 179, 135, 0.12);
+}
+
+.cert-desc {
+  font-size: 0.9rem;
+  color: var(--ctp-subtext0);
+  line-height: 1.65;
+  margin: 0;
+  flex: 1;
+}
+
+/* Credential ID display box */
+.cert-credential-box {
+  background-color: var(--ctp-crust);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sharp);
+  padding: 0.65rem 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.825rem;
+}
+
+.credential-label {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--ctp-subtext0);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+}
+
+.credential-value {
+  font-family: var(--font-mono);
+  color: var(--ctp-sky);
+  font-weight: 600;
+  word-break: break-all;
+}
+
+/* Action row for verification button */
+.cert-action-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  margin-top: auto;
+}
+
+.cert-verify-btn {
+  padding: 0.6rem 1.25rem;
+  font-size: 0.85rem;
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+}
+
+@media (max-width: 1080px) {
+  .certifications-section {
+    min-height: auto;
+    padding: 3rem 0;
+  }
+
+  .certifications-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
+  .certifications-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .cert-card {
+    padding: 1.35rem 1.25rem;
+    min-height: auto;
+    gap: 1rem;
+  }
+
+  .cert-title {
+    font-size: 1.1rem;
+  }
+
+  .cert-desc {
+    font-size: 0.85rem;
+    line-height: 1.55;
+  }
+
+  .cert-verify-btn {
+    min-height: 44px;
+    font-size: 0.825rem;
+  }
+}

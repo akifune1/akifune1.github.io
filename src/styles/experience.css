@@ -1,0 +1,218 @@
+/**
+ * @file src/styles/experience.css
+ * @description Stylesheet for the career and education timeline section using Catppuccin Mocha.
+ * Adapts the sharp card architecture from the Philosophy section for chronological milestone cards with compact viewport ergonomics.
+ */
+
+.experience-section {
+  padding: 1.5rem 0 2.5rem 0;
+}
+
+.timeline-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-left: 2rem;
+}
+
+/* Timeline spine line */
+.timeline-container::before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  left: 7px;
+  width: 2px;
+  background-color: var(--border-color);
+}
+
+.timeline-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sharp Git commit node */
+.timeline-node {
+  position: absolute;
+  top: 18px;
+  left: -2rem;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--ctp-green);
+  background-color: var(--bg-canvas);
+  border-radius: var(--radius-sharp);
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+.timeline-item:hover .timeline-node {
+  background-color: var(--ctp-teal);
+  border-color: var(--ctp-teal);
+  transform: scale(1.15);
+  box-shadow: 0 0 12px rgba(148, 226, 213, 0.45);
+}
+
+/* Individual Milestone Card (Philosophy Architecture) */
+.timeline-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-top: 2px solid rgba(166, 227, 161, 0.45);
+  border-radius: var(--radius-sharp);
+  padding: 1.25rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  overflow: hidden;
+}
+
+/* Smooth floating hover effect matching global standard */
+.timeline-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-floating);
+}
+
+.timeline-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.timeline-role-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--ctp-text);
+  margin-bottom: 0.15rem;
+}
+
+.timeline-company-subtitle {
+  font-size: 0.825rem;
+  color: var(--section-accent, var(--ctp-peach));
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.timeline-period-badge {
+  font-family: var(--font-mono);
+  font-size: 0.725rem;
+  font-weight: 600;
+  color: var(--ctp-text);
+  background-color: var(--ctp-surface0);
+  border: 1px solid var(--border-color);
+  padding: 0.25rem 0.55rem;
+  border-radius: var(--radius-sharp);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+.timeline-description {
+  color: var(--ctp-subtext0);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.timeline-achievements-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding-top: 0.15rem;
+}
+
+.timeline-achievement-item {
+  font-size: 0.825rem;
+  color: var(--ctp-subtext1);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  line-height: 1.45;
+}
+
+.achievement-bullet {
+  color: var(--ctp-sapphire);
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+.timeline-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.timeline-monotag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.725rem;
+  font-weight: 600;
+  color: var(--section-accent, var(--ctp-peach));
+  background-color: var(--section-accent-bg, rgba(250, 179, 135, 0.1));
+  border: 1px solid var(--section-accent-border, rgba(250, 179, 135, 0.25));
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-sharp);
+}
+
+.timeline-standard-label {
+  font-family: var(--font-mono);
+  font-size: 0.725rem;
+  font-weight: 600;
+  color: var(--ctp-subtext0);
+}
+
+@media (max-width: 768px) {
+  .timeline-container { padding-left: 1.5rem; }
+  .timeline-node { left: -1.5rem; }
+}
+
+@media (max-width: 600px) {
+  .timeline-container { 
+    padding-left: 1.25rem;
+    gap: 1rem;
+  }
+  
+  .timeline-container::before {
+    left: 6px;
+  }
+
+  .timeline-node { 
+    left: -1.25rem; 
+    width: 14px; 
+    height: 14px;
+    top: 16px;
+  }
+
+  .timeline-card {
+    padding: 1rem 1.15rem;
+    gap: 0.65rem;
+  }
+
+  .timeline-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.45rem;
+  }
+
+  .timeline-period-badge {
+    align-self: flex-start;
+  }
+
+  .timeline-role-title {
+    font-size: 1.05rem;
+  }
+
+  .timeline-card-footer {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}

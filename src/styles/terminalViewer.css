@@ -1,0 +1,148 @@
+/**
+ * @file src/styles/terminalViewer.css
+ * @description Stylesheet for the interactive TerminalViewer code sandbox using Catppuccin Mocha.
+ * Implements sharp tabs, line-numbered code viewer, copy-to-clipboard actions, and syntax colors.
+ */
+
+.inspector-section {
+  padding: 4.5rem 0;
+}
+
+.inspector-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.inspector-tabs-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+}
+
+.inspector-tab {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--ctp-subtext0);
+  font-family: var(--font-mono);
+  font-size: 0.825rem;
+  padding: 0.55rem 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-sharp);
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.inspector-tab:hover {
+  background-color: var(--ctp-surface0);
+  border-color: var(--border-color-hover);
+  color: #ffffff;
+}
+
+.inspector-tab.active {
+  background-color: var(--ctp-surface0);
+  border-color: var(--ctp-sapphire);
+  color: var(--ctp-sapphire);
+  font-weight: 600;
+  box-shadow: 0 0 10px rgba(116, 199, 236, 0.15);
+}
+
+.inspector-command-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--ctp-mantle);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.65rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.825rem;
+}
+
+.active-command-string {
+  color: var(--ctp-sapphire);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.copy-button {
+  background-color: var(--ctp-surface0);
+  border: 1px solid var(--border-color);
+  color: var(--ctp-subtext0);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 0.3rem 0.75rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: var(--radius-sharp);
+  transition: all 0.15s ease;
+}
+
+.copy-button:hover {
+  color: #ffffff;
+  border-color: var(--ctp-blue);
+  background-color: var(--bg-surface-hover);
+}
+
+.copy-button.copied {
+  border-color: var(--ctp-green);
+  color: var(--ctp-green);
+}
+
+/* Code area with line numbers */
+.code-inspector-body {
+  padding: 1.5rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.75;
+  overflow-x: auto;
+  max-height: 480px;
+  background-color: var(--bg-card);
+}
+
+.code-line {
+  display: flex;
+  align-items: flex-start;
+  padding: 0 0.5rem;
+  transition: background-color 0.1s ease;
+}
+
+.code-line:hover {
+  background-color: rgba(137, 180, 250, 0.06);
+}
+
+.line-number {
+  min-width: 2.5rem;
+  text-align: right;
+  padding-right: 1.25rem;
+  color: var(--ctp-overlay0);
+  user-select: none;
+  font-size: 0.8rem;
+}
+
+.line-content {
+  flex: 1;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* Syntax Highlighting */
+.line-comment { color: var(--ctp-overlay1); font-style: italic; }
+.line-keyword { color: var(--ctp-blue); font-weight: 600; }
+.line-string { color: var(--ctp-green); }
+.line-property { color: var(--ctp-sapphire); font-weight: 500; }
+.line-cmd { color: var(--ctp-green); }
+.line-output { color: var(--ctp-text); }
+.line-output-accent { color: var(--ctp-sapphire); font-weight: 600; }
+.line-output-cyan { color: var(--ctp-sky); font-weight: 600; }
+.line-output-green { color: var(--ctp-green); font-weight: 600; }
+.line-syntax { color: var(--ctp-subtext0); }
+.line-plain { color: var(--ctp-text); }

@@ -1,0 +1,92 @@
+/**
+ * @file src/styles/footer.css
+ * @description Stylesheet for the website footer using Catppuccin Mocha colors.
+ * Implements clean branding, copyright notice, and back-to-top action button.
+ */
+
+.footer-container {
+  position: relative;
+  background-color: var(--ctp-mantle);
+  border-top: 1px solid var(--border-color);
+  padding: 2.25rem 0;
+  color: var(--ctp-subtext0);
+  font-size: 0.85rem;
+}
+
+.footer-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--gradient-rainbow-pastel);
+  opacity: 0.6;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.footer-brand-title {
+  font-weight: 700;
+  color: var(--ctp-text);
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.back-to-top-btn {
+  background-color: var(--ctp-surface0);
+  border: 1px solid var(--border-color);
+  color: var(--ctp-text);
+  font-size: 0.825rem;
+  font-weight: 500;
+  padding: 0.45rem 0.95rem;
+  cursor: pointer;
+  border-radius: var(--radius-sharp);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: all 0.15s ease;
+}
+
+.back-to-top-btn:hover {
+  background-color: var(--bg-surface-hover);
+  border-color: var(--ctp-sapphire);
+  color: var(--ctp-sapphire);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer-container {
+    padding: 1.75rem 0;
+  }
+
+  .footer-right {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .back-to-top-btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 44px;
+  }
+}

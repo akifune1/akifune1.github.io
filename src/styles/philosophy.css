@@ -1,0 +1,125 @@
+/**
+ * @file src/styles/philosophy.css
+ * @description Stylesheet for the Design & Engineering Philosophy section.
+ * Directly implements the sharp, high-contrast Catppuccin Mocha cards matching the design reference,
+ * featuring top-right icon containers, Sapphire subtitles, monospaced check badges, and "Core Standard" metadata.
+ */
+
+.philosophy-section {
+  padding: 1.5rem 0 2rem 0;
+  position: relative;
+}
+
+.philosophy-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+/* Sharp high-contrast philosophy card */
+.philosophy-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sharp);
+  padding: 1.1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.65rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.philosophy-card:hover {
+  border-color: var(--ctp-blue);
+  background-color: var(--bg-surface-hover);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-glow);
+}
+
+.philosophy-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.philosophy-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ctp-text);
+  margin-bottom: 0.15rem;
+  letter-spacing: -0.01em;
+}
+
+.philosophy-tagline {
+  font-size: 0.775rem;
+  color: var(--section-accent, var(--ctp-sapphire));
+  font-weight: 500;
+}
+
+/* Top-right Icon Container Box */
+.philosophy-icon-wrap {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sharp);
+  background-color: var(--ctp-surface0);
+  border: 1px solid var(--border-color);
+  color: var(--ctp-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.philosophy-card:hover .philosophy-icon-wrap {
+  border-color: var(--ctp-sapphire);
+  color: var(--ctp-sapphire);
+  background-color: rgba(116, 199, 236, 0.1);
+}
+
+.philosophy-desc {
+  font-size: 0.825rem;
+  color: var(--ctp-subtext0);
+  line-height: 1.5;
+  flex: 1;
+}
+
+/* Bottom Highlight Row with Monospaced Tag and Metadata */
+.philosophy-footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.philosophy-monotag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--section-accent, var(--ctp-sapphire));
+  background-color: var(--section-accent-bg, rgba(116, 199, 236, 0.1));
+  border: 1px solid var(--section-accent-border, rgba(116, 199, 236, 0.25));
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sharp);
+}
+
+.philosophy-standard-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--ctp-subtext0);
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 900px) {
+  .philosophy-grid {
+    grid-template-columns: 1fr;
+  }
+}
