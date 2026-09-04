@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-09-04 17:37] - Added Project .gitignore with Standard and AI Exclusion Rules
+- **Repository Cleanliness & Security**:
+  - Created `.gitignore` encompassing standard Node.js, dependencies (`node_modules/`), build outputs (`dist/`, `build/`), logs, environment variables (`.env*`), and OS/IDE metadata.
+  - Added exclusion rules for AI-generated assistant files, rule sets, specifications, and scratch plans (`specs/`, `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `.agents/`, `.gemini/`, `.claude/`, `.cursor/`, `.windsurf/`, `*.prompt.md`).
+- **Files Touched**:
+  - `.gitignore`
+
+## [2026-09-04 17:35] - Automated GitHub Pages Vite Deployment Workflow
+- **Automated Production Build & Deployment**:
+  - Created `.github/workflows/deploy.yml` configured to trigger on push to `main` and manual dispatch.
+  - Automatically runs `npm ci`, compiles production assets via `npm run build`, and deploys `./dist` to the GitHub Pages environment using `actions/upload-pages-artifact@v3` and `actions/deploy-pages@v5`.
+- **Files Touched**:
+  - `.github/workflows/deploy.yml`
+
 ## [2026-09-04 17:21] - Real PDF CV Download & GitHub Pages Hosting Base Configuration
 - **GitHub Pages Relative Base Path**:
   - Configured `base: './'` in `vite.config.js` to ensure all asset bundles and public resources resolve correctly when hosted at `https://akifune1.github.io/` or repository sub-paths.

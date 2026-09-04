@@ -1,0 +1,57 @@
+# Workflow: Automated GitHub Pages Deployment for Vite SPA
+# Purpose: Automatically builds Vite production bundle and deploys dist/ to GitHub Pages
+# Trigger: Push to main branch or manual workflow_dispatch in GitHub Actions tab
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: ['main']
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: 'pages'
+  cancel-in-progress: false
+
+jobs:
+  # Single deploy job since Vite build and Pages upload happen sequentially
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js runtime
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Clean install dependencies
+        run: npm ci
+
+      - name: Build production bundle with Vite
+        run: npm run build
+
+      - name: Configure GitHub Pages metadata
+        uses: actions/configure-pages@v5
+
+      - name: Package and upload Pages artifact from dist
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+
+      - name: Deploy to GitHub Pages environment
+        id: deployment
+        uses: actions/deploy-pages@v5

@@ -1,0 +1,65 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependency directories
+node_modules/
+jspm_packages/
+.pnp
+.pnp.js
+
+# Build and distribution outputs
+dist/
+dist-ssr/
+build/
+*.local
+
+# Environment variables & local configuration
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+
+# Editor directories and caches
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+[Dd]esktop.ini
+
+# Vite & bundler cache
+.vite/
+
+# AI generated files, instructions, specs, and tooling
+.agents/
+.gemini/
+.claude/
+.cursor/
+.windsurf/
+.copilot/
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+specs/
+implementation_plan.md
+walkthrough.md
+*.prompt.md
