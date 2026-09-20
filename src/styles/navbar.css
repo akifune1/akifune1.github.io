@@ -5,10 +5,14 @@
  */
 
 .navbar-container {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 100;
-  background-color: var(--ctp-mantle);
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: rgba(24, 24, 37, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-color);
   width: 100%;
 }
@@ -268,5 +272,13 @@
 
   .mobile-toggle-btn {
     display: flex;
+  }
+}
+
+@media (max-width: 768px) {
+  /* On mobile under 768px, navigation is handled exclusively by the ergonomic floating bottom dock */
+  .mobile-toggle-btn,
+  .mobile-menu {
+    display: none !important;
   }
 }

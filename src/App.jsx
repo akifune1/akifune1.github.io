@@ -16,6 +16,7 @@ import Skills from './components/Skills';
 import Certifications from './components/Certifications';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import MobileBottomNav from './components/MobileBottomNav';
 import { useScrollReveal } from './hooks/useScrollReveal';
 
 /**
@@ -45,6 +46,10 @@ export default function App() {
 
       {/* Bottom Statusline Footer */}
       <Footer />
+
+      {/* Floating Thumb-Zone Navigation Dock for Mobile (<768px) */}
+      <MobileBottomNav />
     </div>
   );
 }
+

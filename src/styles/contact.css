@@ -8,15 +8,19 @@
 .contact-section {
   min-height: calc(100vh - 64px);
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
+  box-sizing: border-box;
   padding: 2.5rem 0;
   position: relative;
+  scroll-margin-top: 64px;
 }
 
 .contact-section .container {
   width: 100%;
 }
+
+
 
 /* 4-Card Horizontal Grid with Vertical Rectangle Cards */
 .contact-channels-grid {
@@ -30,21 +34,23 @@
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sharp);
-  padding: 2rem 1.65rem;
+  padding: 1.65rem 1.45rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 1.5rem;
+  gap: 1.15rem;
   text-decoration: none;
   color: inherit;
   cursor: pointer;
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5), 0 2px 6px -1px rgba(0, 0, 0, 0.35);
   transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.35s cubic-bezier(0.25, 1, 0.5, 1);
   position: relative;
   text-align: left;
   font-family: inherit;
   outline: none;
-  min-height: 330px;
+  min-height: 290px;
 }
+
 
 /* Smooth floating hover effect matching global standard */
 .contact-channel-card:hover {
@@ -249,28 +255,47 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .contact-section {
-    padding: 2.5rem 0;
+    min-height: auto;
+    /* Generous bottom clearance ensuring floating dock never occludes contact cards */
+    padding: 2.5rem 0 calc(5rem + env(safe-area-inset-bottom, 0px)) 0;
   }
 
   .contact-channels-grid {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 1.15rem;
   }
 
   .contact-channel-card {
     min-height: auto;
-    padding: 1.35rem 1.25rem;
-    gap: 1rem;
+    padding: 1.45rem 1.35rem;
+    gap: 1.15rem;
+    border-radius: 16px;
+    background: rgba(30, 30, 46, 0.72);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(205, 214, 244, 0.08);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+  }
+
+  .contact-channel-card:active {
+    transform: scale(0.98);
   }
 
   .contact-channel-title {
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     word-break: break-all;
   }
 
   .contact-channel-subtitle {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-channel-card {
+    padding: 1.25rem 1.15rem;
   }
 }

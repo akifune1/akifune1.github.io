@@ -35,17 +35,24 @@ export default function Navbar() {
 
   /**
    * Track scroll position to update active navigation item.
+   * Checks from bottom to top and handles near-page-bottom detection for the Contact section.
    */
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 100;
-      
-      for (const item of navItems) {
+      // If user has scrolled near the bottom of the page, activate the final section ('contact')
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60) {
+        setActiveSection('contact');
+        return;
+      }
+
+      // Check sections from bottom to top against the focal threshold (navbar 64px + 100px)
+      const scrollPosition = window.scrollY + 164;
+      for (let i = navItems.length - 1; i >= 0; i--) {
+        const item = navItems[i];
         const element = document.getElementById(item.id);
         if (element) {
           const top = element.offsetTop;
-          const height = element.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
+          if (scrollPosition >= top) {
             setActiveSection(item.id);
             break;
           }
@@ -92,8 +99,9 @@ export default function Navbar() {
   }, []);
 
   /**
-   * Smoothly scrolls to target section with manual navbar offset.
-   * Immediately activates the clicked section's color theme in the navbar.
+   * Smoothly scrolls to target section with precise 64px fixed navbar offset.
+   * Flawlessly focuses sections (Certifications, Contact, Skills, Projects) configured with
+   * min-height: calc(100vh - 64px) into the center of the available viewport.
    *
    * @param {string} id - Target DOM ID.
    */
@@ -102,11 +110,21 @@ export default function Navbar() {
     setMobileMenuOpen(false);
     const element = document.getElementById(id);
     if (element) {
-      const navbarOffset = 72;
+      const navbarOffset = 64; // Exact height of fixed navbar
       const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
-      window.scrollTo({ top: elementTop - navbarOffset, behavior: 'smooth' });
+
+      // Align the top of the selected section flush with the bottom edge of the 64px fixed navbar.
+      // Viewport-isolated sections are naturally flex-centered inside the remaining screen area.
+      const targetScrollTop = Math.max(0, Math.round(elementTop - navbarOffset));
+
+      window.scrollTo({
+        top: targetScrollTop,
+        behavior: 'smooth',
+      });
     }
   };
+
+
 
   return (
     <header className="navbar-container" ref={navRef}>

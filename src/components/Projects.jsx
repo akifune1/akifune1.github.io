@@ -1,18 +1,20 @@
 /**
  * @file src/components/Projects.jsx
  * @description Featured projects showcase section presenting engineering case studies.
- * Imports projectsData from portfolioData.js and renders responsive ProjectCard components.
+ * Imports projectsData from portfolioData.js and renders responsive ProjectCard components
+ * in a smooth horizontal carousel with flanking controls and edge depth effects.
  * Displayed as section #projects in App.jsx.
  */
 
 import React from 'react';
 import { projectsData } from '../data/portfolioData';
 import ProjectCard from './ProjectCard';
+import Carousel from './Carousel';
 import '../styles/projects.css';
 
 /**
  * Projects Component
- * Renders the featured project case studies in a clean responsive grid without filter button clutter.
+ * Renders the featured project case studies in an interactive horizontal carousel.
  *
  * @returns {JSX.Element} The rendered Projects section.
  */
@@ -30,13 +32,23 @@ export default function Projects() {
           </p>
         </div>
 
-        {/* Projects Grid: Directly maps all case studies without buggy filter tab clutter */}
-        <div className="projects-grid">
+        {/* Desktop Carousel: Horizontal scroll-snap track with flanking controls & depth shadows */}
+        <div className="projects-desktop-carousel">
+          <Carousel ariaLabel="Featured Projects & Case Studies" className="projects-carousel">
+            {projectsData.map((project) => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+          </Carousel>
+        </div>
+
+        {/* Mobile Stream: Apple iOS Inset Grouped Vertical Case Studies (<768px) */}
+        <div className="projects-mobile-stream" aria-label="Featured Projects List">
           {projectsData.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+            <ProjectCard key={`mobile-${project.id}`} project={project} />
           ))}
         </div>
       </div>
     </section>
   );
 }
+

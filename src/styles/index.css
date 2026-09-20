@@ -90,9 +90,14 @@
 html {
   scroll-behavior: smooth;
   color-scheme: dark;
-  /* Offset all anchor scroll targets by the sticky navbar height (64px) + 4px breathing room
+  overflow-x: hidden;
+  /* Offset all anchor scroll targets by the fixed navbar height (64px)
      so clicking a nav link lands with the section header perfectly framed below the bar */
-  scroll-padding-top: 68px;
+  scroll-padding-top: 64px;
+}
+
+#main-content {
+  padding-top: 64px;
 }
 
 body {
@@ -577,6 +582,6 @@ a:hover {
 }
 
 @media (max-width: 480px) {
-  .container { padding: 0 1rem; }
+  .container { padding: 0 1.25rem; }
   .section-title { font-size: 1.35rem; }
 }

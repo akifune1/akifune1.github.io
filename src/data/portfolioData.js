@@ -98,33 +98,36 @@ export const certificationsData = [
     credentialId: "1VRX3BGDO6H8",
     verifyUrl: "https://www.coursera.org/account/accomplishments/specialization/1VRX3BGDO6H8",
     badge: "Professional Certificate",
+    badgeImage: "google-cybersecurity.png",
     icon: "Award",
     description: "Comprehensive training in network security, threat analysis, Linux administration, Python automation, and SIEM tools (Suricata, Splunk).",
     monoTag: "[ GOOGLE_VERIFIED ]"
   },
   {
-    id: "certified-ethical-hacking",
-    title: "Certified Ethical Hacking (v12)",
-    issuer: "LearnKartS",
-    issueDate: "October 2025",
-    credentialId: "KMT5JGSHYI20",
-    verifyUrl: "https://www.coursera.org/account/accomplishments/specialization/KMT5JGSHYI20",
-    badge: "Penetration Testing",
+    id: "ibm-cybersecurity",
+    title: "IBM SkillsBuild Cybersecurity Certificate",
+    issuer: "IBM",
+    issueDate: "September 2026",
+    credentialId: "8c04a2d8-dd91-4060-9339-4516f8604a54",
+    verifyUrl: "https://www.credly.com/badges/8c04a2d8-dd91-4060-9339-4516f8604a54",
+    badge: "Cybersecurity Certificate",
+    badgeImage: "ibm-cybersecurity.png",
     icon: "ShieldCheck",
-    description: "In-depth penetration testing, reconnaissance, vulnerability scanning, system exploitation, and network countermeasures.",
-    monoTag: "[ CEH_V12 ]"
+    description: "Security posture evaluation, vulnerability assessment, network architecture, cloud infrastructure defense, incident response, and SIEM logging operations.",
+    monoTag: "[ IBM_VERIFIED ]"
   },
   {
-    id: "hp-life-cybersecurity",
-    title: "Introduction to Cybersecurity Awareness",
-    issuer: "HP LIFE",
-    issueDate: "March 2026",
-    credentialId: "30ff0262-6775-4d76-896c-c81b956f5dc3",
-    verifyUrl: "https://www.life-global.org/certificate/30ff0262-6775-4d76-896c-c81b956f5dc3",
-    badge: "Security Awareness",
-    icon: "Lock",
-    description: "Foundational cyber defense, organizational data protection, safe digital operations, and social engineering mitigation.",
-    monoTag: "[ HP_LIFE ]"
+    id: "oracle-oci",
+    title: "Oracle Cloud Infrastructure Certified Foundations Associate",
+    issuer: "Oracle",
+    issueDate: "September 2026",
+    credentialId: "331624516OCI26FNDCFA",
+    verifyUrl: "https://catalog-education.oracle.com/pls/certview/sharebadge?id=E66EEC27533E5A6E06BC95E93DBACFDF8031637DAD82D9078C5024CEFF15AD6E",
+    badge: "Cloud Certification",
+    badgeImage: "oci-cloud.png",
+    icon: "Cloud",
+    description: "Foundational mastery of public cloud architecture, Oracle Cloud Infrastructure (OCI) compute, networking, autonomous databases, identity access management, and cloud security.",
+    monoTag: "[ ORACLE_OCI ]"
   }
 ];
 

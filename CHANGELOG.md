@@ -2,7 +2,199 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-09-20 13:06] - Glow Removal, Oracle OCI Image Resolution, Persistent Fixed Navbar & Section Focal Centering
+
+- **Glow & Halo Effect Removal (`certifications.css`)**:
+  - Eliminated artificial ambient glow pseudo-elements (`.cert-badge-banner::before`), radial highlight flares, and hover halos per the anti-clutter standard.
+  - Succeeded with a clean, sleek, matte dark showcase stage (`var(--ctp-crust)`) with crisp 1px boundary and natural drop shadows on the 155px badge artwork.
+- **Oracle `oci-cloud.png` Error State Resolution (`Certifications.jsx`)**:
+  - Diagnosed image fallback trigger caused by Vite HMR preserving stale `imgErrors["oracle-oci"]` boolean from the previous 404.
+  - Re-architected `imgErrors` tracking to key dynamically on `cert.badgeImage` and attached a matching `key` attribute, instantly clearing stale error states and rendering `oci-cloud.png` cleanly.
+- **Persistent Fixed Navbar (`navbar.css` & `index.css`)**:
+  - Upgraded `.navbar-container` from `position: sticky` to `position: fixed; top: 0; left: 0; right: 0; z-index: 1000;` with frosted glass backdrop blur (`backdrop-filter: blur(16px)`).
+  - Added `#main-content { padding-top: 64px; }` and aligned `scroll-padding-top: 64px;`, guaranteeing the top navbar remains 100% visible at all times across all scroll positions and devices without depending on parent overflow behavior.
+- **Flawless Section Focal Centering (`Navbar.jsx`, `contact.css`, `certifications.css`, `projects.css`, `skills.css`)**:
+  - Standardized section geometry to `min-height: calc(100vh - 64px)` and `scroll-margin-top: 64px`.
+  - Calibrated `handleNavClick` scroll target to `Math.max(0, Math.round(elementTop - 64))`, seamlessly framing clicked sections (Certifications, Contact, Skills, Projects) in the center of the available viewport without adjacent section bleed or footer intrusion.
+  - Enhanced scroll spy with reverse iteration and page-bottom threshold detection to cleanly activate the Contact channel.
+- **Files Touched**:
+  - `src/components/Certifications.jsx`
+  - `src/styles/certifications.css`
+  - `src/components/Navbar.jsx`
+  - `src/styles/navbar.css`
+  - `src/styles/index.css`
+  - `src/styles/contact.css`
+  - `src/styles/projects.css`
+  - `src/styles/skills.css`
+  - `src/components/MobileBottomNav.jsx`
+
+## [2026-09-20 12:59] - Hero Digital Badge Centerpiece & Oracle Asset Fix: Atmospheric Pedestal & High-Res Focal Point
+
+- Spec: specs/certifications-badge-update.md
+- **Hero Digital Badge Stage Overhaul (`certifications.css`)**:
+  - Re-architected `.cert-badge-banner` into an illuminated 220px centerpiece hero stage (`padding: 2.25rem 1.5rem`) with radial backdrop spotlighting (`radial-gradient(circle, rgba(249, 226, 175, 0.09) 0%, rgba(17, 17, 27, 0.85) 75%)`).
+  - Scaled digital badges up from small 84px thumbnails to high-resolution 155px hero assets with layered 3D depth shadows (`filter: drop-shadow(...)`).
+  - Implemented dynamic hover float elevation (`transform: translateY(-8px) scale(1.08)`) with an expanding ambient aura ring.
+  - Centered card header typography (issuer, issue date, credential title, and description) to establish a unified vertical trophy axis that draws the eye directly to the badge.
+  - Sized mobile showcase stage to 185px with 135px badge height for immediate visual punch on touch devices.
+- **Oracle Badge Filename Resolution (`portfolioData.js`)**:
+  - Corrected Oracle OCI badge image mapping to reference user-provided asset `oci-cloud.png`, resolving the missing image fallback.
+- **Files Touched**:
+  - `src/styles/certifications.css`
+  - `src/data/portfolioData.js`
+
+## [2026-09-20 12:55] - Certifications & Digital Badges Update: IBM SkillsBuild & Oracle Cloud OCI with Badge Banners
+
+- Spec: specs/certifications-badge-update.md
+- **Updated Accreditations & Credentials (`portfolioData.js`)**:
+  - Removed deprecated entries (LearnKartS CEH v12 and HP LIFE).
+  - Added verified **IBM SkillsBuild Cybersecurity Certificate** (Issued Sep 2026, Credential ID: `8c04a2d8-dd91-4060-9339-4516f8604a54`, with Credly badge and verification URL).
+  - Added verified **Oracle Cloud Infrastructure Certified Foundations Associate** (Issued Sep 2026, Credential ID: `331624516OCI26FNDCFA`, with Oracle University CertView badge and verification link).
+  - Retained **Google Cybersecurity Professional Certificate** and added badge image support.
+- **Prominent Badge Banner UI (`Certifications.jsx` & `certifications.css`)**:
+  - Structured credentials cards to feature a prominent centered badge banner at the top (`.cert-badge-banner`) with subtle inset shading and hover micro-zoom (`scale(1.05)`).
+  - Created `public/badges/` asset directory to host digital badge PNGs and SVGs (`ibm-cybersecurity.png`, `oracle-oci.png`).
+  - Added graceful fallback state (`.cert-badge-fallback-wrap`) rendering Lucide vector icons (`Award`, `ShieldCheck`, `Cloud`) if a badge asset is loading or missing.
+- **Hero Diagnostic Synchronization (`Hero.jsx`)**:
+  - Updated fastfetch system diagnostics terminal block to accurately reflect active certifications (`Google Cybersecurity, IBM SkillsBuild, Oracle Cloud OCI`).
+- **Files Touched**:
+  - `src/data/portfolioData.js`
+  - `src/components/Certifications.jsx`
+  - `src/styles/certifications.css`
+  - `src/components/Hero.jsx`
+  - `public/badges/ibm-cybersecurity.png`
+  - `public/badges/oracle-oci.png`
+  - `specs/certifications-badge-update.md`
+
+## [2026-09-20 12:40] - Apple iOS Mobile Redesign: Vertical Case Stream, Segmented Domain Control & Inset Cards
+
+- Spec: specs/apple-ios-mobile-redesign.md
+- **Eliminated Mobile Carousel Failure via Native Vertical Stream (`Projects.jsx` & `projects.css`)**:
+  - Retired the touch-conflicted horizontal carousel on mobile (<768px) in favor of `.projects-mobile-stream`, a 100% natural vertical narrative feed of case studies that completely eliminates carousel swipe locks and touch stalls.
+  - Preserved the full desktop horizontal carousel with flanking buttons and depth shadow on screens >768px.
+  - Styled mobile project case studies as Apple iOS Inset Grouped cards with continuous 16px corner radius, frosted glass surfaces (`backdrop-filter: blur(20px)`), and 48px full-width action buttons with active tap scale (`transform: scale(0.98)`).
+- **Apple iOS Segmented Domain Control for Skills (`Skills.jsx` & `skills.css`)**:
+  - Replaced the mobile skills carousel with an Apple-style segmented pill picker (Languages, Web Tech, Cloud/DB, Security) allowing 1-tap switching.
+  - Rendered active domain capabilities in a clean 3-column squircle grid (`border-radius: 12px`) with domain pastel accents.
+- **Harmonized iOS Inset Grouped Geometry Across Site**:
+  - Upgraded timeline cards, contact channels, and certification cards to matching 16px Inset Grouped architecture with frosted translucent surfaces and generous breathing room.
+- **Files Touched**:
+  - `src/components/Projects.jsx`
+  - `src/components/Skills.jsx`
+  - `src/styles/projects.css`
+  - `src/styles/skills.css`
+  - `src/styles/experience.css`
+  - `src/styles/contact.css`
+  - `src/styles/certifications.css`
+  - `specs/apple-ios-mobile-redesign.md`
+
+## [2026-09-20 12:31] - Mobile Ergonomics & Native Card Overhaul: Pill Dock Focus and De-Claustrophobication
+
+- Spec: specs/mobile-ergonomics-card-redesign.md
+- **Pill Dock Precision Centering & Subpixel Clarity**:
+  - Replaced `left: 50%; transform: translateX(-50%)` in `src/styles/mobileNav.css` with a full-width flex auto-centering container (`left: 0; right: 0; display: flex; justify-content: center;`).
+  - Completely eliminated subpixel coordinate anti-aliasing blur (rendering text and icons razor-sharp and in focus) and prevented rightward screen overflow on mobile displays.
+  - Configured flexible item bounds (`flex: 1; max-width: 64px`) ensuring a clean fit on 360px–430px viewports.
+- **De-Claustrophobic Native Mobile Cards**:
+  - Overhauled Projects, Skills, Timeline, and Contact cards on mobile to feel purpose-built for touch screens rather than squished desktop cards.
+  - Sized carousel cards to `calc(84vw - 0.75rem)` with generous ~20px–25px outer breathing space, eliminating edge crowding.
+  - Expanded internal card padding to `1.45rem 1.35rem`, broke Challenge & Architecture blocks into clean micro-cards, and enlarged touch action buttons to 46px.
+- **Layout & Container Edge Breathing Room**:
+  - Shifted experience timeline line/nodes inward (`padding-left: 1.75rem`), added `overflow-x: hidden` to `html`, and set mobile container gutters to 1.25rem minimum.
+- **Files Touched**:
+  - `src/styles/mobileNav.css`
+  - `src/styles/carousel.css`
+  - `src/styles/projects.css`
+  - `src/styles/skills.css`
+  - `src/styles/experience.css`
+  - `src/styles/contact.css`
+  - `src/styles/certifications.css`
+  - `src/styles/hero.css`
+  - `src/styles/index.css`
+  - `specs/mobile-ergonomics-card-redesign.md`
+
+## [2026-09-20 12:22] - Mobile-Standard Portfolio Redesign: Floating Thumb-Zone Dock & Carousel Touch Indicators
+
+- Spec: specs/mobile-standard-redesign.md
+- **Floating Bottom Navigation Dock (`MobileBottomNav.jsx`)**:
+  - Implemented an ergonomic floating glassmorphism pill dock pinned to the bottom thumb zone on mobile screens (<768px), supporting iPhone home indicator safe-areas (`env(safe-area-inset-bottom)`).
+  - Features 5 primary section tabs (About, Work, Projects, Skills, Contact) with live scroll synchronization, active indicator dots, and section pastel accent glow.
+  - Eliminated redundant top hamburger toggles on mobile viewports (<768px) to provide an uncluttered, app-like header experience.
+- **Minimalist Carousel Pagination Dots (`Carousel.jsx` & `carousel.css`)**:
+  - Replaced bulky mobile flanking chevron arrows with minimalist pagination dots positioned underneath the cards, preventing edge obstruction and interference with touch gestures.
+  - Integrated dynamic pill expansion (`width: 22px`) on active slide with smooth Embla `scrollTo(index)` transitions.
+- **Fluid Mobile Sizing & Dock Clearance**:
+  - Configured fluid mobile card widths (`calc(88vw - 0.5rem)`) with subtle peek to indicate horizontal swipe flow.
+  - Added dedicated bottom clearance padding across projects, skills, contact, and footer so floating dock never overlaps content or action controls.
+- **Files Touched**:
+  - `src/components/MobileBottomNav.jsx`
+  - `src/styles/mobileNav.css`
+  - `src/components/Carousel.jsx`
+  - `src/styles/carousel.css`
+  - `src/styles/projects.css`
+  - `src/styles/skills.css`
+  - `src/styles/contact.css`
+  - `src/styles/footer.css`
+  - `src/styles/navbar.css`
+  - `src/App.jsx`
+  - `specs/mobile-standard-redesign.md`
+
+## [2026-09-20 12:09] - Contact Section Viewport Isolation & Centered Skills Grid Tiles
+- **Contact Section Alignment & Footer Isolation**:
+  - Configured `#contact` with `min-height: calc(100vh - 72px)` and vertical flex centering in `src/styles/contact.css`.
+  - Updated `Navbar.jsx` `handleNavClick` so clicking Contact aligns flush with the sticky navbar, displaying the Contact section centered in the viewport with the footer completely hidden below the screen fold.
+- **Skills Grid Design Inside Domain Cards**:
+  - Replaced subcard list design and repetitive descriptions with a clean 3-column grid (`.skills-grid-inside` and `.skill-grid-cell`) in `src/components/Skills.jsx` and `src/styles/skills.css`.
+  - Scaled custom vector tech logos with centered icon containers (`.skill-grid-icon-wrap`) and placed skill names directly beneath each logo.
+  - Integrated domain pastel rainbow hover borders and icon glow across all 4 skill domains.
+- **Files Touched**:
+  - `src/styles/contact.css`
+  - `src/components/Navbar.jsx`
+  - `src/components/Skills.jsx`
+  - `src/styles/skills.css`
+
+## [2026-09-20 12:01] - Refined GPU Mask Carousel Depth Shadow, Section Viewport Isolation, and Contact Centering
+
+- Spec: specs/horizontal-carousel-projects-skills.md
+- **Embla Carousel & GPU Alpha Mask Depth Shadow**:
+  - Integrated `embla-carousel-react` for smooth drag physics, momentum, and boundary state synchronization.
+  - Replaced buggy physical gradient overlay `div`s with CSS `mask-image` (GPU alpha masking) and layered card drop shadows (`box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.55)`), eliminating text obscuration and edge graphical seams.
+- **Viewport Section Isolation & Centering**:
+  - Configured `min-height: calc(100vh - 72px)` and vertical flex centering for both `#projects` and `#skills`, guaranteeing that only the selected section is in view without overlapping headers or cards from adjacent sections.
+  - Enhanced `Navbar.jsx` `handleNavClick` calculation to center clicked sections vertically in the available viewport.
+- **Contact Section & Footer Centering**:
+  - Set Contact section `min-height: calc(100vh - 72px - 68px)` and vertical flex centering, creating equal top and bottom spacing between the fixed navbar and the footer.
+- **Files Touched**:
+  - `src/components/Carousel.jsx`
+  - `src/styles/carousel.css`
+  - `src/components/Navbar.jsx`
+  - `src/styles/projects.css`
+  - `src/styles/skills.css`
+  - `src/styles/contact.css`
+  - `src/styles/footer.css`
+  - `package.json`
+
+## [2026-09-20 11:52] - Projects & Skills Horizontal Carousels with Flanking Controls and Depth Fades
+
+- Spec: specs/horizontal-carousel-projects-skills.md
+- **Horizontal Carousel Transformation**:
+  - Replaced static multi-column grid layouts in both Selected Projects (`#projects`) and Skills & Technologies (`#skills`) with smooth, interactive horizontal carousels while keeping both sections distinct.
+  - Implemented reusable `Carousel` component (`src/components/Carousel.jsx` and `src/styles/carousel.css`) with CSS scroll-snap, dynamic scroll boundary detection, and accessible keyboard/touch navigation.
+- **Flanking Navigation & Depth Vignette**:
+  - Added floating chevron navigation buttons flanking the track edges with subtle hover scale/glow and auto-hiding at boundary limits.
+  - Engineered left and right gradient edge fades with inset drop shadows to provide depth perception and indicate overflowing content.
+  - Configured multi-card peek responsive layouts (~1.8 cards visible on desktop, ~1.15 cards on mobile) without clipping card floating elevations.
+- **Files Touched**:
+  - `src/components/Carousel.jsx`
+  - `src/styles/carousel.css`
+  - `src/components/Projects.jsx`
+  - `src/styles/projects.css`
+  - `src/components/Skills.jsx`
+  - `src/styles/skills.css`
+  - `specs/horizontal-carousel-projects-skills.md`
+
 ## [2026-09-04 17:37] - Added Project .gitignore with Standard and AI Exclusion Rules
+
 - **Repository Cleanliness & Security**:
   - Created `.gitignore` encompassing standard Node.js, dependencies (`node_modules/`), build outputs (`dist/`, `build/`), logs, environment variables (`.env*`), and OS/IDE metadata.
   - Added exclusion rules for AI-generated assistant files, rule sets, specifications, and scratch plans (`specs/`, `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `.agents/`, `.gemini/`, `.claude/`, `.cursor/`, `.windsurf/`, `*.prompt.md`).

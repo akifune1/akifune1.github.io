@@ -1,0 +1,123 @@
+/**
+ * @file src/styles/mobileNav.css
+ * @description Stylesheet for the floating bottom navigation dock on mobile screens (<768px).
+ * Features glassmorphism backdrop blur, safe-area inset padding, and Catppuccin accent highlights.
+ */
+
+/* Hidden on Desktop Viewports */
+.mobile-bottom-dock {
+  display: none;
+}
+
+/* Mobile & Tablet Bottom Dock */
+@media (max-width: 768px) {
+  .mobile-bottom-dock {
+    /* Full-width fixed flex wrapper eliminates subpixel rendering blur from translateX(-50%) */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: max(0.85rem, env(safe-area-inset-bottom, 0.85rem));
+    z-index: 95;
+    width: 100%;
+    padding: 0 1rem;
+    pointer-events: none;
+  }
+
+  .mobile-dock-pill {
+    /* Clickable pill container centered naturally inside flex parent */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    padding: 0.35rem 0.45rem;
+    background-color: rgba(24, 24, 37, 0.94);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(205, 214, 244, 0.16);
+    border-radius: 9999px;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7), 0 2px 10px rgba(0, 0, 0, 0.4);
+    pointer-events: auto;
+    width: auto;
+    max-width: 100%;
+  }
+
+  .mobile-dock-item {
+    /* Evenly distributed touch items that adapt to viewport width without rightward overflow */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    min-width: 0;
+    max-width: 64px;
+    min-height: 48px;
+    padding: 0.35rem 0.55rem;
+    background: transparent;
+    border: none;
+    border-radius: 9999px;
+    color: var(--ctp-subtext0);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mobile-dock-item:active {
+    transform: scale(0.92);
+  }
+
+  .dock-icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+  }
+
+  .dock-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    margin-top: 0.15rem;
+    line-height: 1;
+  }
+
+  .dock-active-dot {
+    position: absolute;
+    bottom: 4px;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background-color: currentColor;
+  }
+
+  /* Active Color Themes Matching Sections */
+  .mobile-dock-item.is-active.tab-hero {
+    color: var(--ctp-mauve);
+    background-color: rgba(203, 166, 247, 0.12);
+  }
+
+  .mobile-dock-item.is-active.tab-experience {
+    color: var(--ctp-green);
+    background-color: rgba(166, 227, 161, 0.12);
+  }
+
+  .mobile-dock-item.is-active.tab-projects {
+    color: var(--ctp-peach);
+    background-color: rgba(250, 179, 135, 0.12);
+  }
+
+  .mobile-dock-item.is-active.tab-skills {
+    color: var(--ctp-sapphire);
+    background-color: rgba(116, 199, 236, 0.12);
+  }
+
+  .mobile-dock-item.is-active.tab-contact {
+    color: var(--ctp-lavender);
+    background-color: rgba(180, 190, 254, 0.12);
+  }
+}

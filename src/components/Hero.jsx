@@ -145,7 +145,7 @@ export default function Hero() {
                 <div><span className="code-keyword">University:</span> {personalInfo.university}</div>
                 <div><span className="code-keyword">Honors:</span> <span style={{ color: 'var(--ctp-peach)', fontWeight: 600 }}>Cum Laude (GWA: 1.6923) • DOST-SEI Scholar</span></div>
                 <div><span className="code-keyword">Specialization:</span> Full-Stack Web & Cybersecurity Defense</div>
-                <div><span className="code-keyword">Certifications:</span> Google Cybersecurity, CEH (v12), HP LIFE</div>
+                <div><span className="code-keyword">Certifications:</span> Google Cybersecurity, IBM SkillsBuild, Oracle Cloud OCI</div>
                 <div><span className="code-keyword">Core Stack:</span> React 19, Next.js, TypeScript, PostgreSQL, Supabase, PHP, MySQL</div>
                 <div><span className="code-keyword">Location:</span> {personalInfo.location}</div>
                 <div><span className="code-keyword">Status:</span> <span style={{ color: 'var(--ctp-green)', fontWeight: 600 }}>Available for Full-Time Roles</span></div>
