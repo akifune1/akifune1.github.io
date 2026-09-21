@@ -21,7 +21,7 @@ import '../styles/skills.css';
  * @param {number} [props.size=24] - SVG pixel dimensions.
  * @returns {JSX.Element} SVG vector logo.
  */
-function TechLogo({ skillName, size = 24 }) {
+const TechLogo = React.memo(function TechLogo({ skillName, size = 24 }) {
   const renderIconPaths = () => {
     switch (skillName) {
       case 'JavaScript & TypeScript':
@@ -224,7 +224,36 @@ function TechLogo({ skillName, size = 24 }) {
       {renderIconPaths()}
     </svg>
   );
-}
+});
+
+// Short domain tab labels for mobile Apple-style segmented control.
+// Hoisted outside to avoid array allocation on every render.
+const DOMAIN_TABS = [
+  { id: 0, label: 'Languages' },
+  { id: 1, label: 'Web Tech' },
+  { id: 2, label: 'Cloud/DB' },
+  { id: 3, label: 'Security' },
+];
+
+/**
+ * Returns icon component based on domain category identifier.
+ *
+ * @param {string} iconName - Icon identifier.
+ * @returns {JSX.Element} Lucide icon.
+ */
+const getCategoryIcon = (iconName) => {
+  switch (iconName) {
+    case 'Code2':
+      return <Code2 size={20} />;
+    case 'Layout':
+      return <Layout size={20} />;
+    case 'Server':
+      return <Server size={20} />;
+    case 'ShieldCheck':
+    default:
+      return <ShieldCheck size={20} />;
+  }
+};
 
 /**
  * Skills Component
@@ -236,34 +265,7 @@ export default function Skills() {
   // Active skill domain index for mobile Apple-style segmented picker (0: Languages, 1: Web, 2: DB, 3: Security)
   const [activeDomainIdx, setActiveDomainIdx] = useState(0);
 
-  // Short domain tab labels for mobile Apple-style segmented control
-  const domainTabs = [
-    { id: 0, label: 'Languages' },
-    { id: 1, label: 'Web Tech' },
-    { id: 2, label: 'Cloud/DB' },
-    { id: 3, label: 'Security' },
-  ];
-
   const activeCategory = skillsData[activeDomainIdx] || skillsData[0];
-
-  /**
-   * Helper to return icon component based on domain category.
-   * @param {string} iconName - Icon identifier.
-   * @returns {JSX.Element} Lucide icon.
-   */
-  const getCategoryIcon = (iconName) => {
-    switch (iconName) {
-      case 'Code2':
-        return <Code2 size={20} />;
-      case 'Layout':
-        return <Layout size={20} />;
-      case 'Server':
-        return <Server size={20} />;
-      case 'ShieldCheck':
-      default:
-        return <ShieldCheck size={20} />;
-    }
-  };
 
   return (
     <section id="skills" className="skills-section">
@@ -318,7 +320,7 @@ export default function Skills() {
         <div className="skills-mobile-segmented">
           {/* iOS Segmented Pill Picker */}
           <div className="ios-segmented-control" role="tablist" aria-label="Skills Domain Filter">
-            {domainTabs.map((tab) => (
+            {DOMAIN_TABS.map((tab) => (
               <button
                 key={tab.id}
                 type="button"

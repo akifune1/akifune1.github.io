@@ -16,11 +16,14 @@ import { useEffect } from 'react';
  * @param {string} [options.rootMargin='0px 0px -40px 0px'] - Offsets to trigger slightly before bottom.
  */
 export function useScrollReveal(options = {}) {
+  // Destructure primitive options with defaults to prevent unnecessary effect re-executions
+  const { threshold = 0.12, rootMargin = '0px 0px -40px 0px' } = options;
+
   useEffect(() => {
     // Default observer options optimized for desktop and mobile scroll speeds
     const observerOptions = {
-      threshold: options.threshold !== undefined ? options.threshold : 0.12,
-      rootMargin: options.rootMargin || '0px 0px -40px 0px',
+      threshold,
+      rootMargin,
     };
 
     /**
@@ -42,10 +45,10 @@ export function useScrollReveal(options = {}) {
     const revealElements = document.querySelectorAll('.reveal');
     revealElements.forEach((el) => observer.observe(el));
 
-    // Cleanup observer on unmount or re-render
+    // Cleanup observer on unmount or dependency change
     return () => {
       revealElements.forEach((el) => observer.unobserve(el));
       observer.disconnect();
     };
-  }, [options]);
+  }, [threshold, rootMargin]);
 }

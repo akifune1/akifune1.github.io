@@ -11,6 +11,17 @@ import { Menu, X, Send } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 import '../styles/navbar.css';
 
+// Navigation items mapping to sections in narrative order.
+// Hoisted outside component to prevent array allocation on every render.
+const NAV_ITEMS = [
+  { id: 'hero', label: 'About' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'certifications', label: 'Certifications' },
+  { id: 'contact', label: 'Contact' },
+];
+
 /**
  * Navbar Component
  * Renders the top navigation bar with clean branding, scroll spy, and quick contact action.
@@ -23,32 +34,25 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState('hero');
   const navRef = useRef(null);
 
-  // Navigation items mapping to sections in narrative order
-  const navItems = [
-    { id: 'hero', label: 'About' },
-    { id: 'experience', label: 'Experience' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'skills', label: 'Skills' },
-    { id: 'certifications', label: 'Certifications' },
-    { id: 'contact', label: 'Contact' },
-  ];
-
   /**
    * Track scroll position to update active navigation item.
-   * Checks from bottom to top and handles near-page-bottom detection for the Contact section.
+   * Throttled with requestAnimationFrame to eliminate layout thrashing during scroll.
    */
   useEffect(() => {
-    const handleScroll = () => {
+    let ticking = false;
+
+    const updateActiveSection = () => {
       // If user has scrolled near the bottom of the page, activate the final section ('contact')
       if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60) {
         setActiveSection('contact');
+        ticking = false;
         return;
       }
 
       // Check sections from bottom to top against the focal threshold (navbar 64px + 100px)
       const scrollPosition = window.scrollY + 164;
-      for (let i = navItems.length - 1; i >= 0; i--) {
-        const item = navItems[i];
+      for (let i = NAV_ITEMS.length - 1; i >= 0; i--) {
+        const item = NAV_ITEMS[i];
         const element = document.getElementById(item.id);
         if (element) {
           const top = element.offsetTop;
@@ -58,9 +62,20 @@ export default function Navbar() {
           }
         }
       }
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateActiveSection);
+        ticking = true;
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    // Initial check on mount
+    updateActiveSection();
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -138,7 +153,7 @@ export default function Navbar() {
           {/* Desktop Navigation Links */}
           <nav aria-label="Main Navigation">
             <ul className="nav-links">
-              {navItems.map((item) => (
+              {NAV_ITEMS.map((item) => (
                 <li key={item.id} className="nav-link-item">
                   <a
                     href={`#${item.id}`}
@@ -189,7 +204,7 @@ export default function Navbar() {
       {mobileMenuOpen && (
         <div id="mobile-navigation-menu" className="mobile-menu mobile-menu-open">
           <ul className="mobile-nav-links">
-            {navItems.map((item) => (
+            {NAV_ITEMS.map((item) => (
               <li key={item.id} className="nav-link-item">
                 <a
                   href={`#${item.id}`}

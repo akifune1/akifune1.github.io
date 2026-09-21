@@ -54,18 +54,28 @@
 
 .hero-typewriter-container {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   font-family: var(--font-mono);
   font-size: 1.15rem;
+  line-height: 1.45;
   color: var(--ctp-sapphire);
   margin-bottom: 0.85rem;
-  min-height: 1.6rem;
+  min-height: 1.75rem;
 }
 
 .hero-typewriter-prefix {
   color: var(--ctp-subtext0);
   margin-right: 0.5rem;
   font-weight: 600;
+  flex-shrink: 0;
+  line-height: inherit;
+}
+
+.hero-typewriter-text {
+  display: inline;
+  color: var(--ctp-sapphire);
+  line-height: inherit;
+  word-break: break-word;
 }
 
 .hero-bio {
@@ -161,6 +171,14 @@
   .code-output {
     padding-left: 0.45rem;
   }
+
+  /* Stabilize typewriter height on mobile to prevent layout shift during auto-typing */
+  .hero-typewriter-container {
+    font-size: clamp(0.875rem, 3.5vw, 1rem);
+    line-height: 1.45;
+    min-height: 3.1rem;
+    align-items: flex-start;
+  }
 }
 
 @media (max-width: 480px) {
@@ -173,5 +191,11 @@
   .hero-cta-group .btn {
     width: 100%;
     justify-content: center;
+  }
+
+  .hero-typewriter-container {
+    font-size: clamp(0.85rem, 3.4vw, 0.95rem);
+    min-height: 3.1rem;
+    line-height: 1.45;
   }
 }

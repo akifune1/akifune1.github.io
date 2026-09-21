@@ -53,17 +53,22 @@ export default function Carousel({ children, ariaLabel = 'Horizontal carousel', 
     setScrollSnaps(emblaApi.scrollSnapList());
     updateScrollState();
 
-    // Subscribe to Embla's reactive events
-    emblaApi.on('select', updateScrollState);
-    emblaApi.on('reInit', () => {
+    const onReInit = () => {
       setScrollSnaps(emblaApi.scrollSnapList());
       updateScrollState();
-    });
-    emblaApi.on('scroll', updateScrollState);
+    };
+
+    // Subscribe to Embla's reactive events:
+    // Listening to 'select' and 'settle' updates button availability and active dots
+    // without thrashing React state updates on every single subpixel touch move.
+    emblaApi.on('select', updateScrollState);
+    emblaApi.on('reInit', onReInit);
+    emblaApi.on('settle', updateScrollState);
 
     return () => {
       emblaApi.off('select', updateScrollState);
-      emblaApi.off('scroll', updateScrollState);
+      emblaApi.off('reInit', onReInit);
+      emblaApi.off('settle', updateScrollState);
     };
   }, [emblaApi, updateScrollState]);
 

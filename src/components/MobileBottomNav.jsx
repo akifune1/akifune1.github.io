@@ -9,6 +9,16 @@ import React, { useState, useEffect } from 'react';
 import { User, Briefcase, Code2, Cpu, Mail } from 'lucide-react';
 import '../styles/mobileNav.css';
 
+// Navigation tabs matching the portfolio's chronological narrative.
+// Hoisted outside component to eliminate array reallocation on every render.
+const NAV_TABS = [
+  { id: 'hero', label: 'About', icon: User, colorClass: 'tab-hero' },
+  { id: 'experience', label: 'Work', icon: Briefcase, colorClass: 'tab-experience' },
+  { id: 'projects', label: 'Projects', icon: Code2, colorClass: 'tab-projects' },
+  { id: 'skills', label: 'Skills', icon: Cpu, colorClass: 'tab-skills' },
+  { id: 'contact', label: 'Contact', icon: Mail, colorClass: 'tab-contact' },
+];
+
 /**
  * MobileBottomNav Component
  * Renders an ergonomic, floating glassmorphism dock pinned to the bottom of the screen on mobile.
@@ -18,31 +28,26 @@ import '../styles/mobileNav.css';
 export default function MobileBottomNav() {
   const [activeSection, setActiveSection] = useState('hero');
 
-  // Navigation tabs matching the portfolio's chronological narrative
-  const navTabs = [
-    { id: 'hero', label: 'About', icon: User, colorClass: 'tab-hero' },
-    { id: 'experience', label: 'Work', icon: Briefcase, colorClass: 'tab-experience' },
-    { id: 'projects', label: 'Projects', icon: Code2, colorClass: 'tab-projects' },
-    { id: 'skills', label: 'Skills', icon: Cpu, colorClass: 'tab-skills' },
-    { id: 'contact', label: 'Contact', icon: Mail, colorClass: 'tab-contact' },
-  ];
-
   /**
    * Passive scroll listener keeping active bottom dock tab synchronized with viewport position.
+   * Throttled with requestAnimationFrame to prevent forced reflows during fast thumb scrolling.
    */
   useEffect(() => {
-    const handleScroll = () => {
+    let ticking = false;
+
+    const updateActiveTab = () => {
       // If near the bottom of the page, activate the contact tab
       if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60) {
         setActiveSection('contact');
+        ticking = false;
         return;
       }
 
       // 160px offset balances top fixed header height + mobile focal zone
       const scrollPosition = window.scrollY + 160;
 
-      for (let i = navTabs.length - 1; i >= 0; i--) {
-        const tab = navTabs[i];
+      for (let i = NAV_TABS.length - 1; i >= 0; i--) {
+        const tab = NAV_TABS[i];
         const element = document.getElementById(tab.id);
         if (element) {
           const top = element.offsetTop;
@@ -52,9 +57,20 @@ export default function MobileBottomNav() {
           }
         }
       }
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateActiveTab);
+        ticking = true;
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    // Initial check on mount
+    updateActiveTab();
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -79,7 +95,7 @@ export default function MobileBottomNav() {
   return (
     <nav className="mobile-bottom-dock" aria-label="Mobile bottom navigation">
       <div className="mobile-dock-pill">
-        {navTabs.map((tab) => {
+        {NAV_TABS.map((tab) => {
           const Icon = tab.icon;
           const isActive = activeSection === tab.id;
 

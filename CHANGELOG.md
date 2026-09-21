@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-09-21 15:06] - Mobile Hero Typewriter Layout Shift Fix & Codebase Performance Optimization Pass
+
+- **Mobile Hero Typewriter Layout Shift Resolution (`hero.css` & `Hero.jsx`)**:
+  - Diagnosed cumulative layout shift (CLS) on mobile where multi-line titles (such as *"Penetration Testing & Secure Web Architect"*) expanded and collapsed the typewriter container dynamically, jarring the whole page up and down during typing and backspacing.
+  - Succeeded with top-alignment (`align-items: flex-start; line-height: 1.45`) and reserved 2-line height (`min-height: 3.1rem`) on viewport breakpoints `<= 768px` and `<= 480px`, guaranteeing zero vertical displacement or layout bounce during the entire cycle.
+  - Bundled `<span className="cursor-blink" />` inline inside `.hero-typewriter-text` so the terminal cursor naturally hugs wrapped lines, while eliminating nested `setTimeout` handles and potential memory leaks during the word completion pause.
+- **Garbage Collection & Allocation Churn Optimization (`Hero.jsx`, `Navbar.jsx`, `MobileBottomNav.jsx`, `Skills.jsx`)**:
+  - Hoisted static arrays (`ROLES`, `NAV_ITEMS`, `NAV_TABS`, `DOMAIN_TABS`) and utility resolver functions outside React component bodies, eliminating redundant object/array allocations on rapid re-renders and animation frames.
+- **Scroll Event & Carousel Rendering Optimization (`Navbar.jsx`, `MobileBottomNav.jsx`, `Carousel.jsx`, `useScrollReveal.js`)**:
+  - Throttled passive scroll-spy listeners across `Navbar` and `MobileBottomNav` using `requestAnimationFrame` and a ticking flag, preventing forced synchronous layout reflows and excessive DOM element measurements during mobile touch scrolling.
+  - Replaced Embla carousel's drag-subpixel `'scroll'` event subscriber with `'settle'` and properly registered unmount cleanup for `'reInit'`, preventing continuous cascading React re-renders while dragging slides.
+  - Destructured primitives from `useScrollReveal` configuration options to prevent unnecessary IntersectionObserver teardowns and reconstructions.
+- **Component Memoization & Tag Lookup Optimization (`ProjectCard.jsx`, `Skills.jsx`, `Contact.jsx`)**:
+  - Wrapped `ProjectCard` and `TechLogo` in `React.memo` to eliminate wasteful re-rendering of cards and 30+ SVG vector logos during parent state changes or mobile domain tab switching.
+  - Pre-cached syntax tag class evaluations in `ProjectCard` via an in-memory Map for $O(1)$ lookup performance.
+  - Added timeout reference tracking with automatic unmount cleanup in `Contact.jsx` to prevent state updates on unmounted components after copying email addresses.
+- **Files Touched**:
+  - `src/components/Hero.jsx`
+  - `src/styles/hero.css`
+  - `src/components/Navbar.jsx`
+  - `src/components/MobileBottomNav.jsx`
+  - `src/components/Carousel.jsx`
+  - `src/components/Skills.jsx`
+  - `src/components/ProjectCard.jsx`
+  - `src/components/Contact.jsx`
+  - `src/hooks/useScrollReveal.js`
+
 ## [2026-09-20 13:06] - Glow Removal, Oracle OCI Image Resolution, Persistent Fixed Navbar & Section Focal Centering
 
 - **Glow & Halo Effect Removal (`certifications.css`)**:

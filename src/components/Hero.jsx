@@ -11,6 +11,16 @@ import { ArrowRight, ShieldCheck, Send, Sparkles, Award } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 import '../styles/hero.css';
 
+// Dynamic roles array for typewriter animation matching real CV credentials.
+// Hoisted outside the component to prevent array reallocation on every frame.
+const ROLES = [
+  "Full-Stack Software Engineer",
+  "Cybersecurity Specialist",
+  "Mapúa IT Graduate (Cum Laude)",
+  "DOST-SEI Scholar (RA 7687)",
+  "Penetration Testing & Secure Web Architect"
+];
+
 /**
  * Hero Component
  * Perfectly centered in the initial viewport at 100% zoom, presenting developer credentials,
@@ -23,41 +33,45 @@ export default function Hero() {
   const [displayText, setDisplayText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // Dynamic roles array for typewriter animation matching real CV credentials
-  const roles = [
-    "Full-Stack Software Engineer",
-    "Cybersecurity Specialist",
-    "Mapúa IT Graduate (Cum Laude)",
-    "DOST-SEI Scholar (RA 7687)",
-    "Penetration Testing & Secure Web Architect"
-  ];
-
   /**
    * Typewriter effect loop cycling through developer titles.
+   * Uses clear separation between pause state and character iteration to prevent
+   * unmanaged timer handles and memory leaks when unmounting or fast-cycling.
    */
   useEffect(() => {
-    const currentRole = roles[roleIndex];
-    const speed = isDeleting ? 30 : 70;
+    const currentRole = ROLES[roleIndex];
 
-    const timer = setTimeout(() => {
-      if (!isDeleting && displayText === currentRole) {
-        setTimeout(() => setIsDeleting(true), 2000);
-      } else if (isDeleting && displayText === '') {
-        setIsDeleting(false);
-        setRoleIndex((prevIndex) => (prevIndex + 1) % roles.length);
-      } else {
-        const nextText = isDeleting
-          ? currentRole.substring(0, displayText.length - 1)
-          : currentRole.substring(0, displayText.length + 1);
-        setDisplayText(nextText);
-      }
+    // When the full title is typed out, pause for 2000ms before starting backspace
+    if (!isDeleting && displayText === currentRole) {
+      const pauseTimer = setTimeout(() => {
+        setIsDeleting(true);
+      }, 2000);
+      return () => clearTimeout(pauseTimer);
+    }
+
+    // When the title has been fully erased, advance to the next title in the list
+    if (isDeleting && displayText === '') {
+      setIsDeleting(false);
+      setRoleIndex((prevIndex) => (prevIndex + 1) % ROLES.length);
+      return;
+    }
+
+    // Typing speed: 65ms per char forward, 30ms per char deleting
+    const speed = isDeleting ? 30 : 65;
+    const stepTimer = setTimeout(() => {
+      setDisplayText((prev) =>
+        isDeleting
+          ? currentRole.slice(0, prev.length - 1)
+          : currentRole.slice(0, prev.length + 1)
+      );
     }, speed);
 
-    return () => clearTimeout(timer);
+    return () => clearTimeout(stepTimer);
   }, [displayText, isDeleting, roleIndex]);
 
   /**
    * Smoothly scrolls to target section with calibrated navbar offset.
+   *
    * @param {string} id - Target DOM ID.
    */
   const scrollTo = (id) => {
@@ -84,11 +98,13 @@ export default function Hero() {
               Hi, I'm <span className="hero-title-accent">{personalInfo.name}</span>
             </h1>
 
-            {/* Typewriter role subhead */}
-            <div className="hero-typewriter-container">
+            {/* Typewriter role subhead: text and cursor bundled inside inline container */}
+            <div className="hero-typewriter-container" aria-live="polite">
               <span className="hero-typewriter-prefix">$ whoami &gt;</span>
-              <span>{displayText}</span>
-              <span className="cursor-blink" />
+              <span className="hero-typewriter-text">
+                {displayText}
+                <span className="cursor-blink" aria-hidden="true" />
+              </span>
             </div>
 
             <p className="hero-bio">

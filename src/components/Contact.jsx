@@ -5,7 +5,7 @@
  * Depends on portfolioData.js for social URLs; rendered in App.jsx.
  */
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Mail, Linkedin, Github, FileText, Copy, Check, ArrowUpRight } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 import '../styles/contact.css';
@@ -20,6 +20,16 @@ import '../styles/contact.css';
 export default function Contact() {
   // State for email clipboard feedback: switches icon, label, and footer to "Copied" for 2 seconds
   const [emailCopied, setEmailCopied] = useState(false);
+  const copyTimeoutRef = useRef(null);
+
+  // Clean up any pending timer on component unmount
+  useEffect(() => {
+    return () => {
+      if (copyTimeoutRef.current) {
+        clearTimeout(copyTimeoutRef.current);
+      }
+    };
+  }, []);
 
   /**
    * Copies email address to system clipboard and triggers temporary copied feedback.
@@ -33,8 +43,15 @@ export default function Contact() {
       await navigator.clipboard.writeText(personalInfo.socials.email);
       setEmailCopied(true);
 
+      // Clear any previous timer before scheduling a new one
+      if (copyTimeoutRef.current) {
+        clearTimeout(copyTimeoutRef.current);
+      }
+
       // Auto-reset back to default state after 2000 milliseconds for smooth UX
-      setTimeout(() => setEmailCopied(false), 2000);
+      copyTimeoutRef.current = setTimeout(() => {
+        setEmailCopied(false);
+      }, 2000);
     } catch (err) {
       console.warn('Clipboard write failed:', err);
     }

@@ -8,55 +8,67 @@
 import React from 'react';
 import { ExternalLink, Github } from 'lucide-react';
 
+const RAINBOW_CYCLE = [
+  'tag-sapphire',
+  'tag-mauve',
+  'tag-sky',
+  'tag-green',
+  'tag-peach',
+  'tag-blue',
+  'tag-pink',
+  'tag-teal',
+  'tag-yellow',
+  'tag-lavender',
+];
+
+// In-memory cache for tag class resolution to prevent redundant regex/lower-casing operations
+const tagClassCache = new Map();
+
 /**
  * Maps technology names to Catppuccin Mocha pastel syntax tag classes
  * matching modern developer syntax highlighting standards.
+ * Results are cached in memory for fast O(1) retrieval.
  *
  * @param {string} tech - The technology name (e.g. 'Next.js 16', 'Supabase').
  * @param {number} idx - Fallback index for dynamic rainbow cycling.
  * @returns {string} CSS class name for the pastel tag.
  */
 const getTechTagClass = (tech, idx) => {
-  const lower = tech.toLowerCase();
-  if (lower.includes('next')) return 'tag-sapphire';
-  if (lower.includes('react')) return 'tag-mauve';
-  if (lower.includes('typescript') || lower.includes('html') || lower.includes('css')) return 'tag-sky';
-  if (lower.includes('supabase') || lower.includes('node') || lower.includes('mongo')) return 'tag-green';
-  if (lower.includes('tailwind') || lower.includes('figma') || lower.includes('npm')) return 'tag-peach';
-  if (lower.includes('face') || lower.includes('security') || lower.includes('crypto')) return 'tag-pink';
-  if (lower.includes('playwright') || lower.includes('jest') || lower.includes('test')) return 'tag-teal';
-  if (lower.includes('php') || lower.includes('mysql') || lower.includes('python')) return 'tag-yellow';
-  if (lower.includes('framer') || lower.includes('motion')) return 'tag-blue';
-  if (lower.includes('apache') || lower.includes('xampp') || lower.includes('firebase')) return 'tag-lavender';
+  if (tagClassCache.has(tech)) {
+    return tagClassCache.get(tech);
+  }
 
-  // Fallback palette cycling across the full Catppuccin Mocha pastel rainbow
-  const rainbowCycle = [
-    'tag-sapphire',
-    'tag-mauve',
-    'tag-sky',
-    'tag-green',
-    'tag-peach',
-    'tag-blue',
-    'tag-pink',
-    'tag-teal',
-    'tag-yellow',
-    'tag-lavender'
-  ];
-  return rainbowCycle[idx % rainbowCycle.length];
+  const lower = tech.toLowerCase();
+  let result;
+  if (lower.includes('next')) result = 'tag-sapphire';
+  else if (lower.includes('react')) result = 'tag-mauve';
+  else if (lower.includes('typescript') || lower.includes('html') || lower.includes('css')) result = 'tag-sky';
+  else if (lower.includes('supabase') || lower.includes('node') || lower.includes('mongo')) result = 'tag-green';
+  else if (lower.includes('tailwind') || lower.includes('figma') || lower.includes('npm')) result = 'tag-peach';
+  else if (lower.includes('face') || lower.includes('security') || lower.includes('crypto')) result = 'tag-pink';
+  else if (lower.includes('playwright') || lower.includes('jest') || lower.includes('test')) result = 'tag-teal';
+  else if (lower.includes('php') || lower.includes('mysql') || lower.includes('python')) result = 'tag-yellow';
+  else if (lower.includes('framer') || lower.includes('motion')) result = 'tag-blue';
+  else if (lower.includes('apache') || lower.includes('xampp') || lower.includes('firebase')) result = 'tag-lavender';
+  else result = RAINBOW_CYCLE[idx % RAINBOW_CYCLE.length];
+
+  tagClassCache.set(tech, result);
+  return result;
 };
 
 /**
  * ProjectCard Component
  * Displays a single project with sharp borders, problem/solution breakdown,
  * multi-colored pastel tech tags, and clean action buttons.
+ * Wrapped in React.memo to prevent wasteful re-renders when parent states change.
  *
  * @param {Object} props - Component properties.
  * @param {Object} props.project - The project data object.
  * @returns {JSX.Element} The rendered project card.
  */
-export default function ProjectCard({ project }) {
+function ProjectCard({ project }) {
   // Determine if project has a distinct live URL separate from GitHub repository
-  const hasDistinctLiveUrl = project.liveUrl && project.liveUrl !== project.repoUrl;
+  const hasDistinctLiveUrl = Boolean(project.liveUrl && project.liveUrl !== project.repoUrl);
 
   return (
     <article className="project-card reveal">
@@ -134,4 +146,7 @@ export default function ProjectCard({ project }) {
     </article>
   );
 }
+
+export default React.memo(ProjectCard);
+
 
