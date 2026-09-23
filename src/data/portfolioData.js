@@ -128,6 +128,45 @@ export const certificationsData = [
     icon: "Cloud",
     description: "Foundational mastery of public cloud architecture, Oracle Cloud Infrastructure (OCI) compute, networking, autonomous databases, identity access management, and cloud security.",
     monoTag: "[ ORACLE_OCI ]"
+  },
+  {
+    id: "fortinet-nse-1",
+    title: "Fortinet Network Security Expert 1 (NSE 1)",
+    issuer: "Fortinet",
+    issueDate: "September 2026",
+    credentialId: "0296772872KJ",
+    verifyUrl: "https://www.credly.com/badges/43b60cc6-1221-4bfa-8ada-f00a89305647/public_url",
+    badge: "Network Security Certification",
+    badgeImage: "fortinet-nse1.png",
+    icon: "ShieldCheck",
+    description: "Threat landscape fundamentals, social engineering defense, multi-factor authentication, and basic network perimeter security concepts.",
+    monoTag: "[ FORTINET_NSE1 ]"
+  },
+  {
+    id: "fortinet-nse-2",
+    title: "Fortinet Network Security Expert 2 (NSE 2)",
+    issuer: "Fortinet",
+    issueDate: "September 2026",
+    credentialId: "3907242178KJ",
+    verifyUrl: "https://www.credly.com/badges/0e555fcb-c325-4bac-a751-3adc049c61f2/public_url",
+    badge: "Network Security Certification",
+    badgeImage: "fortinet-nse2.png",
+    icon: "ShieldCheck",
+    description: "Core security fabric solutions, next-generation firewalls (NGFW), endpoint protection, sandboxing, and web application security architectures.",
+    monoTag: "[ FORTINET_NSE2 ]"
+  },
+  {
+    id: "fortinet-nse-3",
+    title: "Fortinet Network Security Expert 3 (NSE 3)",
+    issuer: "Fortinet",
+    issueDate: "September 2026",
+    credentialId: "8156746508KJ",
+    verifyUrl: "https://www.credly.com/badges/032b60cd-f07c-41fb-8289-b2649e8d962f/public_url",
+    badge: "Network Security Certification",
+    badgeImage: "fortinet-nse3.png",
+    icon: "ShieldCheck",
+    description: "Advanced Fortinet Security Fabric architecture, enterprise deployment use-cases, secure SD-WAN, and integrated threat intelligence ecosystem.",
+    monoTag: "[ FORTINET_NSE3 ]"
   }
 ];
 

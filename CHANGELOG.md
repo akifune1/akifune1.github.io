@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026-09-23 10:10] - Fortinet Network Security Expert (NSE 1, NSE 2, NSE 3) Integration & Diagnostics Sync
+
+- Spec: specs/fortinet-nse-certifications.md
+- **Fortinet NSE 1, NSE 2, and NSE 3 Certification Cards (`portfolioData.js`)**:
+  - Integrated three official Fortinet Network Security Expert credentials into `certificationsData` with verified Credly credential IDs and verification URLs:
+    - NSE 1: `0296772872KJ` (`fortinet-nse1.png`)
+    - NSE 2: `3907242178KJ` (`fortinet-nse2.png`)
+    - NSE 3: `8156746508KJ` (`fortinet-nse3.png`)
+  - Linked newly placed PNG badge assets in `public/badges/` with automatic fallback to vector shields in `Certifications.jsx`.
+- **Hero Diagnostics Synchronization (`Hero.jsx`)**:
+  - Updated the terminal profile fastfetch output under `Certifications:` to include `Fortinet NSE 1–3` alongside Google Cybersecurity, IBM SkillsBuild, and Oracle Cloud OCI.
+- **Responsive Layout & Stagger Delay Enhancements (`index.css` & `Certifications.jsx`)**:
+  - Added `.stagger-6` CSS delay token (`0.36s`) to ensure fluid sequential entrance across all 6 certificate cards.
+  - Updated component documentation and file header to reflect the newly integrated Fortinet credentials.
+- **Files Touched**:
+  - `src/data/portfolioData.js`
+  - `src/components/Hero.jsx`
+  - `src/components/Certifications.jsx`
+  - `src/styles/index.css`
+  - `specs/fortinet-nse-certifications.md`
+
 ## [2026-09-21 15:06] - Mobile Hero Typewriter Layout Shift Fix & Codebase Performance Optimization Pass
 
 - **Mobile Hero Typewriter Layout Shift Resolution (`hero.css` & `Hero.jsx`)**:

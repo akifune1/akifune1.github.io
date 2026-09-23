@@ -191,6 +191,7 @@ a:hover {
 .stagger-3 { transition-delay: 0.18s; }
 .stagger-4 { transition-delay: 0.24s; }
 .stagger-5 { transition-delay: 0.30s; }
+.stagger-6 { transition-delay: 0.36s; }
 
 /* ==========================================================================
    Universal Card Floating Elevation Standard

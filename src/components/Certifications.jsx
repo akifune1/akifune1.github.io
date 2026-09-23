@@ -2,7 +2,8 @@
  * @file src/components/Certifications.jsx
  * @description Official cybersecurity and cloud certifications showcase section.
  * Renders verified credential cards for Google Cybersecurity, IBM SkillsBuild Cybersecurity,
- * and Oracle Cloud Infrastructure Foundations with prominent badge banners and verification links.
+ * Oracle Cloud Infrastructure Foundations, and Fortinet Network Security Expert (NSE 1, 2, 3)
+ * with prominent badge banners and direct verification links.
  * Consumes certificationsData from portfolioData.js; rendered in App.jsx.
  */
 
