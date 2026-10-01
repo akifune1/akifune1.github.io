@@ -1,35 +1,71 @@
 /**
  * @file src/components/Carousel.jsx
- * @description Headless horizontal carousel powered by embla-carousel-react.
- * Features GPU-accelerated CSS mask-image depth fades, tactile drop shadows,
- * smooth drag physics, desktop flanking controls, and mobile pagination indicators.
- * Consumed by Projects.jsx and Skills.jsx.
+ * @description Headless horizontal carousel powered by embla-carousel-react and embla-carousel-auto-scroll.
+ * Features GPU-accelerated CSS mask-image depth fades, tactile drop shadows, smooth drag physics,
+ * desktop flanking controls, mobile pagination indicators, prioritized manual button navigation,
+ * and zero-delay auto-scroll resumption with seamless infinite loop wrapping.
+ * Consumed by Projects.jsx, Skills.jsx, and Certifications.jsx.
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
+import AutoScroll from 'embla-carousel-auto-scroll';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import '../styles/carousel.css';
 
 /**
  * Carousel Component
  * Renders an accessible, touch-friendly carousel using Embla Carousel and CSS mask depth fades.
+ * Supports optional continuous auto-scrolling with zero-delay pause on hover and prioritized manual buttons.
  *
  * @param {Object} props - Component properties.
  * @param {React.ReactNode} props.children - Carousel slide items to render.
- * @param {string} [props.ariaLabel='Horizontal carousel'] - Accessible label.
+ * @param {string} [props.ariaLabel='Horizontal carousel'] - Accessible label for screen readers.
  * @param {string} [props.className=''] - Custom CSS class name.
+ * @param {boolean} [props.loop=false] - Whether the carousel wraps endlessly.
+ * @param {boolean} [props.autoScroll=false] - Enables continuous slow drift auto-scroll.
+ * @param {number} [props.autoScrollSpeed=1] - Speed velocity of the auto-scrolling motion.
  * @returns {JSX.Element} The rendered Carousel component.
  */
-export default function Carousel({ children, ariaLabel = 'Horizontal carousel', className = '' }) {
-  // Initialize Embla with start alignment and trimSnaps so it stops cleanly at boundaries
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: 'start',
-    containScroll: 'trimSnaps',
-    dragFree: false,
-    loop: false,
-    skipSnaps: false,
-  });
+export default function Carousel({
+  children,
+  ariaLabel = 'Horizontal carousel',
+  className = '',
+  loop = false,
+  autoScroll = false,
+  autoScrollSpeed = 1,
+}) {
+  const isLooping = loop || autoScroll;
+  const isHoveredRef = useRef(false);
+
+  // Memoize Embla configuration options so reference remains stable across renders
+  const emblaOptions = useMemo(
+    () => ({
+      align: 'start',
+      containScroll: isLooping ? false : 'trimSnaps',
+      dragFree: false,
+      loop: isLooping,
+      skipSnaps: false,
+    }),
+    [isLooping]
+  );
+
+  // Memoize AutoScroll plugin with startDelay: 0 for instant zero-delay resumption on hover leave
+  const plugins = useMemo(() => {
+    if (!autoScroll) return [];
+    return [
+      AutoScroll({
+        speed: autoScrollSpeed,
+        startDelay: 0,
+        stopOnInteraction: false,
+        stopOnMouseEnter: true,
+        playOnInit: true,
+        rootNode: (emblaRoot) => emblaRoot.parentElement,
+      }),
+    ];
+  }, [autoScroll, autoScrollSpeed]);
+
+  const [emblaRef, emblaApi] = useEmblaCarousel(emblaOptions, plugins);
 
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(true);
@@ -58,32 +94,55 @@ export default function Carousel({ children, ariaLabel = 'Horizontal carousel', 
       updateScrollState();
     };
 
-    // Subscribe to Embla's reactive events:
-    // Listening to 'select' and 'settle' updates button availability and active dots
-    // without thrashing React state updates on every single subpixel touch move.
+    /**
+     * When manual scroll settles, re-check hover state and resume auto-scroll if pointer has exited.
+     */
+    const onSettle = () => {
+      updateScrollState();
+      if (autoScroll) {
+        const autoScrollPlugin = emblaApi.plugins()?.autoScroll;
+        if (autoScrollPlugin && !isHoveredRef.current) {
+          autoScrollPlugin.play(0);
+        }
+      }
+    };
+
+    // Subscribe to Embla's reactive events
     emblaApi.on('select', updateScrollState);
     emblaApi.on('reInit', onReInit);
-    emblaApi.on('settle', updateScrollState);
+    emblaApi.on('settle', onSettle);
 
     return () => {
       emblaApi.off('select', updateScrollState);
       emblaApi.off('reInit', onReInit);
-      emblaApi.off('settle', updateScrollState);
+      emblaApi.off('settle', onSettle);
     };
-  }, [emblaApi, updateScrollState]);
+  }, [emblaApi, autoScroll, updateScrollState]);
 
   /**
    * Smoothly scrolls to the previous snap slide.
+   * Immediately stops auto-scroll so the manual click takes absolute priority.
    */
   const handlePrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
+    if (!emblaApi) return;
+    const autoScrollPlugin = emblaApi.plugins()?.autoScroll;
+    if (autoScrollPlugin) {
+      autoScrollPlugin.stop();
+    }
+    emblaApi.scrollPrev();
   }, [emblaApi]);
 
   /**
    * Smoothly scrolls to the next snap slide.
+   * Immediately stops auto-scroll so the manual click takes absolute priority.
    */
   const handleNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
+    if (!emblaApi) return;
+    const autoScrollPlugin = emblaApi.plugins()?.autoScroll;
+    if (autoScrollPlugin) {
+      autoScrollPlugin.stop();
+    }
+    emblaApi.scrollNext();
   }, [emblaApi]);
 
   /**
@@ -93,10 +152,41 @@ export default function Carousel({ children, ariaLabel = 'Horizontal carousel', 
    */
   const scrollTo = useCallback(
     (index) => {
-      if (emblaApi) emblaApi.scrollTo(index);
+      if (!emblaApi) return;
+      const autoScrollPlugin = emblaApi.plugins()?.autoScroll;
+      if (autoScrollPlugin) {
+        autoScrollPlugin.stop();
+      }
+      emblaApi.scrollTo(index);
     },
     [emblaApi]
   );
+
+  /**
+   * Tracks hover entry on carousel wrapper to stop auto-scroll across cards and flanking buttons.
+   */
+  const handleMouseEnter = useCallback(() => {
+    isHoveredRef.current = true;
+    if (autoScroll && emblaApi) {
+      const autoScrollPlugin = emblaApi.plugins()?.autoScroll;
+      if (autoScrollPlugin) {
+        autoScrollPlugin.stop();
+      }
+    }
+  }, [autoScroll, emblaApi]);
+
+  /**
+   * Tracks hover exit on carousel wrapper to resume auto-scroll with zero delay.
+   */
+  const handleMouseLeave = useCallback(() => {
+    isHoveredRef.current = false;
+    if (autoScroll && emblaApi) {
+      const autoScrollPlugin = emblaApi.plugins()?.autoScroll;
+      if (autoScrollPlugin) {
+        autoScrollPlugin.play(0);
+      }
+    }
+  }, [autoScroll, emblaApi]);
 
   // Compute CSS mask variant for the edge depth fade
   const getMaskClass = () => {
@@ -111,6 +201,8 @@ export default function Carousel({ children, ariaLabel = 'Horizontal carousel', 
       className={`carousel-wrapper ${className}`}
       role="region"
       aria-label={ariaLabel}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {/* Flanking Floating Left Button (Desktop) */}
       <button

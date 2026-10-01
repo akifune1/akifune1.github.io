@@ -1,8 +1,9 @@
 /**
  * @file src/styles/certifications.css
  * @description Stylesheet for the Certifications & Accreditations section.
- * Implements viewport-centered Catppuccin Mocha cards with credential ID boxes, issuer tags,
- * and direct verification action buttons with generous vertical scale and breathing room.
+ * Adapts Catppuccin Mocha cards for horizontal Embla carousel presentation, featuring
+ * compact breathable badge banners, company vector logos, horizontally scrollable credential
+ * containers with copy triggers, and direct verification buttons.
  */
 
 .certifications-section {
@@ -19,38 +20,74 @@
   width: 100%;
 }
 
-.certifications-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+/* Outer Carousel container for Certifications */
+.certifications-carousel {
+  width: 100%;
+  position: relative;
 }
 
-/* Sharp high-contrast certificate card with generous portrait proportions */
+/* 
+ * Embla Loop Gap Fix:
+ * When loop: true is active, Embla calculates the loop boundary gap from the last slide's margin-right.
+ * Container flexbox gap does not apply after the last slide, which previously caused a 0px gap between
+ * the last slide (AppKademiya) and the first slide (Google) when looping back.
+ * Overriding gap to 0 on .carousel-track and applying uniform margin-right on .cert-carousel-slide guarantees
+ * an invariant 1.25rem spacing throughout the entire infinite loop cycle.
+ */
+.certifications-carousel .carousel-track {
+  gap: 0;
+}
+
+/* Carousel Slide Item Container (Decoupled from .cert-card to isolate Embla translate3d transforms from CSS transitions) */
+.cert-carousel-slide {
+  /* Desktop multi-card view: 3 cards visible with uniform 1.25rem gap */
+  flex: 0 0 calc((100% - 2.5rem) / 3);
+  margin-right: 1.25rem;
+  min-width: 0;
+  box-sizing: border-box;
+  display: flex;
+}
+
+/* Sharp high-contrast certificate card */
 .cert-card {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
   border-top: 2px solid rgba(249, 226, 175, 0.45);
   border-radius: var(--radius-sharp);
-  padding: 2rem 1.75rem;
+  padding: 1.75rem 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 1.25rem;
-  min-height: 440px;
+  gap: 1.15rem;
+  min-height: 480px;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.55), 0 2px 6px -1px rgba(0, 0, 0, 0.35);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Clean Matte Badge Stage Centered at the Top of the Card */
+/* Subtle floating hover elevation with Catppuccin yellow accent depth */
+.cert-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.75), 0 4px 14px -2px rgba(249, 226, 175, 0.15);
+}
+
+/* Compact, Breathable Matte Badge Stage Centered at the Top */
 .cert-badge-banner {
+  width: 100%;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2.25rem 1.5rem;
+  padding: 1.25rem 1rem;
   background: var(--ctp-crust);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md, 10px);
-  min-height: 220px;
+  min-height: 160px;
+  max-height: 165px;
   position: relative;
   overflow: hidden;
   transition: border-color 0.25s ease, background-color 0.25s ease;
@@ -61,26 +98,27 @@
   border-color: rgba(249, 226, 175, 0.35);
 }
 
-/* Big, bold Hero Digital Badge with clean natural drop shadow */
+/* Balanced Digital Badge with clean natural drop shadow */
 .cert-badge-img {
-  height: 155px;
-  max-height: 165px;
-  max-width: 190px;
+  height: 110px;
+  max-height: 118px;
+  max-width: 140px;
   width: auto;
   object-fit: contain;
-  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45));
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45));
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   z-index: 1;
 }
 
 .cert-card:hover .cert-badge-img {
-  transform: translateY(-4px) scale(1.04);
+  transform: translateY(-3px) scale(1.03);
 }
 
+/* Fallback vector icon wrap when badge asset is loading or missing */
 .cert-badge-fallback-wrap {
-  width: 90px;
-  height: 90px;
+  width: 76px;
+  height: 76px;
   border-radius: var(--radius-md, 10px);
   background-color: var(--ctp-surface0);
   border: 1px solid var(--border-color);
@@ -94,9 +132,9 @@
 }
 
 .cert-card:hover .cert-badge-fallback-wrap {
-  transform: translateY(-4px) scale(1.06);
+  transform: translateY(-3px) scale(1.05);
   border-color: var(--ctp-yellow);
-  box-shadow: 0 0 24px rgba(249, 226, 175, 0.3);
+  box-shadow: 0 0 20px rgba(249, 226, 175, 0.25);
 }
 
 .cert-card-header {
@@ -104,23 +142,49 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 0.4rem;
+  gap: 0.45rem;
 }
 
+/* Header Subtext: Official Brand Vector Logo, Dot Separator & Date */
 .cert-issuer-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.45rem;
+  gap: 0.5rem;
   font-family: var(--font-mono);
-  font-size: 0.825rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  color: var(--ctp-yellow);
-  margin-bottom: 0.15rem;
+  color: var(--ctp-subtext1);
+  line-height: 1;
+  margin-bottom: 0.1rem;
+}
+
+.company-logo-svg {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cert-card:hover .company-logo-svg {
+  transform: scale(1.08);
+}
+
+.cert-issuer-dot {
+  color: var(--ctp-overlay0);
+  font-size: 0.75rem;
+  user-select: none;
+}
+
+.cert-issuer-date {
+  color: var(--ctp-subtext1);
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: -0.01em;
 }
 
 .cert-title {
-  font-size: 1.18rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--ctp-text);
   line-height: 1.35;
@@ -130,39 +194,130 @@
 }
 
 .cert-desc {
-  font-size: 0.88rem;
+  font-size: 0.84rem;
   color: var(--ctp-subtext0);
-  line-height: 1.6;
+  line-height: 1.55;
   margin: 0;
   flex: 1;
   text-align: center;
 }
 
-/* Credential ID display box */
+/* Horizontally Scrollable Credential ID display box with Copy Button */
 .cert-credential-box {
   background-color: var(--ctp-crust);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sharp);
-  padding: 0.65rem 0.95rem;
+  padding: 0.45rem 0.65rem 0.45rem 0.75rem;
   display: flex;
   align-items: center;
-  gap: 0.65rem;
-  font-size: 0.825rem;
+  gap: 0.55rem;
+  font-size: 0.8rem;
+  min-width: 0;
+  position: relative;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.cert-credential-box:hover {
+  border-color: rgba(116, 199, 236, 0.35);
 }
 
 .credential-label {
   font-family: var(--font-mono);
   font-weight: 700;
   color: var(--ctp-subtext0);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   letter-spacing: 0.05em;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+/* Scrollable container prevents awkward line-wrapping for long IDs */
+.credential-scroll-container {
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: thin;
+  scrollbar-color: var(--ctp-surface2) transparent;
+  display: flex;
+  align-items: center;
+  padding: 0.2rem 0;
+}
+
+/* Minimalist horizontal scrollbar for credential text */
+.credential-scroll-container::-webkit-scrollbar {
+  height: 3px;
+}
+
+.credential-scroll-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.credential-scroll-container::-webkit-scrollbar-thumb {
+  background: var(--ctp-surface2);
+  border-radius: 4px;
+}
+
+.credential-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: var(--ctp-overlay0);
 }
 
 .credential-value {
   font-family: var(--font-mono);
   color: var(--ctp-sky);
   font-weight: 600;
-  word-break: break-all;
+  font-size: 0.775rem;
+  white-space: nowrap;
+  user-select: all;
+}
+
+/* Integrated 1-Click Copy Button */
+.credential-copy-btn {
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm, 4px);
+  color: var(--ctp-subtext0);
+  padding: 0.35rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  line-height: 1;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.credential-copy-btn:hover {
+  color: var(--ctp-text);
+  background-color: var(--ctp-surface0);
+  border-color: var(--border-color);
+  transform: scale(1.08);
+}
+
+.credential-copy-btn:active {
+  transform: scale(0.95);
+}
+
+.credential-copy-btn.is-copied {
+  color: var(--ctp-green);
+  border-color: rgba(166, 227, 161, 0.4);
+  background-color: rgba(166, 227, 161, 0.12);
+}
+
+.copy-icon-check {
+  animation: copyCheckPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes copyCheckPop {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 /* Action row for verification button */
@@ -170,14 +325,14 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding-top: 1rem;
+  padding-top: 0.95rem;
   border-top: 1px solid var(--border-color);
   margin-top: auto;
 }
 
 .cert-verify-btn {
-  padding: 0.6rem 1.25rem;
-  font-size: 0.85rem;
+  padding: 0.55rem 1.15rem;
+  font-size: 0.825rem;
   width: 100%;
   display: inline-flex;
   align-items: center;
@@ -191,8 +346,25 @@
     padding: 3rem 0;
   }
 
-  .certifications-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .cert-carousel-slide {
+    /* 2 cards visible on intermediate tablet displays with uniform 1.25rem gap */
+    flex: 0 0 calc((100% - 1.25rem) / 2);
+    margin-right: 1.25rem;
+  }
+
+  .cert-card {
+    min-height: 460px;
+    padding: 1.5rem 1.35rem;
+  }
+
+  .cert-badge-banner {
+    min-height: 150px;
+    max-height: 155px;
+  }
+
+  .cert-badge-img {
+    height: 100px;
+    max-height: 108px;
   }
 }
 
@@ -202,15 +374,16 @@
     padding: 2.5rem 0 3.5rem 0;
   }
 
-  .certifications-grid {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
+  .cert-carousel-slide {
+    /* Mobile peek view: 85% width with uniform 1.15rem gap */
+    flex: 0 0 85%;
+    margin-right: 1.15rem;
   }
 
   .cert-card {
-    padding: 1.65rem 1.45rem;
     min-height: auto;
-    gap: 1.25rem;
+    padding: 1.45rem 1.25rem;
+    gap: 1.15rem;
     border-radius: 16px;
     background: rgba(30, 30, 46, 0.72);
     backdrop-filter: blur(20px);
@@ -220,57 +393,68 @@
   }
 
   .cert-badge-banner {
-    min-height: 185px;
-    padding: 1.75rem 1rem;
-    border-radius: 14px;
+    min-height: 145px;
+    max-height: 150px;
+    padding: 1.25rem 0.75rem;
+    border-radius: 12px;
   }
 
   .cert-badge-img {
-    height: 135px;
-    max-height: 145px;
-    max-width: 165px;
+    height: 95px;
+    max-height: 100px;
+    max-width: 125px;
   }
 
   .cert-badge-fallback-wrap {
-    width: 78px;
-    height: 78px;
+    width: 68px;
+    height: 68px;
   }
 
   .cert-title {
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     line-height: 1.35;
   }
 
   .cert-desc {
-    font-size: 0.86rem;
-    line-height: 1.55;
+    font-size: 0.825rem;
+    line-height: 1.5;
   }
 
   .cert-verify-btn {
-    min-height: 48px;
-    border-radius: 12px;
-    font-size: 0.875rem;
+    min-height: 44px;
+    border-radius: 10px;
+    font-size: 0.85rem;
     font-weight: 600;
   }
 
   .cert-verify-btn:active {
     transform: scale(0.98);
   }
+
+  .credential-copy-btn {
+    padding: 0.45rem;
+  }
 }
 
 @media (max-width: 480px) {
+  .cert-carousel-slide {
+    flex: 0 0 88%;
+    margin-right: 1rem;
+  }
+
   .cert-card {
-    padding: 1.4rem 1.2rem;
+    padding: 1.25rem 1.1rem;
   }
 
   .cert-badge-banner {
-    min-height: 170px;
-    padding: 1.5rem 0.75rem;
+    min-height: 135px;
+    max-height: 140px;
+    padding: 1rem 0.5rem;
   }
 
   .cert-badge-img {
-    height: 125px;
-    max-height: 130px;
-    max-width: 150px;
+    height: 88px;
+    max-height: 94px;
+    max-width: 115px;
   }
 }

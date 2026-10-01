@@ -92,8 +92,9 @@ export const researchPapersData = [
 export const certificationsData = [
   {
     id: "google-cybersecurity",
-    title: "Google Cybersecurity Professional Certificate",
+    title: "Cybersecurity Professional Certificate",
     issuer: "Google",
+    issuerLogo: "google",
     issueDate: "June 2025",
     credentialId: "1VRX3BGDO6H8",
     verifyUrl: "https://www.coursera.org/account/accomplishments/specialization/1VRX3BGDO6H8",
@@ -105,8 +106,9 @@ export const certificationsData = [
   },
   {
     id: "ibm-cybersecurity",
-    title: "IBM SkillsBuild Cybersecurity Certificate",
+    title: "SkillsBuild Cybersecurity Certificate",
     issuer: "IBM",
+    issuerLogo: "ibm",
     issueDate: "September 2026",
     credentialId: "8c04a2d8-dd91-4060-9339-4516f8604a54",
     verifyUrl: "https://www.credly.com/badges/8c04a2d8-dd91-4060-9339-4516f8604a54",
@@ -118,8 +120,9 @@ export const certificationsData = [
   },
   {
     id: "oracle-oci",
-    title: "Oracle Cloud Infrastructure Certified Foundations Associate",
+    title: "Cloud Infrastructure Certified Foundations Associate",
     issuer: "Oracle",
+    issuerLogo: "oracle",
     issueDate: "September 2026",
     credentialId: "331624516OCI26FNDCFA",
     verifyUrl: "https://catalog-education.oracle.com/pls/certview/sharebadge?id=E66EEC27533E5A6E06BC95E93DBACFDF8031637DAD82D9078C5024CEFF15AD6E",
@@ -131,8 +134,9 @@ export const certificationsData = [
   },
   {
     id: "fortinet-nse-1",
-    title: "Fortinet Network Security Expert 1 (NSE 1)",
+    title: "Network Security Expert 1 (NSE 1)",
     issuer: "Fortinet",
+    issuerLogo: "fortinet",
     issueDate: "September 2026",
     credentialId: "0296772872KJ",
     verifyUrl: "https://www.credly.com/badges/43b60cc6-1221-4bfa-8ada-f00a89305647/public_url",
@@ -144,8 +148,9 @@ export const certificationsData = [
   },
   {
     id: "fortinet-nse-2",
-    title: "Fortinet Network Security Expert 2 (NSE 2)",
+    title: "Network Security Expert 2 (NSE 2)",
     issuer: "Fortinet",
+    issuerLogo: "fortinet",
     issueDate: "September 2026",
     credentialId: "3907242178KJ",
     verifyUrl: "https://www.credly.com/badges/0e555fcb-c325-4bac-a751-3adc049c61f2/public_url",
@@ -157,8 +162,9 @@ export const certificationsData = [
   },
   {
     id: "fortinet-nse-3",
-    title: "Fortinet Network Security Expert 3 (NSE 3)",
+    title: "Network Security Expert 3 (NSE 3)",
     issuer: "Fortinet",
+    issuerLogo: "fortinet",
     issueDate: "September 2026",
     credentialId: "8156746508KJ",
     verifyUrl: "https://www.credly.com/badges/032b60cd-f07c-41fb-8289-b2649e8d962f/public_url",
@@ -167,6 +173,20 @@ export const certificationsData = [
     icon: "ShieldCheck",
     description: "Advanced Fortinet Security Fabric architecture, enterprise deployment use-cases, secure SD-WAN, and integrated threat intelligence ecosystem.",
     monoTag: "[ FORTINET_NSE3 ]"
+  },
+  {
+    id: "appkademiya-nto101",
+    title: "NetOps Certified Engineer (NTO101)",
+    issuer: "AppKademiya",
+    issuerLogo: "appkademiya",
+    issueDate: "October 2026",
+    credentialId: "CERT-NETOPS-CERTIFIED-ENGINEER-NTO101-20261001-5B08AA328097",
+    verifyUrl: "https://appkademiya.online/verify/CERT-NETOPS-CERTIFIED-ENGINEER-NTO101-20261001-5B08AA328097",
+    badge: "Network Operations Certification",
+    badgeImage: "appkademiya-nto101.png",
+    icon: "ShieldCheck",
+    description: "Network operations engineering, enterprise network monitoring, traffic optimization, automated infrastructure diagnostics, and telemetry analysis.",
+    monoTag: "[ APPKADEMIYA_NETOPS ]"
   }
 ];
 
