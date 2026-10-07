@@ -1,0 +1,162 @@
+/**
+ * @file src/styles/scrollProgressNav.css
+ * @description Stylesheet for the dual-sidebar scroll progress navigation system.
+ * Implements fixed vertical indicator rails on left and right viewport gutters,
+ * pill dash geometry, smooth hover transitions, and responsive visibility.
+ */
+
+/* ==========================================================================
+   Dual-Rail Scroll Progress Navigation
+   ========================================================================== */
+
+/* Base container for both fixed rails */
+.scroll-nav-rail {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  pointer-events: auto;
+  user-select: none;
+}
+
+/* Left rail placement: minimal dashes with hover-triggered label reveal */
+.scroll-nav-rail.left-rail {
+  left: clamp(1rem, 2.5vw, 2.25rem);
+  align-items: flex-start;
+}
+
+/* Right rail placement: active scroll tracker with automatic active label reveal */
+.scroll-nav-rail.right-rail {
+  right: clamp(1rem, 2.5vw, 2.25rem);
+  align-items: flex-end;
+}
+
+/* Interactive navigation item button */
+.scroll-nav-item {
+  display: inline-flex;
+  align-items: center;
+  background: transparent;
+  border: none;
+  padding: 6px 4px;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 0.775rem;
+  letter-spacing: 0.025em;
+  transition: opacity 0.2s ease;
+}
+
+.scroll-nav-item:focus-visible .scroll-nav-dash {
+  outline: 2px solid var(--ctp-sapphire);
+  outline-offset: 2px;
+}
+
+/* Left rail item layout: dash on the left, label on the right */
+.left-rail .scroll-nav-item {
+  flex-direction: row;
+  gap: 0.75rem;
+}
+
+/* Right rail item layout: label on the left, dash on the right */
+.right-rail .scroll-nav-item {
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+/* Dash pill indicators */
+.scroll-nav-dash {
+  display: block;
+  height: 3px;
+  width: 14px;
+  border-radius: 9999px;
+  background-color: var(--ctp-surface2);
+  opacity: 0.6;
+  flex-shrink: 0;
+  transition: width 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.24s ease,
+              opacity 0.24s ease,
+              box-shadow 0.24s ease;
+}
+
+/* Hover state on dashes */
+.scroll-nav-item:hover .scroll-nav-dash {
+  width: 28px;
+  background-color: var(--ctp-lavender);
+  opacity: 1;
+}
+
+/* Active dash state on right rail (automatically highlighted during scroll) */
+.right-rail .scroll-nav-item.is-active .scroll-nav-dash {
+  width: 32px;
+  background-color: var(--ctp-sapphire);
+  opacity: 1;
+  box-shadow: 0 0 10px rgba(116, 199, 236, 0.45);
+}
+
+/* Active dash indicator on left rail (subtle highlight without auto-expanding) */
+.left-rail .scroll-nav-item.is-active .scroll-nav-dash {
+  background-color: var(--ctp-blue);
+  opacity: 0.9;
+}
+
+.left-rail .scroll-nav-item.is-active:hover .scroll-nav-dash {
+  width: 32px;
+  background-color: var(--ctp-sapphire);
+  opacity: 1;
+  box-shadow: 0 0 10px rgba(116, 199, 236, 0.45);
+}
+
+/* Section text label */
+.scroll-nav-label {
+  white-space: nowrap;
+  color: var(--ctp-subtext0);
+  font-weight: 500;
+  text-shadow: 0 1px 4px rgba(17, 17, 27, 0.9);
+  transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.2s ease;
+  pointer-events: none;
+}
+
+/* Left rail label behavior: hidden by default, slides in on hover */
+.left-rail .scroll-nav-label {
+  opacity: 0;
+  transform: translateX(-8px);
+}
+
+.left-rail .scroll-nav-item:hover .scroll-nav-label {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--ctp-text);
+}
+
+/* Right rail label behavior: active item is automatically visible; inactive items reveal on hover */
+.right-rail .scroll-nav-label {
+  opacity: 0;
+  transform: translateX(8px);
+}
+
+.right-rail .scroll-nav-item.is-active .scroll-nav-label {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--ctp-text);
+  font-weight: 600;
+}
+
+.right-rail .scroll-nav-item:hover .scroll-nav-label {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--ctp-text);
+}
+
+/* Responsive visibility: Hide on screens < 1024px to preserve mobile space and rely on MobileBottomNav */
+@media (max-width: 1023px) {
+  .scroll-nav-rail {
+    display: none !important;
+  }
+}

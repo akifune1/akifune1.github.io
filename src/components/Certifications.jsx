@@ -17,7 +17,7 @@ import '../styles/certifications.css';
  * Renders an optimized SVG vector logo for the certifying provider using official, authentic brand colors.
  *
  * @param {Object} props - Component properties.
- * @param {string} props.issuer - Logo identifier slug ('google' | 'ibm' | 'oracle' | 'fortinet' | 'appkademiya').
+ * @param {string} props.issuer - Logo identifier slug ('google' | 'ibm' | 'oracle' | 'fortinet' | 'appkademiya' | 'cyberwarfare' | 'redteamleaders').
  * @param {number} [props.size=15] - Desired icon bounding box size in pixels.
  * @returns {JSX.Element|null} The rendered SVG logo mark in authentic brand palette.
  */
@@ -113,6 +113,46 @@ const CompanyLogo = memo(function CompanyLogo({ issuer, size = 15 }) {
           className="company-logo-svg"
         >
           <path d="M12 2.5L2.8 20.8h4.6L12 11.6l4.6 9.2h4.6L12 2.5z" />
+        </svg>
+      );
+
+    case 'cyberwarfare':
+      // Official CyberWarfare Labs defensive cyber shield & crosshair mark
+      return (
+        <svg
+          viewBox="0 0 24 24"
+          width={size}
+          height={size}
+          fill="none"
+          stroke="#00D2D3"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-label="CyberWarfare Labs logo"
+          className="company-logo-svg"
+        >
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="rgba(0, 210, 211, 0.15)" />
+          <circle cx="12" cy="11" r="3" fill="#00D2D3" />
+        </svg>
+      );
+
+    case 'redteamleaders':
+      // Official Red Team Leaders offensive & AI security insignia
+      return (
+        <svg
+          viewBox="0 0 24 24"
+          width={size}
+          height={size}
+          fill="none"
+          stroke="#E02424"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-label="Red Team Leaders logo"
+          className="company-logo-svg"
+        >
+          <path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z" fill="rgba(224, 36, 36, 0.18)" />
+          <path d="M13 7l-3 5h4l-2 5" stroke="#FFFFFF" strokeWidth="1.75" />
         </svg>
       );
 

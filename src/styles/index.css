@@ -91,13 +91,15 @@ html {
   scroll-behavior: smooth;
   color-scheme: dark;
   overflow-x: hidden;
-  /* Offset all anchor scroll targets by the fixed navbar height (64px)
-     so clicking a nav link lands with the section header perfectly framed below the bar */
-  scroll-padding-top: 64px;
+  /* Minimal scroll-padding since the navbar auto-hides past Hero;
+     a small offset prevents content from landing under the viewport edge */
+  scroll-padding-top: 20px;
 }
 
 #main-content {
-  padding-top: 64px;
+  /* No top padding needed since the Hero section is full-viewport
+     and the navbar auto-hides when scrolling into subsequent sections */
+  padding-top: 0;
 }
 
 body {
@@ -108,11 +110,19 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  /* Crisp subtle grid pattern for terminal-SaaS hybrid backdrop */
-  background-image: 
-    linear-gradient(to right, rgba(69, 71, 90, 0.15) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(69, 71, 90, 0.15) 1px, transparent 1px);
-  background-size: 36px 36px;
+  /* Rural Japan pixel art nightscape background with deep atmospheric dark overlays.
+     Multi-layer gradient ensures AAA contrast readability for all text and card content
+     while the pixel art subtly enriches the visual ambiance. */
+  background-color: var(--ctp-crust);
+  background-image:
+    /* Deep radial vignette overlay keeping center slightly lighter */
+    radial-gradient(ellipse at 50% 30%, rgba(17, 17, 27, 0.82) 0%, rgba(17, 17, 27, 0.94) 70%, rgba(17, 17, 27, 0.98) 100%),
+    /* The pixel art background image */
+    url('/images/rural-japan-night.jpg');
+  background-size: cover, cover;
+  background-position: center, center bottom;
+  background-attachment: scroll, fixed;
+  background-repeat: no-repeat, no-repeat;
 }
 
 /* Custom terminal scrollbars */
@@ -170,6 +180,22 @@ a:hover {
   padding: 0 1.75rem;
 }
 
+/* Adjust content container margins on desktop (>=1024px) to ensure generous breathing room
+   and prevent any overlap between content and the dual-sidebar scroll navigation rails */
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1100px;
+    padding: 0 4.5rem;
+  }
+}
+
+@media (min-width: 1360px) {
+  .container {
+    max-width: 1180px;
+    padding: 0 5.5rem;
+  }
+}
+
 /* ==========================================================================
    Scroll-Triggered Reveal Animations
    ========================================================================== */
@@ -203,8 +229,7 @@ a:hover {
 .skills-category-card,
 .cert-card,
 .contact-channel-card,
-.timeline-card,
-.hero-terminal-card {
+.timeline-card {
   transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
   will-change: transform, box-shadow;
 }
@@ -220,9 +245,7 @@ a:hover {
   .contact-channel-card:hover,
   .contact-channel-card.reveal.active:hover,
   .timeline-card:hover,
-  .timeline-card.reveal.active:hover,
-  .hero-terminal-card:hover,
-  .hero-terminal-card.reveal.active:hover {
+  .timeline-card.reveal.active:hover {
     transform: translateY(-6px) !important;
     box-shadow: var(--shadow-floating) !important;
   }
@@ -233,8 +256,7 @@ a:hover {
 .skills-category-card:active,
 .cert-card:active,
 .contact-channel-card:active,
-.timeline-card:active,
-.hero-terminal-card:active {
+.timeline-card:active {
   transform: scale(0.985) !important;
 }
 

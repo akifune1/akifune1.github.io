@@ -3,6 +3,7 @@
  * @description Top navigation bar component for Kolby Hernandez's portfolio.
  * Displays developer branding, active section scroll tracking in chronological narrative order
  * (About, Experience, Projects, Skills, Certifications, Contact), and direct contact action.
+ * Auto-hides when the user scrolls past the Hero section; reappears when scrolling back.
  * Rendered at the top of App.jsx.
  */
 
@@ -25,6 +26,7 @@ const NAV_ITEMS = [
 /**
  * Navbar Component
  * Renders the top navigation bar with clean branding, scroll spy, and quick contact action.
+ * Automatically hides when the user scrolls past the Hero section and reappears upon return.
  * Supports a responsive mobile navigation drawer with backdrop blur and touch ergonomics.
  *
  * @returns {JSX.Element} The rendered Navbar component.
@@ -32,16 +34,29 @@ const NAV_ITEMS = [
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
+  // Tracks whether the user has scrolled past the Hero section to trigger auto-hide
+  const [isPastHero, setIsPastHero] = useState(false);
   const navRef = useRef(null);
 
   /**
-   * Track scroll position to update active navigation item.
+   * Track scroll position to update active navigation item and determine Hero visibility.
    * Throttled with requestAnimationFrame to eliminate layout thrashing during scroll.
+   * Combines active section tracking and Hero-boundary detection into a single scroll handler
+   * to avoid registering redundant event listeners.
    */
   useEffect(() => {
     let ticking = false;
 
-    const updateActiveSection = () => {
+    const updateScrollState = () => {
+      // --- Hero boundary detection for auto-hide ---
+      const heroEl = document.getElementById('hero');
+      if (heroEl) {
+        // 80px buffer before the Hero section fully leaves the viewport
+        const heroBottom = heroEl.offsetTop + heroEl.offsetHeight;
+        setIsPastHero(window.scrollY > heroBottom - 80);
+      }
+
+      // --- Active section tracking ---
       // If user has scrolled near the bottom of the page, activate the final section ('contact')
       if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60) {
         setActiveSection('contact');
@@ -49,7 +64,7 @@ export default function Navbar() {
         return;
       }
 
-      // Check sections from bottom to top against the focal threshold (navbar 64px + 100px)
+      // Check sections from bottom to top against the focal threshold (100px buffer)
       const scrollPosition = window.scrollY + 164;
       for (let i = NAV_ITEMS.length - 1; i >= 0; i--) {
         const item = NAV_ITEMS[i];
@@ -67,14 +82,14 @@ export default function Navbar() {
 
     const handleScroll = () => {
       if (!ticking) {
-        window.requestAnimationFrame(updateActiveSection);
+        window.requestAnimationFrame(updateScrollState);
         ticking = true;
       }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     // Initial check on mount
-    updateActiveSection();
+    updateScrollState();
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -114,9 +129,8 @@ export default function Navbar() {
   }, []);
 
   /**
-   * Smoothly scrolls to target section with precise 64px fixed navbar offset.
-   * Flawlessly focuses sections (Certifications, Contact, Skills, Projects) configured with
-   * min-height: calc(100vh - 64px) into the center of the available viewport.
+   * Smoothly scrolls to target section with appropriate offset.
+   * Uses a minimal offset since the navbar auto-hides past Hero.
    *
    * @param {string} id - Target DOM ID.
    */
@@ -125,11 +139,9 @@ export default function Navbar() {
     setMobileMenuOpen(false);
     const element = document.getElementById(id);
     if (element) {
-      const navbarOffset = 64; // Exact height of fixed navbar
+      // When navigating to Hero, scroll to top; otherwise use a small offset
+      const navbarOffset = id === 'hero' ? 0 : 20;
       const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
-
-      // Align the top of the selected section flush with the bottom edge of the 64px fixed navbar.
-      // Viewport-isolated sections are naturally flex-centered inside the remaining screen area.
       const targetScrollTop = Math.max(0, Math.round(elementTop - navbarOffset));
 
       window.scrollTo({
@@ -139,10 +151,11 @@ export default function Navbar() {
     }
   };
 
-
-
   return (
-    <header className="navbar-container" ref={navRef}>
+    <header
+      className={`navbar-container ${isPastHero ? 'navbar-hidden' : ''}`}
+      ref={navRef}
+    >
       <div className="container">
         <div className="navbar-inner">
           {/* Developer Brand */}
