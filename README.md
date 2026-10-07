@@ -114,7 +114,6 @@ akifune1.github.io/
 │   ├── badges/                     # Official provider credential badges (.png)
 │   ├── images/                     # Rural Japan pixel-art background assets
 │   └── KolbyHernandez_CV.pdf       # Curriculum Vitae
-├── specs/                          # Formal RFC feature specifications
 ├── src/
 │   ├── components/                 # Modular React UI components
 │   │   ├── Carousel.jsx            # Reusable horizontal loop carousel
@@ -138,8 +137,7 @@ akifune1.github.io/
 │   ├── App.jsx                     # Layout composer & narrative flow
 │   └── main.jsx                    # Application entry point
 ├── vite.config.js                  # Hardened Vite bundler configuration
-├── package.json                    # Dependencies and scripts
-└── AGENTS.md                       # Engineering standards and agent rules
+└── package.json                    # Dependencies and scripts
 ```
 
 ### Key Features
