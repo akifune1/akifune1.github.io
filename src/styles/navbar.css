@@ -1,7 +1,8 @@
 /**
  * @file src/styles/navbar.css
  * @description Stylesheet for the top navigation header bar using Catppuccin Mocha colors.
- * Implements clean branding, active section indicator, status beacon, and responsive drawer.
+ * Implements clean branding, active section indicator, auto-hide past Hero transition,
+ * status beacon, and responsive drawer.
  */
 
 .navbar-container {
@@ -15,7 +16,19 @@
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-color);
   width: 100%;
+  /* GPU-accelerated auto-hide transition when scrolling past the Hero section */
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.3s ease;
+  will-change: transform, opacity;
 }
+
+/* Hidden state: navbar slides up out of view when user scrolls past the Hero section */
+.navbar-container.navbar-hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
 
 .navbar-container::after {
   content: '';

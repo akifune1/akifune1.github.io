@@ -1,178 +1,98 @@
 /**
  * @file src/components/Hero.jsx
- * @description Viewport-centered Hero profile component for Kolby Hernandez combining
- * an authentic introductory bio, professional action buttons, and a comprehensive Catppuccin
- * terminal diagnostics window reflecting Mapúa University credentials and cybersecurity expertise.
+ * @description Impactful, viewport-centered Hero landing section for Kolby Hernandez's portfolio.
+ * Presents a focused narrative with the developer's name, concise subtitle, credential mini badges,
+ * and dual call-to-action buttons. No terminal card — streamlined for maximum first-impression impact.
  * Rendered at the top of App.jsx.
  */
 
-import React, { useState, useEffect } from 'react';
-import { ArrowRight, ShieldCheck, Send, Sparkles, Award } from 'lucide-react';
+import React from 'react';
+import { ArrowDown, Send } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 import '../styles/hero.css';
 
-// Dynamic roles array for typewriter animation matching real CV credentials.
-// Hoisted outside the component to prevent array reallocation on every frame.
-const ROLES = [
-  "Full-Stack Software Engineer",
-  "Cybersecurity Specialist",
-  "Mapúa IT Graduate (Cum Laude)",
-  "DOST-SEI Scholar (RA 7687)",
-  "Penetration Testing & Secure Web Architect"
+// Credential mini badges displayed in a flex-wrapped row beneath the subtitle.
+// Hoisted outside the component to prevent array re-allocation on every render cycle.
+const HERO_BADGES = [
+  { label: 'B.S. Information Technology', accent: 'var(--ctp-sapphire)' },
+  { label: 'Cybersecurity Analyst', accent: 'var(--ctp-red)' },
+  { label: 'Full-Stack Developer', accent: 'var(--ctp-blue)' },
+  { label: 'Mapúa University', accent: 'var(--ctp-mauve)' },
+  { label: 'DOST-SEI Scholar', accent: 'var(--ctp-yellow)' },
 ];
 
 /**
  * Hero Component
- * Perfectly centered in the initial viewport at 100% zoom, presenting developer credentials,
- * animated role cycling, and a complete system/profile terminal preview.
+ * Renders a focused, centered landing section with impactful typography, credential badges,
+ * and dual navigation CTAs ("Learn More" and "Get in Touch").
  *
- * @returns {JSX.Element} The rendered Hero component.
+ * @returns {JSX.Element} The rendered Hero section.
  */
 export default function Hero() {
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [displayText, setDisplayText] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  /**
-   * Typewriter effect loop cycling through developer titles.
-   * Uses clear separation between pause state and character iteration to prevent
-   * unmanaged timer handles and memory leaks when unmounting or fast-cycling.
-   */
-  useEffect(() => {
-    const currentRole = ROLES[roleIndex];
-
-    // When the full title is typed out, pause for 2000ms before starting backspace
-    if (!isDeleting && displayText === currentRole) {
-      const pauseTimer = setTimeout(() => {
-        setIsDeleting(true);
-      }, 2000);
-      return () => clearTimeout(pauseTimer);
-    }
-
-    // When the title has been fully erased, advance to the next title in the list
-    if (isDeleting && displayText === '') {
-      setIsDeleting(false);
-      setRoleIndex((prevIndex) => (prevIndex + 1) % ROLES.length);
-      return;
-    }
-
-    // Typing speed: 65ms per char forward, 30ms per char deleting
-    const speed = isDeleting ? 30 : 65;
-    const stepTimer = setTimeout(() => {
-      setDisplayText((prev) =>
-        isDeleting
-          ? currentRole.slice(0, prev.length - 1)
-          : currentRole.slice(0, prev.length + 1)
-      );
-    }, speed);
-
-    return () => clearTimeout(stepTimer);
-  }, [displayText, isDeleting, roleIndex]);
-
   /**
    * Smoothly scrolls to target section with calibrated navbar offset.
+   * Uses a 20px offset since the navbar auto-hides past the Hero section.
    *
    * @param {string} id - Target DOM ID.
    */
   const scrollTo = (id) => {
     const el = document.getElementById(id);
-    if (el) {
-      const navbarOffset = 72;
-      const elTop = el.getBoundingClientRect().top + window.pageYOffset;
-      window.scrollTo({ top: elTop - navbarOffset, behavior: 'smooth' });
-    }
+    if (!el) return;
+
+    // Minimal offset since the navbar hides when leaving the Hero section
+    const offset = 20;
+    const elTop = el.getBoundingClientRect().top + window.pageYOffset;
+    window.scrollTo({ top: Math.max(0, elTop - offset), behavior: 'smooth' });
   };
 
   return (
     <section id="hero" className="hero-section">
       <div className="container">
-        <div className="hero-grid">
-          {/* Left Column: Greeting, Bio, Professional Action Buttons */}
-          <div className="hero-content reveal">
-            <div className="hero-greeting-badge">
-              <Sparkles size={14} />
-              <span>Full-Stack Software Engineer & Cybersecurity Specialist</span>
-            </div>
+        <div className="hero-centered reveal">
+          {/* Primary Title — Developer Name */}
+          <h1 className="hero-title">
+            <span className="hero-title-accent">{personalInfo.name}</span>
+          </h1>
 
-            <h1 className="hero-title">
-              Hi, I'm <span className="hero-title-accent">{personalInfo.name}</span>
-            </h1>
+          {/* Concise Professional Subtitle */}
+          <p className="hero-subtitle">
+            Full-Stack Software Engineer &amp; Cybersecurity Specialist building
+            high-assurance, performant web applications and secure digital systems.
+          </p>
 
-            {/* Typewriter role subhead: text and cursor bundled inside inline container */}
-            <div className="hero-typewriter-container" aria-live="polite">
-              <span className="hero-typewriter-prefix">$ whoami &gt;</span>
-              <span className="hero-typewriter-text">
-                {displayText}
-                <span className="cursor-blink" aria-hidden="true" />
+          {/* Credential Mini Badges */}
+          <div className="hero-badges" role="list" aria-label="Professional credentials">
+            {HERO_BADGES.map((badge) => (
+              <span
+                key={badge.label}
+                className="hero-badge"
+                role="listitem"
+                style={{
+                  '--badge-accent': badge.accent,
+                }}
+              >
+                {badge.label}
               </span>
-            </div>
-
-            <p className="hero-bio">
-              {personalInfo.bio}
-            </p>
-
-            {/* Professional Action Buttons */}
-            <div className="hero-cta-group">
-              <button
-                className="btn btn-primary"
-                onClick={() => scrollTo('experience')}
-              >
-                <span>View Experiences</span>
-                <ArrowRight size={15} />
-              </button>
-
-              <button
-                className="btn btn-outline"
-                onClick={() => scrollTo('contact')}
-              >
-                <Send size={15} />
-                <span>Get In Touch</span>
-              </button>
-            </div>
+            ))}
           </div>
 
-          {/* Right Column: High-Contrast Sharp Catppuccin Terminal Diagnostics Window */}
-          <div className="hero-terminal-card terminal-window reveal stagger-2">
-            <div className="terminal-header">
-              <div className="terminal-controls">
-                <span className="terminal-dot dot-red" />
-                <span className="terminal-dot dot-yellow" />
-                <span className="terminal-dot dot-green" />
-              </div>
-              <div className="terminal-title">
-                <span>developer_profile.sh (zsh)</span>
-              </div>
-              <span className="tag tag-green" style={{ fontSize: '0.675rem' }}>
-                READY: 200 OK
-              </span>
-            </div>
+          {/* Dual Call-to-Action Buttons */}
+          <div className="hero-cta-group">
+            <button
+              className="btn btn-primary"
+              onClick={() => scrollTo('experience')}
+            >
+              <span>Learn More</span>
+              <ArrowDown size={15} />
+            </button>
 
-            <div className="terminal-body hero-code-block">
-              {/* Fastfetch system information command invocation */}
-              <div>
-                <span className="code-prompt">kolby@workstation:~$ </span>
-                <span className="code-cmd">fastfetch</span>
-              </div>
-              <br />
-              {/* Fastfetch structured developer profile output */}
-              <div className="code-output">
-                <div><span className="code-keyword">Candidate:</span> {personalInfo.fullName}</div>
-                <div><span className="code-keyword">Degree:</span> {personalInfo.degree}</div>
-                <div><span className="code-keyword">University:</span> {personalInfo.university}</div>
-                <div><span className="code-keyword">Honors:</span> <span style={{ color: 'var(--ctp-peach)', fontWeight: 600 }}>Cum Laude (GWA: 1.6923) • DOST-SEI Scholar</span></div>
-                <div><span className="code-keyword">Specialization:</span> Full-Stack Web & Cybersecurity Defense</div>
-                <div><span className="code-keyword">Certifications:</span> Google Cybersecurity, IBM SkillsBuild, Oracle Cloud OCI, Fortinet NSE 1–3</div>
-                <div><span className="code-keyword">Core Stack:</span> React 19, Next.js, TypeScript, PostgreSQL, Supabase, PHP, MySQL</div>
-                <div><span className="code-keyword">Location:</span> {personalInfo.location}</div>
-                <div><span className="code-keyword">Status:</span> <span style={{ color: 'var(--ctp-green)', fontWeight: 600 }}>Available for Full-Time Roles</span></div>
-              </div>
-              <br />
-              {/* Active prompt awaiting input */}
-              <div>
-                <span className="code-prompt">kolby@workstation:~$ </span>
-                <span className="cursor-blink" />
-              </div>
-            </div>
+            <button
+              className="btn btn-outline"
+              onClick={() => scrollTo('contact')}
+            >
+              <Send size={15} />
+              <span>Get in Touch</span>
+            </button>
           </div>
         </div>
       </div>

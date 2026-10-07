@@ -91,6 +91,34 @@ export const researchPapersData = [
  */
 export const certificationsData = [
   {
+    id: "certified-llm-security-professional",
+    title: "Certified LLM Security Professional (CLLMSP)",
+    issuer: "Red Team Leaders",
+    issuerLogo: "redteamleaders",
+    issueDate: "October 2026",
+    credentialId: "3e3a53e05315f3e1",
+    verifyUrl: "https://courses.redteamleaders.com/exam-completion/3e3a53e05315f3e1",
+    badge: "LLM & AI Security Certification",
+    badgeImage: "redteamleaders-cllmsp.png",
+    icon: "ShieldCheck",
+    description: "Expertise across all nine domains of LLM security: Transformer internals, OWASP Top 10 for LLMs, jailbreak defense, MCP security, AI agent hardening, and incident response.",
+    monoTag: "[ RTL_CLLMSP ]"
+  },
+  {
+    id: "cyberwarfare-blue-team-fundamentals",
+    title: "Blue Team Fundamentals (BTF)",
+    issuer: "CyberWarfare Labs",
+    issuerLogo: "cyberwarfare",
+    issueDate: "October 2026",
+    credentialId: "6ac59293058903f534f665f3",
+    verifyUrl: "https://labs.cyberwarfare.live/credential/achievement/6ac59293058903f534f665f3",
+    badge: "Defensive Security Certification",
+    badgeImage: "cyberwarfare-btf.png",
+    icon: "ShieldCheck",
+    description: "Security Operations, Cyber Threat Hunting & Intelligence, Incident Response, SIEM correlation, and hands-on digital forensics across web, network, and host environments.",
+    monoTag: "[ CWL_BTF ]"
+  },
+  {
     id: "google-cybersecurity",
     title: "Cybersecurity Professional Certificate",
     issuer: "Google",

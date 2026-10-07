@@ -1,7 +1,8 @@
 /**
  * @file src/App.jsx
  * @description Main application layout component for Kolby Hernandez's portfolio.
- * Coordinates global scroll reveal animations and arranges sections in a compelling narrative:
+ * Coordinates global scroll reveal animations, dual-sidebar scroll navigation rails,
+ * and arranges sections in a compelling narrative:
  * Hero (Intro) -> Experience (Background) -> Projects (Engineering) -> Skills (Toolkit) ->
  * Certifications (Validation) -> Contact (Outreach) -> Footer.
  * Root component mounted by main.jsx.
@@ -17,6 +18,7 @@ import Certifications from './components/Certifications';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import MobileBottomNav from './components/MobileBottomNav';
+import ScrollProgressNav from './components/ScrollProgressNav';
 import { useScrollReveal } from './hooks/useScrollReveal';
 
 /**
@@ -33,6 +35,9 @@ export default function App() {
     <div className="portfolio-app-root">
       {/* Top Sticky Navigation Bar */}
       <Navbar />
+
+      {/* Dual-Sidebar Scroll Progress Navigation Rails (Desktop >= 1024px) */}
+      <ScrollProgressNav />
 
       {/* Main Sections in Narrative Order */}
       <main id="main-content">
