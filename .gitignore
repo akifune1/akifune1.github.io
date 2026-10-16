@@ -49,25 +49,50 @@ Thumbs.db
 # Vite & bundler cache
 .vite/
 
-# AI generated files, instructions, specs, and tooling
+# Local development tooling
 .agents/
+.codex/
+.impeccable/
 .gemini/
 .claude/
 .cursor/
 .windsurf/
 .copilot/
+.continue/
+.opencode/
+.serena/
+.roo/
+.clinerules/
+.aider*
+.github/agents/
+.github/instructions/
+.github/prompts/
+.github/skills/
+.github/copilot-instructions.md
+
+# Local instructions and working notes
 AGENTS.md
+AGENTS.override.md
 CLAUDE.md
 GEMINI.md
+CODEX.md
+COPILOT.md
+SKILL.md
+*.agent.md
+*.instructions.md
+*.prompt.md
+*.chatmode.md
 specs/
+DESIGN.md
+PRODUCT.md
 implementation_plan.md
 walkthrough.md
-*.prompt.md
+task_plan.md
+agent-notes*.md
+agent_notes*.md
+session-notes*.md
+session_notes*.md
+handoff*.md
+HANDOFF.md
+MEMORY.md
 CHANGELOG.md
-
-# Impeccable local preferences and generated browser review evidence
-.impeccable/config.local.json
-.impeccable/review/
-.impeccable/questions/
-.impeccable/mocks/
-.impeccable/*.cjs
