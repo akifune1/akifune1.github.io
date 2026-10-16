@@ -1,100 +1,68 @@
-/**
- * @file src/components/Hero.jsx
- * @description Impactful, viewport-centered Hero landing section for Kolby Hernandez's portfolio.
- * Presents a focused narrative with the developer's name, concise subtitle, credential mini badges,
- * and dual call-to-action buttons. No terminal card — streamlined for maximum first-impression impact.
- * Rendered at the top of App.jsx.
- */
-
-import React from 'react';
-import { ArrowDown, Send } from 'lucide-react';
+/** Full-viewport introduction, themed scenery, and pausable credential loop; used by App.jsx. */
+import React, { useEffect, useRef, useState } from 'react';
+import { ArrowDown, ArrowUpRight, Pause, Play } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
+import { scrollToSection } from '../hooks/scrollToSection';
 import '../styles/hero.css';
 
-// Credential mini badges displayed in a flex-wrapped row beneath the subtitle.
-// Hoisted outside the component to prevent array re-allocation on every render cycle.
-const HERO_BADGES = [
-  { label: 'B.S. Information Technology', accent: 'var(--ctp-sapphire)' },
-  { label: 'Cybersecurity Analyst', accent: 'var(--ctp-red)' },
-  { label: 'Full-Stack Developer', accent: 'var(--ctp-blue)' },
-  { label: 'Mapúa University', accent: 'var(--ctp-mauve)' },
-  { label: 'DOST-SEI Scholar', accent: 'var(--ctp-yellow)' },
-];
+const CREDENTIALS = ['B.S. Information Technology', 'Cybersecurity Analyst', 'Full-Stack Developer', 'Mapúa University', 'DOST-SEI Scholar', 'UI/UX Design'];
 
-/**
- * Hero Component
- * Renders a focused, centered landing section with impactful typography, credential badges,
- * and dual navigation CTAs ("Learn More" and "Get in Touch").
- *
- * @returns {JSX.Element} The rendered Hero section.
- */
 export default function Hero() {
-  /**
-   * Smoothly scrolls to target section with calibrated navbar offset.
-   * Uses a 20px offset since the navbar auto-hides past the Hero section.
-   *
-   * @param {string} id - Target DOM ID.
-   */
-  const scrollTo = (id) => {
-    const el = document.getElementById(id);
-    if (!el) return;
+  const carousel = useRef(null);
+  const [paused, setPaused] = useState(false);
+  const [suspended, setSuspended] = useState(false);
+  const darkOnLoad = document.documentElement.dataset.theme === 'dark';
 
-    // Minimal offset since the navbar hides when leaving the Hero section
-    const offset = 20;
-    const elTop = el.getBoundingClientRect().top + window.pageYOffset;
-    window.scrollTo({ top: Math.max(0, elTop - offset), behavior: 'smooth' });
-  };
+  useEffect(() => {
+    let inView = true;
+    const update = () => setSuspended(!inView || document.hidden);
+    const observer = window.IntersectionObserver ? new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      update();
+    }) : null;
+    if (carousel.current) observer?.observe(carousel.current);
+    document.addEventListener('visibilitychange', update);
+    update();
+    return () => {
+      observer?.disconnect();
+      document.removeEventListener('visibilitychange', update);
+    };
+  }, []);
 
   return (
-    <section id="hero" className="hero-section">
+    <section id="hero" className="hero-section" aria-labelledby="intro-title">
+      <div className="hero-backdrop" aria-hidden="true">
+        <img className="hero-background hero-background-light" src={`${import.meta.env.BASE_URL}images/hero_light.jpg`} alt="" loading="eager" decoding="async" fetchPriority={darkOnLoad ? 'low' : 'high'} />
+        <img className="hero-background hero-background-dark" src={`${import.meta.env.BASE_URL}images/hero_dark.jpg`} alt="" loading="eager" decoding="async" fetchPriority={darkOnLoad ? 'high' : 'low'} />
+      </div>
       <div className="container">
-        <div className="hero-centered reveal">
-          {/* Primary Title — Developer Name */}
-          <h1 className="hero-title">
-            <span className="hero-title-accent">{personalInfo.name}</span>
-          </h1>
-
-          {/* Concise Professional Subtitle */}
-          <p className="hero-subtitle">
-            Full-Stack Software Engineer &amp; Cybersecurity Specialist building
-            high-assurance, performant web applications and secure digital systems.
-          </p>
-
-          {/* Credential Mini Badges */}
-          <div className="hero-badges" role="list" aria-label="Professional credentials">
-            {HERO_BADGES.map((badge) => (
-              <span
-                key={badge.label}
-                className="hero-badge"
-                role="listitem"
-                style={{
-                  '--badge-accent': badge.accent,
-                }}
-              >
-                {badge.label}
-              </span>
-            ))}
+        <h1 id="intro-title" className="hero-title"><span className="hero-line"><span>{personalInfo.name.split(' ')[0]} <em>{personalInfo.name.split(' ').slice(1).join(' ')}</em></span></span></h1>
+        <div className="hero-details">
+          <div className="hero-copy">
+            <p className="hero-subtitle">Full-Stack Software Engineer that specializes in Cybersecurity with a passion for User Interface and Experience Design.</p>
+            <div className="hero-cta-group">
+              <button type="button" className="btn btn-primary" onClick={() => scrollToSection('experience')}>Learn More <ArrowDown size={14.4} /></button>
+              <button type="button" className="btn btn-outline" onClick={() => scrollToSection('contact')}>Get in Touch <ArrowUpRight size={14.4} /></button>
+              <a className="text-link" href={personalInfo.socials.resume} download="KolbyHernandez_CV.pdf">Download CV <ArrowDown size={12.6} /></a>
+            </div>
           </div>
-
-          {/* Dual Call-to-Action Buttons */}
-          <div className="hero-cta-group">
-            <button
-              className="btn btn-primary"
-              onClick={() => scrollTo('experience')}
-            >
-              <span>Learn More</span>
-              <ArrowDown size={15} />
-            </button>
-
-            <button
-              className="btn btn-outline"
-              onClick={() => scrollTo('contact')}
-            >
-              <Send size={15} />
-              <span>Get in Touch</span>
+          <div ref={carousel} className="hero-credentials" data-paused={paused || suspended ? 'true' : 'false'}>
+            <div className="credential-window">
+              <div className="credential-track">
+                {[false, true].map((duplicate) => <ul className="credential-group" key={String(duplicate)} aria-label={duplicate ? undefined : 'Professional credentials'} aria-hidden={duplicate ? 'true' : undefined}>
+                  {CREDENTIALS.map((credential) => <li key={credential}>{credential}</li>)}
+                </ul>)}
+              </div>
+            </div>
+            <button className="credential-pause" type="button" aria-label="Pause credential carousel" aria-pressed={paused}
+              title={paused ? 'Resume credential carousel' : 'Pause credential carousel'} onClick={() => setPaused(!paused)}>
+              {paused ? <Play size={12.6} aria-hidden="true" /> : <Pause size={12.6} aria-hidden="true" />}
             </button>
           </div>
         </div>
+        <button type="button" className="hero-scroll-cue" aria-label="Scroll to Experience" onClick={() => scrollToSection('experience')}>
+          <span>Explore my work</span><ArrowDown size={14.4} aria-hidden="true" />
+        </button>
       </div>
     </section>
   );

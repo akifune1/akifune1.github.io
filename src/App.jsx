@@ -1,13 +1,4 @@
-/**
- * @file src/App.jsx
- * @description Main application layout component for Kolby Hernandez's portfolio.
- * Coordinates global scroll reveal animations, dual-sidebar scroll navigation rails,
- * and arranges sections in a compelling narrative:
- * Hero (Intro) -> Experience (Background) -> Projects (Engineering) -> Skills (Toolkit) ->
- * Certifications (Validation) -> Contact (Outreach) -> Footer.
- * Root component mounted by main.jsx.
- */
-
+/** Portfolio document, shared theme state, and repeatable viewport motion; mounted by src/main.jsx. */
 import React from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -19,28 +10,19 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import MobileBottomNav from './components/MobileBottomNav';
 import ScrollProgressNav from './components/ScrollProgressNav';
-import { useScrollReveal } from './hooks/useScrollReveal';
+import { ThemeProvider } from './components/ThemeToggle';
+import { useActiveSection } from './hooks/useActiveSection';
+import { useScrollMotion } from './hooks/useScrollMotion';
 
-/**
- * App Component
- * Coordinates scroll-triggered animations and assembles portfolio sections in story order.
- *
- * @returns {JSX.Element} The rendered App component.
- */
 export default function App() {
-  // Initialize scroll-triggered reveal animations across all sections
-  useScrollReveal();
-
+  const activeSection = useActiveSection();
+  useScrollMotion();
   return (
-    <div className="portfolio-app-root">
-      {/* Top Sticky Navigation Bar */}
-      <Navbar />
-
-      {/* Dual-Sidebar Scroll Progress Navigation Rails (Desktop >= 1024px) */}
-      <ScrollProgressNav />
-
-      {/* Main Sections in Narrative Order */}
-      <main id="main-content">
+    <ThemeProvider>
+      <a className="skip-link" href="#main-content">Skip to content</a>
+      <Navbar activeSection={activeSection} />
+      <ScrollProgressNav activeSection={activeSection} />
+      <main id="main-content" tabIndex={-1}>
         <Hero />
         <Experience />
         <Projects />
@@ -48,13 +30,8 @@ export default function App() {
         <Certifications />
         <Contact />
       </main>
-
-      {/* Bottom Statusline Footer */}
       <Footer />
-
-      {/* Floating Thumb-Zone Navigation Dock for Mobile (<768px) */}
-      <MobileBottomNav />
-    </div>
+      <MobileBottomNav activeSection={activeSection} />
+    </ThemeProvider>
   );
 }
-
