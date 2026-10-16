@@ -329,7 +329,7 @@ export const skillsData = [
     subtitle: "Vulnerability analysis, defense tooling, and DevOps workflows.",
     icon: "ShieldCheck",
     items: [
-      { name: "Nessus & Vulnerability Scanners", level: "Advanced", desc: "Network vulnerability assessment, CVE discovery, and reporting." },
+      { name: "Vulnerability Scanners", level: "Advanced", desc: "Network vulnerability assessment, CVE discovery, and reporting." },
       { name: "Kali Linux", level: "Advanced", desc: "Penetration testing environment, security auditing, and sandbox analysis." },
       { name: "Cisco Packet Tracer", level: "Advanced", desc: "Network topology design, routing protocols, and firewall simulation." },
       { name: "Playwright", level: "Advanced", desc: "End-to-end automated testing, cross-browser validation, and security tests." },

@@ -1,0 +1,326 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-16T04:21:52.379Z",
+  "title": "Design System: Kolby Hernandez Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "page": {
+        "role": "neutral",
+        "displayName": "page"
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "surface"
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "text"
+      },
+      "text-muted": {
+        "role": "neutral",
+        "displayName": "text muted"
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "rule"
+      },
+      "control-border": {
+        "role": "neutral",
+        "displayName": "control border"
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "accent"
+      },
+      "page-dark": {
+        "role": "neutral",
+        "displayName": "page dark"
+      },
+      "surface-dark": {
+        "role": "neutral",
+        "displayName": "surface dark"
+      },
+      "text-dark": {
+        "role": "neutral",
+        "displayName": "text dark"
+      },
+      "text-muted-dark": {
+        "role": "neutral",
+        "displayName": "text muted dark"
+      },
+      "rule-dark": {
+        "role": "neutral",
+        "displayName": "rule dark"
+      },
+      "control-border-dark": {
+        "role": "neutral",
+        "displayName": "control border dark"
+      },
+      "accent-dark": {
+        "role": "primary",
+        "displayName": "accent dark"
+      },
+      "focus": {
+        "role": "primary",
+        "displayName": "focus"
+      },
+      "focus-dark": {
+        "role": "primary",
+        "displayName": "focus dark"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Single-line centered Junicode name, weight 500, purple italic surname."
+      },
+      "display-mobile": {
+        "displayName": "Display Mobile",
+        "purpose": "Single-line centered Junicode name, weight 500, purple italic surname."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Actual text role recorded in DESIGN.md; body 400, headings 500, with stronger subtitle/control emphasis."
+      },
+      "headline-mobile": {
+        "displayName": "Headline Mobile",
+        "purpose": "Actual text role recorded in DESIGN.md; body 400, headings 500, with stronger subtitle/control emphasis."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Actual text role recorded in DESIGN.md; body 400, headings 500, with stronger subtitle/control emphasis."
+      },
+      "title-mobile": {
+        "displayName": "Title Mobile",
+        "purpose": "Actual text role recorded in DESIGN.md; body 400, headings 500, with stronger subtitle/control emphasis."
+      },
+      "project-title": {
+        "displayName": "Project Title",
+        "purpose": "Actual text role recorded in DESIGN.md; body 400, headings 500, with stronger subtitle/control emphasis."
+      },
+      "skills-title": {
+        "displayName": "Skills Title",
+        "purpose": "Actual text role recorded in DESIGN.md; body 400, headings 500, with stronger subtitle/control emphasis."
+      },
+      "credential-title": {
+        "displayName": "Credential Title",
+        "purpose": "Actual text role recorded in DESIGN.md; body 400, headings 500, with stronger subtitle/control emphasis."
+      },
+      "credential-title-mobile": {
+        "displayName": "Credential Title Mobile",
+        "purpose": "Actual text role recorded in DESIGN.md; body 400, headings 500, with stronger subtitle/control emphasis."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Actual text role recorded in DESIGN.md; body 400, headings 500, with stronger subtitle/control emphasis."
+      },
+      "body-mobile": {
+        "displayName": "Body Mobile",
+        "purpose": "Actual text role recorded in DESIGN.md; body 400, headings 500, with stronger subtitle/control emphasis."
+      },
+      "subtext": {
+        "displayName": "Subtext",
+        "purpose": "Actual text role recorded in DESIGN.md; body 400, headings 500, with stronger subtitle/control emphasis."
+      },
+      "subtext-mobile": {
+        "displayName": "Subtext Mobile",
+        "purpose": "Actual text role recorded in DESIGN.md; body 400, headings 500, with stronger subtitle/control emphasis."
+      },
+      "project-tagline": {
+        "displayName": "Project Tagline",
+        "purpose": "Actual text role recorded in DESIGN.md; body 400, headings 500, with stronger subtitle/control emphasis."
+      },
+      "project-tagline-mobile": {
+        "displayName": "Project Tagline Mobile",
+        "purpose": "Actual text role recorded in DESIGN.md; body 400, headings 500, with stronger subtitle/control emphasis."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Actual text role recorded in DESIGN.md; body 400, headings 500, with stronger subtitle/control emphasis."
+      },
+      "compact-label": {
+        "displayName": "Compact Label",
+        "purpose": "Actual text role recorded in DESIGN.md; body 400, headings 500, with stronger subtitle/control emphasis."
+      },
+      "credential-meta": {
+        "displayName": "Credential Meta",
+        "purpose": "Actual text role recorded in DESIGN.md; body 400, headings 500, with stronger subtitle/control emphasis."
+      },
+      "compact-copy": {
+        "displayName": "Compact Copy",
+        "purpose": "Actual text role recorded in DESIGN.md; body 400, headings 500, with stronger subtitle/control emphasis."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Actual text role recorded in DESIGN.md; body 400, headings 500, with stronger subtitle/control emphasis."
+      },
+      "emphasis": {
+        "displayName": "Emphasis",
+        "purpose": "Actual text role recorded in DESIGN.md; body 400, headings 500, with stronger subtitle/control emphasis."
+      },
+      "credential-id": {
+        "displayName": "Credential Id",
+        "purpose": "Actual text role recorded in DESIGN.md; body 400, headings 500, with stronger subtitle/control emphasis."
+      },
+      "contact-display": {
+        "displayName": "Contact Display",
+        "purpose": "Actual text role recorded in DESIGN.md; body 400, headings 500, with stronger subtitle/control emphasis."
+      }
+    },
+    "shadows": [],
+    "motion": {
+      "theme": {
+        "duration": "280ms",
+        "easing": "ease",
+        "properties": "Seven inherited color tokens plus --hero-dark numeric image blend, 280ms"
+      },
+      "entrances": {
+        "duration": "480–650ms",
+        "easing": "cubic-bezier(.16,1,.3,1)",
+        "behavior": "Separate transform-based heading covers; text is not clipped. One entrance per full-viewport visit, true-exit cancellation, identity-safe cleanup."
+      },
+      "reducedMotion": "Nonessential animation and transitions disabled",
+      "credentials": {
+        "duration": "32s",
+        "easing": "linear",
+        "behavior": "Two identical groups; exact half-track translation; pause on hover, manual toggle, offscreen or hidden document; static reduced-motion list"
+      }
+    },
+    "breakpoints": [
+      {
+        "name": "narrow-brand",
+        "value": "323px"
+      },
+      {
+        "name": "compact-credentials",
+        "value": "431px"
+      },
+      {
+        "name": "stacked-document",
+        "value": "690px"
+      },
+      {
+        "name": "mobile-section-index",
+        "value": "921px"
+      },
+      {
+        "name": "desktop-margin-rails",
+        "value": "922px"
+      },
+      {
+        "name": "two-column-credentials",
+        "value": "990px"
+      },
+      {
+        "name": "masthead-disclosure",
+        "value": "1099px"
+      },
+      {
+        "name": "compact-wide-layout",
+        "value": "1151px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Filled purple action with cream/charcoal page-colored text and an ink hover state.",
+      "html": "<button type=\"button\" class=\"ds-primary\">Download CV</button>",
+      "css": ".ds-primary{display:inline-flex;align-items:center;justify-content:center;gap:10.8px;min-height:41.4px;padding:9.9px 18px;border:1px solid var(--control-border);border-radius:0;font:13.5px/1.4 var(--font-sans);text-decoration:none;cursor:pointer;transition:background-color 140ms,color 140ms;background:var(--accent);color:var(--page);border-color:var(--accent)}.ds-primary:hover{background:var(--text);border-color:var(--text)}.ds-primary:focus-visible{outline:2px solid var(--focus);outline-offset:5px;}.ds-primary:disabled{cursor:not-allowed;opacity:.55}@media(prefers-reduced-motion:reduce){.ds-primary{transition:none}}"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Transparent secondary action with a visible control boundary.",
+      "html": "<button type=\"button\" class=\"ds-outline\">View Projects</button>",
+      "css": ".ds-outline{display:inline-flex;align-items:center;justify-content:center;gap:10.8px;min-height:41.4px;padding:9.9px 18px;border:1px solid var(--control-border);border-radius:0;font:13.5px/1.4 var(--font-sans);text-decoration:none;cursor:pointer;transition:background-color 140ms,color 140ms;background:transparent;color:var(--text)}.ds-outline:hover{background:var(--surface)}.ds-outline:focus-visible{outline:2px solid var(--focus);outline-offset:5px}.ds-outline:disabled{cursor:not-allowed;opacity:.55}@media(prefers-reduced-motion:reduce){.ds-outline{transition:none}}"
+    },
+    {
+      "name": "Text Action",
+      "kind": "button",
+      "refersTo": "text-link",
+      "description": "Underlined action used for project and verification destinations.",
+      "html": "<a class=\"ds-text-link\" href=\"#projects\">View Repository<svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M7 7h10v10M7 17 17 7\"/></svg></a>",
+      "css": ".ds-text-link{display:inline-flex;align-items:center;gap:7.2px;font:300 13.5px/1.8 var(--font-sans);text-decoration:underline;text-underline-offset:5.4px;text-decoration-thickness:1px;background:none;border:0;min-height:39.6px;color:var(--text)}.ds-text-link:hover{color:var(--accent)}.ds-text-link:focus-visible{outline:2px solid var(--focus);outline-offset:5px}.ds-text-link svg{flex-shrink:0;vertical-align:middle}.ds-text-link svg{transition:transform 180ms cubic-bezier(.16,1,.3,1)}.ds-text-link:hover svg{transform:translate(1.8px,-1.8px)}@media(prefers-reduced-motion:reduce){.ds-text-link svg{transition:none}}"
+    },
+    {
+      "name": "Masthead Navigation",
+      "kind": "nav",
+      "refersTo": "navigation",
+      "description": "Navigation follows the shared content margins with wider link spacing.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Main navigation\"><a href=\"#experience\">Experience</a><a href=\"#projects\">Projects</a><a href=\"#skills\">Skills</a></nav>",
+      "css": ".ds-nav{display:flex;flex:1;align-items:center;justify-content:space-between;gap:36px;background:transparent;color:var(--text)}.ds-nav a{display:inline-flex;align-items:center;min-height:49.5px;font:500 16.875px/1.8 var(--font-sans);color:inherit;text-decoration:none;text-underline-offset:4.5px;text-decoration-thickness:1px}.ds-nav a:hover{text-decoration:underline}.ds-nav a:focus-visible{outline:2px solid var(--focus);outline-offset:5px}"
+    },
+    {
+      "name": "Editorial Project Entry",
+      "kind": "card",
+      "refersTo": "project-entry",
+      "description": "Open, ruled project row with a heading column and directly readable details.",
+      "html": "<article class=\"ds-project\"><div class=\"ds-project-heading\"><h3>AlertoPH: Centralized Emergency Service Mobile Platform</h3><p class=\"ds-project-category\">Design Prototype</p></div><div class=\"ds-project-content\"><dl><div><dt>Challenge</dt><dd>Project challenge and supporting evidence remain directly readable.</dd></div><div><dt>Architecture</dt><dd>Implementation details follow the challenge in the reading order.</dd></div></dl><ul aria-label=\"Technology stack\"><li>React</li><li>JavaScript</li></ul></div></article>",
+      "css": ".ds-project{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:57.6px;padding:36px 0;border-top:1px solid var(--rule);background:transparent;color:var(--text);font:300 15.3px/1.8 var(--font-sans)}.ds-project-heading h3{margin:0;font:400 28.8px/1.18 var(--font-display);letter-spacing:0;text-wrap:balance;overflow-wrap:break-word}.ds-project-category{font-size:12.6px;color:var(--accent);margin:12.6px 0 0}.ds-project-content dl{margin:21.6px 0 0}.ds-project-content dl>div+div{margin-top:18px}.ds-project-content dt{font-size:12.6px;font-weight:600;margin-bottom:5.4px}.ds-project-content dd{margin:0;font-size:14.4px;color:var(--text-muted)}.ds-project-content ul{display:flex;flex-wrap:wrap;gap:5.4px 14.4px;list-style:none;border-top:1px solid var(--rule);padding:16.2px 0 0;margin:21.6px 0 0;font-size:12.6px;color:var(--text-muted)}@media(max-width:690px){.ds-project{grid-template-columns:1fr;gap:21.6px;padding:28.8px 0}.ds-project-heading h3{font-size:25.2px}}.ds-project-content li{background:var(--accent-soft);color:var(--accent);padding:1.8px 7.2px}"
+    },
+    {
+      "name": "Right Margin Rail",
+      "kind": "nav",
+      "refersTo": "margin-rail",
+      "description": "The right member of the paired rails; active labels persist and other labels appear on focus or hover.",
+      "html": "<nav class=\"ds-rail\" aria-label=\"Right section navigation\"><button type=\"button\" class=\"ds-rail-item\" aria-label=\"Navigate to Experience\"><span class=\"ds-rail-dash\" aria-hidden=\"true\"></span><span class=\"ds-rail-label\">Experience</span></button><button type=\"button\" class=\"ds-rail-item ds-active\" aria-label=\"Navigate to Projects\" aria-current=\"location\"><span class=\"ds-rail-dash\" aria-hidden=\"true\"></span><span class=\"ds-rail-label\">Projects</span></button><button type=\"button\" class=\"ds-rail-item\" aria-label=\"Navigate to Skills\"><span class=\"ds-rail-dash\" aria-hidden=\"true\"></span><span class=\"ds-rail-label\">Skills</span></button></nav>",
+      "css": ".ds-rail{display:flex;flex-direction:column}.ds-rail-item{position:relative;display:flex;flex-direction:row-reverse;align-items:center;gap:10.8px;min-height:49.5px;width:139.5px;border:0;padding:0 9px;background:transparent;font:400 13.5px/1.8 var(--font-sans);color:var(--text-muted);cursor:pointer}.ds-rail-dash{height:0.9px;width:18px;background:var(--control-border);flex-shrink:0;transition:width 160ms}.ds-active .ds-rail-dash{height:1.8px;width:27.9px;background:var(--text)}.ds-rail-label{opacity:0;pointer-events:none;background:transparent;padding:3.6px 0;transition:opacity 160ms}.ds-rail-item:is(:hover,:focus-visible) .ds-rail-label,.ds-active .ds-rail-label{opacity:1;color:var(--text)}.ds-rail-item:hover .ds-rail-dash{width:27.9px}.ds-rail-item:focus-visible{outline:2px solid var(--focus);outline-offset:5px}@media(prefers-reduced-motion:reduce){.ds-rail-dash,.ds-rail-label{transition:none}}"
+    },
+    {
+      "name": "Mobile Section Index",
+      "kind": "nav",
+      "refersTo": "mobile-section-index",
+      "description": "Six equal targets with an ink top marker for the current section.",
+      "html": "<nav class=\"ds-mobile-index\" aria-label=\"Mobile section navigation\"><button type=\"button\">Home</button><button type=\"button\">Work</button><button type=\"button\" class=\"ds-current\" aria-current=\"location\">Projects</button><button type=\"button\">Skills</button><button type=\"button\">Certs</button><button type=\"button\">Contact</button></nav>",
+      "css": ".ds-mobile-index{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));padding:0 7.2px env(safe-area-inset-bottom);background:var(--page);border-top:1px solid var(--control-border)}.ds-mobile-index button{min-height:50.4px;padding:7.2px 0;border:0;border-top:2px solid transparent;background:transparent;font:300 10.8px/1.8 var(--font-sans);color:var(--text-muted);cursor:pointer}.ds-mobile-index .ds-current{color:var(--text);border-top-color:var(--text);font-weight:600}.ds-mobile-index button:hover{color:var(--text)}.ds-mobile-index button:focus-visible{outline:2px solid var(--focus);outline-offset:5px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Warm Editorial Dossier",
+    "overview": "Cream and charcoal editorial portfolio with purple-only emphasis, stronger type, integrated navigation, contextual icons, and varied repeatable motion.",
+    "keyCharacteristics": [
+      "Single purple accent",
+      "Single-line centered name",
+      "Transparent shared-canvas masthead",
+      "Comfortable type weights",
+      "Role-based repeatable motion",
+      "Single inherited theme interpolation",
+      "Full-viewport hero and shared canvas",
+      "Original-color badges using native PNG transparency; white artwork preserved",
+      "User-supplied light/dark hero scenery with blurred fade",
+      "Pausable seamless credential loop",
+      "Full-viewport replay lifecycle with separate heading covers",
+      "Contained navigation without repeated name",
+      "Transparent rail labels and hidden native scrollbar",
+      "Previous 90% view approximated at normal zoom",
+      "Clearer light scenery with synchronized wash strength",
+      "UI/UX Design credential and updated hero summary",
+      "Hero artwork credited to furi / ふーり on Pixiv"
+    ],
+    "rules": [
+      {
+        "name": "One Palette",
+        "description": "Purple and neutrals only; theme colors interpolate once at the root."
+      },
+      {
+        "name": "Comfortable Reading",
+        "description": "Junicode headings 500, Bricolage body 400, open measure and leading."
+      }
+    ],
+    "dos": [
+      "Preserve both rails and evidence",
+      "Use purple icons consistently",
+      "Keep motion repeatable and accessible"
+    ],
+    "donts": [
+      "No white icon plates",
+      "No separate header background",
+      "No independent nested theme transitions",
+      "No automated browser checks without explicit request"
+    ]
+  }
+}

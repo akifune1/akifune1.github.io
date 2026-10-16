@@ -64,3 +64,10 @@ implementation_plan.md
 walkthrough.md
 *.prompt.md
 CHANGELOG.md
+
+# Impeccable local preferences and generated browser review evidence
+.impeccable/config.local.json
+.impeccable/review/
+.impeccable/questions/
+.impeccable/mocks/
+.impeccable/*.cjs
