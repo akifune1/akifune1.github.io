@@ -17,7 +17,7 @@ The site brings together professional experience, software projects, technical s
 - **Light and dark themes.** First visits start in cream light mode. Manual choices persist when browser storage is available and are restored before the app renders.
 - **An animated introduction.** A centered name, themed hero scenery, direct contact/CV actions, and a pausable credential loop that includes UI/UX Design.
 - **Repeatable scroll motion.** Heading wipes and varied section entrances replay on return visits, with reduced-motion alternatives.
-- **Responsive navigation.** Paired desktop section rails, a compact header menu, and a bottom section index on smaller screens. Keyboard navigation includes visible focus and a skip link.
+- **Responsive navigation.** Paired desktop section rails and a translucent six-section mobile dock with a separate circular theme control. The dock begins at the hero's top and travels to the bottom as you reach the next section, with a reversible spring transition and a reduced-motion alternative. Phone layouts use full-width justified reading copy, a prominent name and centered hero subtitle, left-aligned single-line skill labels, centered contact/footer, and credential badges beside their titles. Square editorial actions remain consistent across screen sizes. Navigation includes accessible labels, visible focus, safe-area spacing, and a skip link.
 - **Directly readable evidence.** Experience, project details, skill groups, and certifications remain visible without opening carousels. Badges preserve their original colors and transparency, with verification links and copyable credential IDs.
 - **Simple contact actions.** Email copying with success/failure feedback, professional profile links, and a downloadable CV.
 
@@ -40,6 +40,7 @@ Open the address printed by Vite, normally [http://localhost:3000](http://localh
 | `npm test` | Run the Node.js test suite. |
 | `npm run build` | Build the production site into `dist/`. |
 | `npm run preview` | Serve the existing production build locally. |
+| `npm run optimize:assets` | Regenerate responsive hero images, transparent badge derivatives, and Junicode font subsets. |
 
 Run `npm run build` before `npm run preview`; use the preview URL printed in the terminal.
 
@@ -81,6 +82,8 @@ The mounted page follows **About → Experience → Projects → Skills → Cert
 | Artwork credit | [src/components/Footer.jsx](src/components/Footer.jsx) |
 
 Replace `public/KolbyHernandez_CV.pdf` to update the download while keeping its filename. When changing badge images, retain their native transparency; white lettering and panels are part of the artwork.
+
+After replacing original hero images, badge PNGs, or changing text coverage, run `npm run optimize:assets` and commit the generated files. The site loads responsive 960px/1920px WebP hero images for the selected theme, lossless WebP badge derivatives bounded to 300px for high-density displays, and smaller Junicode subsets. Original artwork, fonts, licenses, and credits remain intact. Optimization runs separately from the production build; deployment uses the committed derivatives.
 
 ## Verification
 

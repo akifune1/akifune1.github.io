@@ -5,6 +5,11 @@ import { Moon, Sun } from 'lucide-react';
 const ThemeContext = createContext(null);
 const STORAGE_KEY = 'kolby-portfolio-theme';
 
+/** Shares the resolved preference with theme-dependent assets and controls. */
+export function useTheme() {
+  return useContext(ThemeContext);
+}
+
 export function ThemeProvider({ children }) {
   // index.html resolves the saved preference before the first paint.
   const [theme, setTheme] = useState(() => document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
@@ -51,7 +56,7 @@ export function ThemeProvider({ children }) {
 }
 
 export default function ThemeToggle() {
-  const { theme, toggle } = useContext(ThemeContext);
+  const { theme, toggle } = useTheme();
   const dark = theme === 'dark';
   return (
     <button type="button" className="theme-toggle" onClick={toggle}

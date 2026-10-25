@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ArrowDown, ArrowUpRight, Pause, Play } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 import { scrollToSection } from '../hooks/scrollToSection';
+import { useTheme } from './ThemeToggle';
 import '../styles/hero.css';
 
 const CREDENTIALS = ['B.S. Information Technology', 'Cybersecurity Analyst', 'Full-Stack Developer', 'Mapúa University', 'DOST-SEI Scholar', 'UI/UX Design'];
@@ -11,7 +12,13 @@ export default function Hero() {
   const carousel = useRef(null);
   const [paused, setPaused] = useState(false);
   const [suspended, setSuspended] = useState(false);
-  const darkOnLoad = document.documentElement.dataset.theme === 'dark';
+  const { theme } = useTheme();
+  const [visitedThemes, setVisitedThemes] = useState(() => [theme]);
+
+  useEffect(() => {
+    // Retain visited scenery for later transitions, without fetching the unused theme on first load.
+    setVisitedThemes((previous) => previous.includes(theme) ? previous : [...previous, theme]);
+  }, [theme]);
 
   useEffect(() => {
     let inView = true;
@@ -32,8 +39,12 @@ export default function Hero() {
   return (
     <section id="hero" className="hero-section" aria-labelledby="intro-title">
       <div className="hero-backdrop" aria-hidden="true">
-        <img className="hero-background hero-background-light" src={`${import.meta.env.BASE_URL}images/hero_light.jpg`} alt="" loading="eager" decoding="async" fetchPriority={darkOnLoad ? 'low' : 'high'} />
-        <img className="hero-background hero-background-dark" src={`${import.meta.env.BASE_URL}images/hero_dark.jpg`} alt="" loading="eager" decoding="async" fetchPriority={darkOnLoad ? 'high' : 'low'} />
+        {['light', 'dark'].filter((appearance) => appearance === theme || visitedThemes.includes(appearance)).map((appearance) => (
+          <img key={appearance} className={`hero-background hero-background-${appearance}`}
+            src={`${import.meta.env.BASE_URL}images/hero_${appearance}-1920.webp`}
+            srcSet={`${import.meta.env.BASE_URL}images/hero_${appearance}-960.webp 960w, ${import.meta.env.BASE_URL}images/hero_${appearance}-1920.webp 1920w`}
+            sizes="calc(100vw + 32px)" alt="" loading="eager" decoding="async" fetchpriority={appearance === theme ? 'high' : 'low'} />
+        ))}
       </div>
       <div className="container">
         <h1 id="intro-title" className="hero-title"><span className="hero-line"><span>{personalInfo.name.split(' ')[0]} <em>{personalInfo.name.split(' ').slice(1).join(' ')}</em></span></span></h1>
