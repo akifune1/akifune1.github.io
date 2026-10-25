@@ -3,8 +3,8 @@
 @font-face { font-family: 'Bricolage Grotesque'; src: url('/fonts/bricolage-regular.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: 'Bricolage Grotesque'; src: url('/fonts/bricolage-medium.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
 @font-face { font-family: 'Bricolage Grotesque'; src: url('/fonts/bricolage-semibold.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
-@font-face { font-family: Junicode; src: url('/fonts/junicode-roman.woff2') format('woff2'); font-weight: 300 700; font-style: normal; font-display: swap; }
-@font-face { font-family: Junicode; src: url('/fonts/junicode-italic.woff2') format('woff2'); font-weight: 300 700; font-style: italic; font-display: swap; }
+@font-face { font-family: Junicode; src: url('/fonts/junicode-roman-subset.woff2') format('woff2'); font-weight: 300 700; font-style: normal; font-display: swap; }
+@font-face { font-family: Junicode; src: url('/fonts/junicode-italic-subset.woff2') format('woff2'); font-weight: 300 700; font-style: italic; font-display: swap; }
 /* Interpolate one inherited palette, rather than separate transitions on every node. */
 @property --page { syntax: '<color>'; inherits: true; initial-value: #f2f0e3; }
 @property --surface { syntax: '<color>'; inherits: true; initial-value: #e8e6d8; }

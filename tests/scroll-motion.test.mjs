@@ -30,6 +30,16 @@ test('every entrance restores visibility and leaves no permanent animation fill'
   }
 });
 
+test('compact entrances shorten travel and time while keeping the neutral end pose', () => {
+  for (const kind of ['project-card', 'skills-group', 'section-title', 'cert-card', 'timeline-item']) {
+    const desktop = getEntranceMotion(kind, 0, false);
+    const compact = getEntranceMotion(kind, 0, false, true);
+    assert.ok(compact.duration < desktop.duration);
+    assert.deepEqual(compact.keyframes.at(-1), desktop.keyframes.at(-1));
+  }
+  assert.match(getEntranceMotion('project-card', 0, false, true).keyframes[0].transform, /translateX\(-18px\)/);
+});
+
 test('heading wipes always reveal from the text edge, regardless of parity or scroll direction', () => {
   const reference = getEntranceMotion('section-title', 0, false).keyframes;
   assert.equal(reference[0].transform, 'scaleX(1)');

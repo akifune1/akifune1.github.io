@@ -1,4 +1,4 @@
-/** Credential register using original PNG transparency, copy feedback, and verification links; used by App.jsx. */
+/** Credential register using optimized artwork with original alpha, copy feedback, and verification links; used by App.jsx. */
 import React, { useEffect, useRef, useState } from 'react';
 import { Award, ExternalLink, Copy, Check } from 'lucide-react';
 import { certificationsData } from '../data/portfolioData';
@@ -31,7 +31,7 @@ export default function Certifications() {
       </div>
       <div className="certifications-list">{certificationsData.map((cert) => <article className="cert-card" key={cert.id}>
         <div className="cert-badge-banner">
-          {cert.badgeImage && !imageErrors[cert.id] ? <img src={`${import.meta.env.BASE_URL}badges/${cert.badgeImage}`}
+          {cert.badgeImage && !imageErrors[cert.id] ? <img src={`${import.meta.env.BASE_URL}badges/optimized/${cert.badgeImage.replace(/\.png$/, '.webp')}`}
             alt={`${cert.title} badge`} width="100" height="100" loading="lazy"
             onError={() => setImageErrors((previous) => ({ ...previous, [cert.id]: true }))} /> : <Award size={36} aria-label="Credential badge unavailable" />}
         </div>

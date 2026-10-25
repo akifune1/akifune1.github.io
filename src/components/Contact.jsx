@@ -1,8 +1,10 @@
-/** Direct contact links and honest clipboard feedback; uses portfolioData.js, rendered by App.jsx. */
+/** Direct contact links, narrow-screen email wrapping, and clipboard feedback; rendered by App.jsx. */
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, Copy, Check, ArrowDown } from 'lucide-react';
 import { personalInfo } from '../data/portfolioData';
 import '../styles/contact.css';
+
+const [emailName, emailDomain] = personalInfo.socials.email.split('@');
 
 export default function Contact() {
   const [status, setStatus] = useState('');
@@ -25,7 +27,7 @@ export default function Contact() {
         <p className="section-subtitle">Reach out directly via email, connect on professional networks, or review my credentials.</p>
       </div>
       <div className="contact-email-row">
-        <a className="contact-email" href={`mailto:${personalInfo.socials.email}`}>{personalInfo.socials.email}</a>
+        <a className="contact-email" href={`mailto:${personalInfo.socials.email}`}>{emailName}<wbr />@{emailDomain}</a>
         <button className="btn btn-outline" type="button" onClick={copyEmail}>
           {status === 'Email copied.' ? <Check size={14.4} /> : <Copy size={14.4} />} Copy email
         </button>
